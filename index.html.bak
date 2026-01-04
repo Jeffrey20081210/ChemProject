@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <title>ChemScope</title>
 <style>
-
+    /* =========================================
+       1. CSS Variables & Global Settings
+       ========================================= */
     :root {
         --bg-radial-inner: #070707; 
         --bg-radial-outer: #000000;
@@ -23,59 +25,14 @@
     }
 
     
-    body.light-mode {
-        --bg-radial-inner: #fbfbfc;
-        --bg-radial-outer: #f1f5f9;
-        --panel-glass: rgba(255, 255, 255, 0.92);
-        --panel-border: rgba(15, 23, 42, 0.06);
-        --card-glass: rgba(2, 6, 23, 0.03);
-        --text-main: #0f172a;
-        --text-sub: #92400e;
-        --text-highlight: #92400e;
-        --accent-yellow: #f59e0b;
-        --accent-blue: var(--accent-yellow);
-    }
-    
-    
-    body.light-mode .viewport-area { background: #ffffff !important; background-image: none !important; }
-    body.light-mode .viewport-header h1 { color: #0f172a; text-shadow: none; }
-    
-    body.light-mode .creator-credit { background: #ffffff !important; color: #0f172a !important; text-shadow: none; border: none; }
-    
-    body.light-mode .controls-area { border-left: 1px solid #6b7280; box-shadow: none; }
 
-     
-     
-     body.light-mode .controls-area { background: #fffbeb; }
-     body.light-mode .controls-content { background: transparent; }
-    body.light-mode .controls-content .card { background: #ffffff !important; color: #0f172a; border: 1px solid #000 !important; }
-     body.light-mode .controls-content .card .card-title { color: #0f172a; }
-     body.light-mode .controls-content .card .data-label, body.light-mode .controls-content .card .data-value { color: #0f172a; }
-    body.light-mode .controls-content .input-group input, body.light-mode .controls-content .input-group button { color: #0f172a; }
-    
-    body.light-mode .controls-content .switch-container { background: transparent; }
-    
-    body.light-mode #data-card .data-row { border-bottom: 1px solid #D1D5DB !important; }
-    body.light-mode #data-card .data-row:last-child { border-bottom: none !important; }
-
-    
-    body.light-mode .controls-content .input-group button, body.light-mode #load-btn { background: #facc15 !important; color: #000 !important; border: 1px solid rgba(0,0,0,0.08) !important; }
-
-    
-    body.light-mode .controls-content .switch-container input,
-    body.light-mode input[type="checkbox"],
-    body.light-mode input[type="radio"] { accent-color: #facc15 !important; }
-
-    
-    body.light-mode .input-group input { background: #ffffff !important; border: 1px solid #374151 !important; color: #0f172a !important; }
-
-    
-    body.light-mode #theme-toggle { background: #facc15 !important; color: #000 !important; border-color: #000 !important; }
 
     * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
 
     
-    
+    /* =========================================
+       2. Typography Helpers (Sub/Sup/Charge)
+       ========================================= */
     
     sub {
         font-size: 0.7em;      
@@ -105,6 +62,9 @@
         margin-left: 0px;      
     }
 
+    /* =========================================
+       3. Main Layout & Body
+       ========================================= */
     body {
         margin: 0;
         font-family: 'Noto Serif TC', serif;
@@ -117,6 +77,9 @@
     .app-container { display: flex; width: 100%; height: 100%; flex-direction: row; }
 
 
+    /* =========================================
+       4. Viewport Area (Canvas/SVG Container)
+       ========================================= */
     .viewport-area {
         flex: 0 0 60%; width: 60%; position: relative;
         background-image: 
@@ -127,6 +90,7 @@
         overflow: hidden; cursor: default;
         touch-action: none; 
         -webkit-user-select: none;
+        user-select: none;
         will-change: transform;
         transform: translateZ(0);
     } 
@@ -167,6 +131,9 @@
     }
 
 
+    /* =========================================
+       5. Controls & UI Components
+       ========================================= */
     .controls-container {
         position: absolute; top: 25px; right: 25px; z-index: 50; 
         display: flex; gap: 15px; align-items: center; pointer-events: auto;
@@ -257,7 +224,7 @@
     }
 
     
-    #mode-toggle, #theme-toggle, #load-btn, #lang-toggle {
+    #load-btn, #lang-toggle {
         background: var(--accent-yellow) !important;
         color: #000 !important;
         border: 1px solid rgba(0,0,0,0.08) !important;
@@ -265,23 +232,6 @@
         font-weight: 700 !important;
         box-shadow: none !important;
         text-shadow: none !important;
-    }
-    
-    #mode-toggle {
-        border: none !important;
-        border-radius: 8px !important;
-        padding: 10px 16px !important;
-    }
-
-    
-    body.light-mode #mode-toggle {
-        border: none !important;
-        border-radius: 8px !important;
-        height: 44px !important;
-        padding: 8px 14px !important;
-        box-shadow: none !important;
-        background: var(--accent-yellow) !important;
-        color: #000 !important;
     }
 
     
@@ -1144,7 +1094,6 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
         </div>
         
         <div class="controls-container">
-            <button id="mode-toggle" class="control-button active">模式: 複合</button>
             <button id="lang-toggle" class="control-button" title="切換語言">English</button>
         </div>
 
@@ -3579,19 +3528,18 @@ function addPairToDots(dotsArray, atom, vector) {
 
 
 
+/* =========================================
+   6. Global State Variables
+   ========================================= */
 currentMolecule = null;
 let currentMatrix = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-let isFaceBuildMode = false;
-let faceSelection = [];
-let customFaces = [];   
-let currentFaceColor = 'yellow'; 
 let rotVelocity = { x: 0.004, y: 0.004, z: 0 };
 let panOffset = { x: 0, y: 0 }; 
 let isLongPressActive = false;
 let scale = 1.6; 
 let isDragging = false; 
 let lastMouse = { x: 0, y: 0 };
-let currentMode = 2; 
+// currentMode removed
 let altKeyIsDown = false;
 currentKey = null; 
 currentVariantKey = null;
@@ -3600,14 +3548,9 @@ let lastTouchDist = 0;
 let lastTouchCenter = { x:0, y:0 };
 let lastTouchAngle = 0; 
 
-function toggleMode() {
-    currentMode = (currentMode + 1) % 3; 
-    const modes = ['平移', '旋轉', '複合'];
-    const classes = ['mode-pan', 'mode-rotate', 'mode-composite'];
-    modeToggleBtn.className = `control-button ${classes[currentMode]} active`;
-    modeToggleBtn.innerHTML = `模式: ${modes[currentMode]}`;
-}
-
+/* =========================================
+   7. String Formatting Utilities
+   ========================================= */
 function formatFormula(str) {
     if (!str) return "";
     let s = str.trim();
@@ -3939,7 +3882,12 @@ function gaussElimination(matrix) {
     return sol.map(v => Math.round(Math.abs(v * bestMult)));
 }
 
+let lastLoadTime = 0;
 function handleLoadBtn() {
+    const now = Date.now();
+    if (now - lastLoadTime < 500) return; 
+    lastLoadTime = now;
+
     let rawVal = document.getElementById("formula-input").value;
     if (!rawVal) return;
 
@@ -4031,10 +3979,11 @@ function applyRotation(dx, dy, dz) {
 
 const sceneRoot = document.getElementById("scene-root");
 const viewport = document.getElementById("viewport");
-const modeToggleBtn = document.getElementById("mode-toggle");
-const themeToggleBtn = document.getElementById("theme-toggle");
 const variantSelector = document.getElementById("variant-selector");
 
+/* =========================================
+   11. Application Initialization
+   ========================================= */
 window.onload = () => {
     
     try {
@@ -4082,9 +4031,6 @@ window.onload = () => {
         const light = localStorage.getItem('lightMode') === 'true';
         if (light) {
             document.body.classList.add('light-mode');
-            if (themeToggleBtn) themeToggleBtn.textContent = '深色模式';
-        } else {
-            if (themeToggleBtn) themeToggleBtn.textContent = '淺色模式';
         }
     } catch (e) {  }
 };
@@ -4107,6 +4053,9 @@ if (typeof window !== 'undefined' && window.location && window.location.search &
     } catch (e) { console.error('Format debug failed', e); }
 }
 
+/* =========================================
+   8. Molecule Loading & Parsing
+   ========================================= */
 function loadMolecule(key, variantKey = null) {
     const subEl = document.getElementById("viewport-subtitle");
     if(subEl) { subEl.style.display = 'none'; subEl.textContent = ""; }
@@ -4527,6 +4476,9 @@ function processAtomsData(atomList, bondList, centerElem) {
     return processed;
 }
 
+/* =========================================
+   12. UI Updates (Variants/Isomers)
+   ========================================= */
 function updateVariantUI(key, activeVariant) {
     const rootData = MOLECULE_DB[key];
     variantSelector.innerHTML = ''; 
@@ -4652,6 +4604,9 @@ function project(p) {
     return { x: x3 * s + panOffset.x, y: y3 * s + panOffset.y, z: z3, scale: s };
 }
 
+/* =========================================
+   9. 3D Rendering Engine (Custom SVG)
+   ========================================= */
 function renderScene(time = 0) {
     sceneRoot.innerHTML = "";
     if(!currentMolecule) return;
@@ -4752,15 +4707,7 @@ function renderScene(time = 0) {
         }
     });
 
-    if (customFaces.length > 0) {
-        customFaces.forEach(faceIndices => {
-            const nodes = faceIndices.map(idx => atomMap.get(idx)).filter(n => n);
-            if (nodes.length === 3) {
-                const avgZ = (nodes[0].z + nodes[1].z + nodes[2].z) / 3;
-                renderList.push({ type: 'polyFace', z: avgZ, nodes: nodes, colorType: faceIndices[3] || 'yellow', alpha: isAnyHighlighted ? 0.1 : 1.0 });
-            }
-        });
-    }
+
 
     if (currentMolecule.extraLines) {
         currentMolecule.extraLines.forEach(line => {
@@ -5257,9 +5204,6 @@ function setupInteractions() {
     
 
     
-    const modeBtn = document.getElementById('mode-toggle');
-    if (modeBtn) modeBtn.addEventListener('click', toggleMode);
-
     const loadBtn = document.getElementById('load-btn');
     if (loadBtn) loadBtn.addEventListener('click', handleLoadBtn);
 
@@ -5292,17 +5236,6 @@ function setupInteractions() {
     if(btnConfig) btnConfig.addEventListener('click', openConfigModal);
 
     
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const isLight = document.body.classList.toggle('light-mode');
-            try { localStorage.setItem('lightMode', isLight ? 'true' : 'false'); } catch (e) {}
-            
-            themeToggleBtn.textContent = isLight ? '深色模式' : '淺色模式';
-        });
-    }
-
-
-    
     const mobileHandle = document.getElementById('mobile-panel-handle');
     if (mobileHandle) {
         mobileHandle.addEventListener('click', () => {
@@ -5319,6 +5252,9 @@ function setupInteractions() {
     window.addEventListener('keyup', (e) => { if (e.key === 'Alt') altKeyIsDown = false; });
 
     
+    /* =========================================
+       10. Input Handling (Mouse/Touch)
+       ========================================= */
     const MOUSE_SENSITIVITY = 0.005; const TOUCH_SENSITIVITY = 0.004;
     let longPressTimer = null; let startX = 0, startY = 0;
     const LONG_PRESS_MS = 500; const MOVE_TOLERANCE = 10;
@@ -5329,28 +5265,18 @@ function setupInteractions() {
         rotVelocity = { x: 0, y: 0, z: 0 }; hideHybridTooltip(); 
         clearTimeout(longPressTimer);
 
-        if (isFaceBuildMode) {
-            
-            longPressTimer = setTimeout(() => {
-                checkAtomClick(startX, startY);
-                isLongPressActive = true; 
-                if (navigator.vibrate) navigator.vibrate(30); 
-            }, 200);
-        } else {
-            
-            longPressTimer = setTimeout(() => {
-                isDragging = false; isLongPressActive = true; 
-                checkAtomClick(startX, startY); 
-                if (navigator.vibrate) navigator.vibrate(40);
-            }, LONG_PRESS_MS);
-        }
+        longPressTimer = setTimeout(() => {
+            isDragging = false; isLongPressActive = true; 
+            checkAtomClick(startX, startY); 
+            if (navigator.vibrate) navigator.vibrate(40);
+        }, LONG_PRESS_MS);
     };
 
     const handleMove = (x, y, sensitivity) => {
         if (Math.abs(x - startX) > MOVE_TOLERANCE || Math.abs(y - startY) > MOVE_TOLERANCE) clearTimeout(longPressTimer);
         if (!isDragging) return;
         const dx = x - lastMouse.x; const dy = y - lastMouse.y;
-        if (currentMode === 1 || (currentMode === 2 && !altKeyIsDown)) {
+        if (!altKeyIsDown) {
             rotVelocity.y = dx * sensitivity; rotVelocity.x = -dy * sensitivity; 
             applyRotation(rotVelocity.y, rotVelocity.x, 0);
         } else {
@@ -5362,11 +5288,7 @@ function setupInteractions() {
         clearTimeout(longPressTimer); 
         
         
-        if (isFaceBuildMode) {
-            isDragging = false;
-            isLongPressActive = false;
-            return;
-        }
+
 
         const moveDist = Math.hypot(x - startX, y - startY);
         if (!isLongPressActive && moveDist < MOVE_TOLERANCE) {
@@ -5859,28 +5781,7 @@ function checkAtomClick(screenX, screenY) {
     const bestMatch = findAtomByScreenPos(screenX, screenY);
     
     if (bestMatch) {
-        if (isFaceBuildMode) {
-            const idx = bestMatch.originalIndex;
-            const selectPos = faceSelection.indexOf(idx);
-            
-            if (selectPos > -1) {
-                
-                faceSelection.splice(selectPos, 1);
-                bestMatch.isHighlighted = false;
-            } else {
-                
-                faceSelection.push(idx);
-                bestMatch.isHighlighted = "center"; 
-                
-                if (faceSelection.length === 3) {
-                    customFaces.push([...faceSelection, currentFaceColor]);
-                    faceSelection = [];
-                    currentMolecule.renderObjects.forEach(o => o.isHighlighted = false);
-                }
-            }
-            renderScene();
-            return; 
-        }
+
 
         
         if (currentMolecule.isIonic) {
@@ -5929,43 +5830,10 @@ function clearHighlights() {
     renderScene();
 }
 
-function toggleFaceBuildMode() {
-    isFaceBuildMode = !isFaceBuildMode;
-    faceSelection = [];
-    const btn = document.getElementById('btn-face-mode');
-    if (btn) {
-        btn.innerHTML = `點擊三點成面: ${isFaceBuildMode ? 'ON' : 'OFF'}`;
-        btn.style.background = isFaceBuildMode ? "rgba(253, 224, 71, 0.25)" : "rgba(0, 0, 0, 0.4)";
-        btn.style.boxShadow = isFaceBuildMode ? "0 0 15px rgba(253, 224, 71, 0.4)" : "none";
-    }
-    if(currentMolecule) currentMolecule.renderObjects.forEach(o => o.isHighlighted = false);
-    renderScene();
-}
-
-function setFaceColor(color) {
-    currentFaceColor = color;
-    document.querySelectorAll('.face-color-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-color') === color);
-    });
-}
-
-function clearCustomFaces() {
-    customFaces = [];
-    faceSelection = [];
-    if(currentMolecule) currentMolecule.renderObjects.forEach(o => o.isHighlighted = false);
-    renderScene();
-}
 
 
-if (typeof loadMolecule === 'function' && !window._manualFaceWrapped) {
-    const _originalLoad = loadMolecule;
-    loadMolecule = function(key, variant) {
-        customFaces = [];
-        faceSelection = [];
-        _originalLoad(key, variant);
-    };
-    window._manualFaceWrapped = true;
-}
+
+
 
 function findAtomByScreenPos(screenX, screenY) {
     const atomGroups = document.querySelectorAll("g[data-atom-idx]");
@@ -6182,8 +6050,7 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
 (function(){
     const TRANSLATIONS = {
         zh: {
-            'mode-toggle': '模式: 複合',
-            'theme-toggle': '主題: 暗色',
+
             'card-title-input': '輸入化學式',
             'load-btn': '載入',
             'lbl-lp': '顯示孤對電子',
@@ -6193,14 +6060,13 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             'lbl-name': '中文名稱',
             'lbl-shape': '形狀',
             'lbl-angle': '鍵角',
-            'lbl-mp': '熔點 (MP)',
-            'lbl-bp': '沸點 (BP)',
+            'lbl-mp': '熔點',
+            'lbl-bp': '沸點',
             'lbl-bonds': '鍵結統計',
             'lbl-mass': '分子量'
         },
         en: {
-            'mode-toggle': 'Mode: Composite',
-            'theme-toggle': 'Theme: Dark',
+
             'card-title-input': 'Enter Formula',
             'load-btn': 'load',
             'lbl-lp': 'show lone pairs of electrons',
