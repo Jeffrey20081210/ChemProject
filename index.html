@@ -1909,6 +1909,16 @@ const COMMON_EN_NAMES = {
     'Na2O': 'Sodium oxide', 'K2O': 'Potassium oxide', 'Li2O': 'Lithium oxide', 'BaCl2': 'Barium chloride',
     'CuCl2': 'Copper(II) chloride', 'PbI2': 'Lead(II) iodide', 'CaH2': 'Calcium hydride', 'Na2S': 'Sodium sulphide',
     'FeCl2': 'Iron(II) chloride', 'FeCl3': 'Iron(III) chloride', 'AlCl3': 'Aluminium chloride',
+    'KCl': 'Potassium chloride', 'KI': 'Potassium iodide', 'KBr': 'Potassium bromide',
+    'NaF': 'Sodium fluoride', 'AgCl': 'Silver chloride', 'AgBr': 'Silver bromide', 'AgI': 'Silver iodide',
+    'BaO': 'Barium oxide', 'ZnO': 'Zinc oxide', 'CuO': 'Copper(II) oxide',
+    'MgCO3': 'Magnesium carbonate', 'CaCO3': 'Calcium carbonate',
+    'NaNO3': 'Sodium nitrate', 'KNO3': 'Potassium nitrate', 'AgNO3': 'Silver nitrate',
+    'MgSO4': 'Magnesium sulphate', 'CaSO4': 'Calcium sulphate', 'BaSO4': 'Barium sulphate',
+    'CuSO4': 'Copper(II) sulphate', 'FeSO4': 'Iron(II) sulphate',
+    'NaH': 'Sodium hydride', 'AlF3': 'Aluminium fluoride',
+    'KClO3': 'Potassium chlorate', 'KClO4': 'Potassium perchlorate',
+    'NaClO3': 'Sodium chlorate', 'NH4ClO4': 'Ammonium perchlorate',
     // Common ions and polyatomic ions (British spelling: sulph-)
     'NH4+': 'Ammonium ion', 'SO42-': 'Sulphate ion', 'HSO4-': 'hydrogensulphate', 'NO3-': 'Nitrate',
     'HSO3-': 'hydrogensulphite', 'HSO3': 'hydrogensulphite',
@@ -4187,7 +4197,8 @@ function loadMolecule(key, variantKey = null) {
 
     const formulaEl = document.getElementById('info-formula');
     const nameEl = document.getElementById('info-name');
-    const keyParts = (data.fullKey || key).split('|');
+    // [Fix] Always use the main key for formula display to avoid variant names (e.g. "Simple") appearing as formula
+    const keyParts = key.split('|');
     let formulaText = keyParts[0];
     // determine current language (use runtime global or fallback to localStorage / navigator)
     // reuse `currentLang` declared earlier for label translations
