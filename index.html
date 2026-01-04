@@ -306,14 +306,11 @@
         display: none; background: var(--card-glass); border: 1px solid var(--panel-border);
         padding: 20px; border-radius: 16px; margin-bottom: 20px;
     }
-    .variant-header {
-        font-size: 1rem; font-weight: 700; color: var(--text-highlight);
-        margin-bottom: 15px; display: flex; align-items: center; gap: 10px; text-transform: none; letter-spacing: 1px;
-    }
+    /* .variant-header removed; using .card-title .large-title instead */
     .variant-option { padding: 5px 0; display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-main); }
 
     #variant-selector.acid-theme { background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.3); }
-    #variant-selector.acid-theme .variant-header { color: #fbbf24; }
+    #variant-selector.acid-theme .card-title { color: #fbbf24; }
     #variant-selector.acid-theme .variant-option { color: #fbbf24; }
     #variant-selector.acid-theme .variant-option:hover { background: rgba(245, 158, 11, 0.15); }
 
@@ -4659,16 +4656,21 @@ function updateVariantUI(key, activeVariant) {
         const isStructure = visibleVariantKeys.some(vKey => vKey.includes("晶體") || vKey.includes("堆積") || vKey.includes("Crystal"));
 
         const hdr = document.createElement('div');
-        hdr.className = 'variant-header';
+        hdr.className = 'card-title large-title';
+        
+        const titleSpan = document.createElement('span');
+        titleSpan.style.textTransform = 'none';
+
         if (isResonance) {
             variantSelector.classList.add('resonance-theme');
-            hdr.textContent = (currentLang === 'en') ? 'Select Resonance Structure' : '選擇共振結構 (Resonance)';
+            titleSpan.textContent = (currentLang === 'en') ? 'Select Resonance Structure' : '選擇共振結構 (Resonance)';
         } else if (isStructure) {
             variantSelector.classList.add('structure-theme');
-            hdr.textContent = (currentLang === 'en') ? 'Select Structure Level' : '選擇結構層次 (Structure)';
+            titleSpan.textContent = (currentLang === 'en') ? 'Select Structure Level' : '選擇結構層次 (Structure)';
         } else {
-            hdr.textContent = (currentLang === 'en') ? 'Select Isomer' : '選擇同分異構物';
+            titleSpan.textContent = (currentLang === 'en') ? 'Select Isomer' : '選擇同分異構物';
         }
+        hdr.appendChild(titleSpan);
         variantSelector.appendChild(hdr);
 
         // Populate only visible variants (same formula)
