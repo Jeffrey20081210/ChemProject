@@ -1905,6 +1905,10 @@ const COMMON_EN_NAMES = {
     'O3': 'Ozone', 'NO2': 'Nitrogen dioxide', 'N2O': 'Nitrous oxide', 'N2O3': 'Dinitrogen trioxide',
     'N2O4': 'Dinitrogen tetroxide', 'N2O5': 'Dinitrogen pentoxide', 'SO3': 'Sulphur trioxide',
     'NO2+': 'Nitronium ion', 'S8': 'Sulphur',
+    'Al2O3': 'Aluminium oxide', 'Fe2O3': 'Iron(III) oxide', 'MgO': 'Magnesium oxide', 'CaO': 'Calcium oxide',
+    'Na2O': 'Sodium oxide', 'K2O': 'Potassium oxide', 'Li2O': 'Lithium oxide', 'BaCl2': 'Barium chloride',
+    'CuCl2': 'Copper(II) chloride', 'PbI2': 'Lead(II) iodide', 'CaH2': 'Calcium hydride', 'Na2S': 'Sodium sulphide',
+    'FeCl2': 'Iron(II) chloride', 'FeCl3': 'Iron(III) chloride', 'AlCl3': 'Aluminium chloride',
     // Common ions and polyatomic ions (British spelling: sulph-)
     'NH4+': 'Ammonium ion', 'SO42-': 'Sulphate ion', 'HSO4-': 'hydrogensulphate', 'NO3-': 'Nitrate',
     'HSO3-': 'hydrogensulphite', 'HSO3': 'hydrogensulphite',
@@ -1940,7 +1944,7 @@ const addMol = (keysStr, center, hybrid, shape, angle, mp, bp, atoms, bonds, var
     // prefer explicitly-provided English; otherwise try common name map
     if (!nameCN && nameEN) nameCN = nameEN;
     if (!nameEN) {
-        nameEN = COMMON_EN_NAMES[mainKey.toUpperCase()] || '';
+        nameEN = COMMON_EN_NAMES[mainKey] || COMMON_EN_NAMES[mainKey.toUpperCase()] || '';
         if (!nameEN && nameCN && /[A-Za-z]/.test(nameCN)) nameEN = nameCN;
     }
 
@@ -1987,12 +1991,17 @@ const addMol = (keysStr, center, hybrid, shape, angle, mp, bp, atoms, bonds, var
                 if(!vNameEN) {
                     const rawVariant = vKeys[0] ? String(vKeys[0]) : '';
                     const variantFormula = rawVariant.replace(/\s/g,'').replace(/\^/g,'').toUpperCase();
-                    const tryVKeys = [variantFormula, rawVariant.replace(/\s/g,'').toUpperCase(), rawVariant.replace(/\^/g,'').toUpperCase()];
+                    const tryVKeys = [rawVariant, variantFormula, rawVariant.replace(/\s/g,'').toUpperCase(), rawVariant.replace(/\^/g,'').toUpperCase()];
                     for (let tk of tryVKeys) {
                         if (!tk) continue;
                         if (COMMON_EN_NAMES[tk]) { vNameEN = COMMON_EN_NAMES[tk]; break; }
                     }
-                    if(!vNameEN) vNameEN = COMMON_EN_NAMES[uniqueID] || COMMON_EN_NAMES[mainKey.toUpperCase()] || baseData.nameEN || '';
+                    if(!vNameEN) vNameEN = COMMON_EN_NAMES[uniqueID] || COMMON_EN_NAMES[mainKey] || COMMON_EN_NAMES[mainKey.toUpperCase()] || baseData.nameEN || '';
+                }
+                // [Fix] If the variant name is just a structural description (like "Simple" or "Crystal"), 
+                // force the display name to be the substance name to avoid "Basic Unit" appearing as the molecule name.
+                if (vNameEN === 'Simple' || vNameEN === 'Crystal' || vNameEN === 'Basic Unit') {
+                    vNameEN = baseData.nameEN || COMMON_EN_NAMES[mainKey] || COMMON_EN_NAMES[mainKey.toUpperCase()] || '';
                 }
 
             baseData.variants[uniqueID] = { 
@@ -4162,25 +4171,14 @@ function loadMolecule(key, variantKey = null) {
     // [修改] 標籤顯示邏輯（會依語言切換）
     const currentLang = (window.__APP_LANG) || localStorage.getItem('app_lang') || ((navigator.language && navigator.language.startsWith('en')) ? 'en' : 'zh');
     let labels = { hybrid: '', shape: '', angle: '', bonds: '', mass: '' };
-    if (data.isMetal) {
-        labels.hybrid = (currentLang === 'en') ? 'Crystal packing' : '晶體堆積';
-        labels.shape = (currentLang === 'en') ? 'Packing efficiency' : '空間利用率';
-        labels.angle = (currentLang === 'en') ? 'Coordination number' : '配位數';
-        labels.bonds = (currentLang === 'en') ? 'Edge relation' : '邊長關係';
-        labels.mass = (currentLang === 'en') ? 'Atomic mass' : '原子量';
-    } else if (isIonic) {
-        labels.hybrid = (currentLang === 'en') ? 'Crystal packing' : '晶體堆積';
-        labels.shape = (currentLang === 'en') ? 'Radius ratio (r⁺/r⁻)' : '半徑比 (r⁺/r⁻)';
-        labels.angle = (currentLang === 'en') ? 'Coordination number' : '配位數';
-        labels.bonds = (currentLang === 'en') ? 'Edge relation' : '邊長關係';
-        labels.mass = (currentLang === 'en') ? 'Formula mass' : '式量';
-    } else {
-        labels.hybrid = (currentLang === 'en') ? 'Hybridization' : '混成軌域';
-        labels.shape = (currentLang === 'en') ? 'Shape' : '形狀';
-        labels.angle = (currentLang === 'en') ? 'Bond Angle' : '鍵角';
-        labels.bonds = (currentLang === 'en') ? 'Bond Stats' : '鍵結統計';
-        labels.mass = (currentLang === 'en') ? 'Molar Mass' : '分子量';
-    }
+    
+    // Always use standard labels as requested
+    labels.hybrid = (currentLang === 'en') ? 'Hybridization' : '混成軌域';
+    labels.shape = (currentLang === 'en') ? 'Shape' : '形狀';
+    labels.angle = (currentLang === 'en') ? 'Bond Angle' : '鍵角';
+    labels.bonds = (currentLang === 'en') ? 'Bond Stats' : '鍵結統計';
+    labels.mass = (currentLang === 'en') ? 'Molar Mass / Formula Mass' : '分子量 / 式量';
+
     if (lblHybrid) lblHybrid.textContent = labels.hybrid;
     if (lblShape) lblShape.textContent = labels.shape;
     if (lblAngle) lblAngle.textContent = labels.angle;
@@ -4210,16 +4208,36 @@ function loadMolecule(key, variantKey = null) {
     if (dispFormulaEl) dispFormulaEl.innerHTML = formatFormula(formulaText);
     const dispCenterEl = document.getElementById("disp-center");
     if (dispCenterEl) dispCenterEl.textContent = nameText;
+    
     const dispHybridEl = document.getElementById("disp-hybrid");
-    if (dispHybridEl) dispHybridEl.textContent = data.hybrid;
+    if (dispHybridEl) {
+        if (isIonic || data.isMetal) {
+            dispHybridEl.textContent = "-";
+        } else {
+            dispHybridEl.textContent = data.hybrid;
+        }
+    }
+    
     const dispShapeEl = document.getElementById("disp-shape");
     if (dispShapeEl) {
-        let shapeText = (currentLang === 'en') ? (data.shapeEN || data.shapeCN || data.shape) : (data.shapeCN || data.shapeEN || data.shape);
-        if (currentLang === 'en' && shapeText) shapeText = shapeText.toLowerCase();
-        dispShapeEl.textContent = shapeText;
+        if (isIonic || data.isMetal) {
+            dispShapeEl.textContent = "-";
+        } else {
+            let shapeText = (currentLang === 'en') ? (data.shapeEN || data.shapeCN || data.shape) : (data.shapeCN || data.shapeEN || data.shape);
+            if (currentLang === 'en' && shapeText) shapeText = shapeText.toLowerCase();
+            dispShapeEl.textContent = shapeText;
+        }
     }
+    
     const dispAngleEl = document.getElementById("disp-angle");
-    if (dispAngleEl) dispAngleEl.textContent = data.angle;
+    if (dispAngleEl) {
+        if (isIonic || data.isMetal) {
+            dispAngleEl.textContent = "-";
+        } else {
+            dispAngleEl.textContent = data.angle;
+        }
+    }
+    
     const dispMpEl = document.getElementById("disp-mp");
     const missingText = currentLang === 'en' ? 'No data' : '無資料';
     if (dispMpEl) {
@@ -4234,8 +4252,8 @@ function loadMolecule(key, variantKey = null) {
     
     const bondDisp = document.getElementById("disp-bonds");
     if(bondDisp) {
-        if (isIonic) {
-            bondDisp.innerHTML = data.edgeRelation || "a = 2(r<sub>+</sub> + r<sub>-</sub>)";
+        if (isIonic || data.isMetal) {
+            bondDisp.textContent = "-";
         } else {
             let sigma = 0, pi = 0, totalLP = 0;
             if (currentMolecule.bonds3D) currentMolecule.bonds3D.forEach(b => { 
