@@ -1,0 +1,23 @@
+{
+  "2_0": { "shape": "Linear", "angle": "180" },
+  
+  "3_0": { "shape": "Trigonal Planar", "angle": "120" },
+  "2_1": { "shape": "Bent", "angle": "<120" },
+  
+  "4_0": { "shape": "Tetrahedral", "angle": "109.5" },
+  "3_1": { "shape": "Trigonal Pyramidal", "angle": "107" },
+  "2_2": { "shape": "Bent", "angle": "104.5" },
+  
+  "5_0": { "shape": "Trigonal Bipyramidal", "angle": "90, 120" },
+  "4_1": { "shape": "Seesaw", "angle": "<90, <120" },
+  "3_2": { "shape": "T-shaped", "angle": "<90" },
+  "2_3": { "shape": "Linear", "angle": "180" },
+  
+  "6_0": { "shape": "Octahedral", "angle": "90" },
+  "5_1": { "shape": "Square Pyramidal", "angle": "<90" },
+  "4_2": { "shape": "Square Planar", "angle": "90" },
+  
+  "7_0": { "shape": "Pentagonal Bipyramidal", "angle": "90, 72" },
+  "6_1": { "shape": "Pentagonal Pyramidal", "angle": "90, 72" },
+  "5_2": { "shape": "Pentagonal Planar", "angle": "72" }
+}

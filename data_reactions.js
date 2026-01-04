@@ -19,16 +19,16 @@ function checkReactionAvailable(key) {
     const resetBtn = document.querySelector(".reset-btn");
     const btns = document.querySelectorAll(".reaction-btn"); 
     
-    // 1. 初始化：隱藏所有按鈕（guard for removed UI）
-    if (btns && btns.length) btns.forEach(b => b.style.display = "none");
-    if (btnContainer) btnContainer.style.display = "none";
-    if (resetBtn) resetBtn.style.display = "none";
+    // 1. 初始化：隱藏所有按鈕
+    btns.forEach(b => b.style.display = "none");
+    btnContainer.style.display = "none";
+    resetBtn.style.display = "none";
 
     const currentName = getCurrentMoleculeName();
 
     // --- A. 乙烯專屬反應 ---
     if (currentName === "乙烯") {
-        if (btnContainer) btnContainer.style.display = "block";
+        btnContainer.style.display = "block";
         ["reaction-btn", "reaction-h2-btn", "reaction-hcl-btn", "reaction-cl2-btn", "reaction-kmno4-btn"].forEach(id => {
             const el = document.getElementById(id);
             if(el) el.style.display = "flex";
@@ -36,7 +36,7 @@ function checkReactionAvailable(key) {
     } 
     // --- B. 丙烯專屬反應 ---
     else if (currentName === "丙烯") { 
-        if (btnContainer) btnContainer.style.display = "block";
+        btnContainer.style.display = "block";
         ["reaction-propene-h2-btn", "reaction-propene-cl2-btn", "reaction-propene-hcl-btn", "reaction-propene-h2o-btn"].forEach(id => {
             const el = document.getElementById(id);
             if(el) el.style.display = "flex";
@@ -44,7 +44,7 @@ function checkReactionAvailable(key) {
     } 
     // --- C. 乙炔專屬反應 ---
     else if (currentName === "乙炔") {
-        if (btnContainer) btnContainer.style.display = "block";
+        btnContainer.style.display = "block";
         ["btn-c2h2-h2-full", "btn-c2h2-h2-part", "btn-c2h2-cl2-full", "btn-c2h2-cl2-part", "btn-c2h2-hcl-full", "btn-c2h2-hcl-part", "btn-c2h2-h2o"].forEach(id => {
             const el = document.getElementById(id);
             if(el) el.style.display = "flex";
@@ -52,7 +52,7 @@ function checkReactionAvailable(key) {
     }
     // --- D. 甲烷專屬反應 ---
     else if (currentName === "甲烷") {
-        if (btnContainer) btnContainer.style.display = "block";
+        btnContainer.style.display = "block";
         const subBtn = document.getElementById("reaction-sub-btn");
         const nitroBtn = document.getElementById("reaction-nitro-btn");
         if(subBtn) subBtn.style.display = "flex"; 
@@ -60,24 +60,32 @@ function checkReactionAvailable(key) {
     } 
     // --- E. 乙醇/乙醛/乙酸 ---
     else if (currentName === "乙醇" || currentName === "酒精") {
-        if (btnContainer) btnContainer.style.display = "block";
+        btnContainer.style.display = "block";
         const oxBtn = document.getElementById("reaction-ox-btn");
         const kmBtn = document.getElementById("reaction-kmno4-btn");
         if(oxBtn) oxBtn.style.display = "flex";
         if(kmBtn) kmBtn.style.display = "flex";
     }
     else if (currentName === "乙醛") {
-        if (btnContainer) btnContainer.style.display = "block";
+        btnContainer.style.display = "block";
         const oxBtn = document.getElementById("reaction-ox-btn");
         const redBtn = document.getElementById("reaction-red-btn");
         if(oxBtn) oxBtn.style.display = "flex";
         if(redBtn) redBtn.style.display = "flex";
     }
+    // --- F. 芳香烴 (苯) ---
+    else if (currentName === "苯") {
+        btnContainer.style.display = "block";
+        ["reaction-benzene-halo", "reaction-benzene-nitro", "reaction-benzene-sulf", "reaction-benzene-alkyl"].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.style.display = "flex";
+        });
+    }
 
     // 只要歷史紀錄不是空的，就顯示重置按鈕 (回到上一步)
     if (moleculeHistory.length > 0) {
-        if (btnContainer) btnContainer.style.display = "block";
-        if (resetBtn) resetBtn.style.display = "block";
+        btnContainer.style.display = "block";
+        resetBtn.style.display = "block";
     }
 }
 
@@ -156,10 +164,10 @@ function runEthyleneOxidation() {
 
 // 2. 甲烷系列 (原料: 甲烷)
 function runMethaneSubstitution() {
-    finishReaction("CH3Cl", "一氯甲烷", null, "甲烷其中一個C-H鍵斷裂，接上Cl原子，脫去的H與另一個Cl原子結合成HCl");
+    finishReaction("CH3Cl", "一氯甲烷", null, "甲烷其中一個C-H鍵斷裂，接上Cl原子，脫去的H與另一個Cl原子結合成HCl，另有產物HCl");
 }
 function runMethaneNitration() {
-    finishReaction("CH3NO2", "硝基甲烷", null, "甲烷其中一個C-H鍵斷裂，接上NO₂，脫去的H與硝酸脫去的OH結合成H₂O");
+    finishReaction("CH3NO2", "硝基甲烷", null, "甲烷其中一個C-H鍵斷裂，接上NO₂，烷脫去的H與硝酸脫去的OH結合成H₂O");
 }
 
 // 3. 丙烯系列 (原料: 丙烯)
@@ -213,12 +221,19 @@ function runAcetyleneHydration() {
     finishReaction("CH3CHO", "乙醛", null, "乙炔在硫酸與硫酸汞(HgSO₄)催化下與水加成，𝝿鍵斷裂後先形成不穩定的乙烯醇，隨即發生『醛酮-烯醇互變異構』，氫原子轉移，最終轉變成乙醛。");
 }
 
-// Defensive cleanup for any "複合"/composite mode artifacts possibly defined here
-(function(){
-	const keys = ["模式: 複合","模式_複合","複合模式","compositeMode","modeComposite","composite"];
-	if (typeof window !== 'undefined') {
-		keys.forEach(k=>{
-			try { if (window.hasOwnProperty(k)) delete window[k]; } catch(e){ try { window[k]=undefined; } catch(_){} }
-		});
-	}
-})();
+// 6. 芳香烴系列 (原料: 苯)
+function runBenzeneHalogenation() {
+    finishReaction("C6H5Cl", "氯苯", null, "苯與氯氣在鐵粉(或三氯化鐵)催化下發生取代反應，苯環上的一個氫被氯原子取代，生成氯苯，另有產物HCl。");
+}
+
+function runBenzeneNitration() {
+    finishReaction("C6H5NO2", "硝基苯", null, "在濃硫酸催化下，苯環上的氫原子被硝基(-NO₂)取代，生成的硝基苯是淡黃色油狀液體，具有特殊的苦杏仁味，苯脫去的H與硝酸脫去的OH結合成H₂O。");
+}
+
+function runBenzeneSulfonation() {
+    finishReaction("C6H5SO3H", "苯磺酸", null, "使用發煙硫酸或濃硫酸加熱，苯環上的氫原子被磺酸基(-SO₃H)取代。產物苯磺酸是強酸性物質，可溶於水，苯脫去的H與硫酸脫去的OH結合成H₂O。");
+}
+
+function runBenzeneAlkylation() {
+    finishReaction("C7H8", "甲苯", null, "在無水三氯化鋁(AlCl₃)催化下，苯環上的氫被甲基取代，與一氯甲烷反應生成甲苯，是增加芳香環碳鏈的重要方法，另有產物HCl。");
+}
