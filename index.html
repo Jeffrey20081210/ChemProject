@@ -4219,9 +4219,15 @@ function loadMolecule(key, variantKey = null) {
     if (dispAngleEl) dispAngleEl.textContent = data.angle;
     const dispMpEl = document.getElementById("disp-mp");
     const missingText = currentLang === 'en' ? 'No data' : '無資料';
-    if (dispMpEl) dispMpEl.textContent = (data.mp && data.mp !== "-") ? `${data.mp} °C` : missingText;
+    if (dispMpEl) {
+        const val = parseFloat(data.mp);
+        dispMpEl.textContent = (data.mp && data.mp !== "-" && !isNaN(val)) ? `${Math.round(val)} °C` : missingText;
+    }
     const dispBpEl = document.getElementById("disp-bp");
-    if (dispBpEl) dispBpEl.textContent = (data.bp && data.bp !== "-") ? `${data.bp} °C` : missingText;
+    if (dispBpEl) {
+        const val = parseFloat(data.bp);
+        dispBpEl.textContent = (data.bp && data.bp !== "-" && !isNaN(val)) ? `${Math.round(val)} °C` : missingText;
+    }
     
     const bondDisp = document.getElementById("disp-bonds");
     if(bondDisp) {
@@ -4243,7 +4249,7 @@ function loadMolecule(key, variantKey = null) {
         if (isIonic && key.includes("NaCl")) totalMass = 22.99 + 35.45; 
         else data.atomsRaw.forEach(a => { totalMass += (ELEMENT_PROPS[a.elem]?.mass || 0); });
     }
-    document.getElementById("disp-mass").textContent = totalMass > 0 ? `${totalMass.toFixed(2)} g/mol` : "N/A";
+    document.getElementById("disp-mass").textContent = totalMass > 0 ? `${totalMass.toFixed(1)} g/mol` : "N/A";
     
     const subtitle = document.getElementById("viewport-subtitle");
     
@@ -5115,7 +5121,7 @@ function animate() {
     if (!isDragging && !isReactionRunning && !isLongPressActive) {
         rotVelocity.x *= 0.96; rotVelocity.y *= 0.96; rotVelocity.z *= 0.96;
         let speed = Math.sqrt(rotVelocity.x*rotVelocity.x + rotVelocity.y*rotVelocity.y + rotVelocity.z*rotVelocity.z);
-        const MIN_SPEED = 0.004; 
+        const MIN_SPEED = 0.001; 
         const autoRotateEl = document.getElementById('toggle-auto-rotate');
         const isAutoRotateOn = autoRotateEl ? autoRotateEl.checked : true;
 
@@ -5128,7 +5134,7 @@ function animate() {
             }
             applyRotation(rotVelocity.y, rotVelocity.x, rotVelocity.z);
         } else {
-            if (isAutoRotateOn) applyRotation(0.004, 0, 0); 
+            if (isAutoRotateOn) applyRotation(0.001, 0, 0); 
         }
     }
     renderScene(time);
