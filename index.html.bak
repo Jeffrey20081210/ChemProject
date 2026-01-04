@@ -125,12 +125,13 @@
             linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
         background-size: 60px 60px; 
         background-position: center center;
-        overflow: hidden; cursor: grab;
+        overflow: hidden; cursor: default;
         touch-action: none; 
         -webkit-user-select: none;
         will-change: transform;
         transform: translateZ(0);
     } 
+    .viewport-area[data-tool="ChemScope"] { cursor: grab; }
 
     .viewport-header { 
         position: absolute; top: 70px; left: 25px; z-index: 10; pointer-events: none; 
@@ -302,13 +303,14 @@
     .switch-label { font-size: 0.95rem; color: var(--text-main); font-weight: 600; }
 
     #variant-selector {
-        display: none; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2);
-        padding: 15px; border-radius: 12px; margin-bottom: 15px;
+        display: none; background: var(--card-glass); border: 1px solid var(--panel-border);
+        padding: 20px; border-radius: 16px; margin-bottom: 20px;
     }
-    .variant-option { padding: 5px 0; display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--accent-blue); }
+    /* .variant-header removed; using .card-title .large-title instead */
+    .variant-option { padding: 5px 0; display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-main); }
 
     #variant-selector.acid-theme { background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.3); }
-    #variant-selector.acid-theme .variant-header { color: #fbbf24; }
+    #variant-selector.acid-theme .card-title { color: #fbbf24; }
     #variant-selector.acid-theme .variant-option { color: #fbbf24; }
     #variant-selector.acid-theme .variant-option:hover { background: rgba(245, 158, 11, 0.15); }
 
@@ -354,7 +356,7 @@
     }
     body.simulate-mobile #mobile-panel-handle {
         display: flex; width: 100%; height: 40px; justify-content: center; align-items: center;
-        cursor: pointer; flex-shrink: 0; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05);
+        flex-shrink: 0; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .controls-area { 
@@ -403,7 +405,7 @@
     #mobile-panel-handle { 
         display: flex; width: 100%; height: 40px; 
         justify-content: center; align-items: center;
-        cursor: grab; flex-shrink: 0; 
+        flex-shrink: 0; 
         /* 把手背景 */
         background: rgba(255,255,255,0.02);
         border-bottom: 1px solid rgba(255,255,255,0.05); 
@@ -745,6 +747,39 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
     max-width: 100% !important;
 }
 
+/* ChemScope desktop layout ratio: viewport 55% / controls 45% */
+@media (min-width: 769px) and (min-height: 501px) {
+    .viewport-panel.active[data-tool="ChemScope"] {
+        flex: 0 0 55% !important;
+        width: 55% !important;
+        max-width: 55% !important;
+    }
+    .viewport-panel.active[data-tool="ChemScope"] ~ .controls-area {
+        flex: 0 0 45% !important;
+        width: 45% !important;
+        max-width: 45% !important;
+    }
+}
+
+/* ChemScope typography: match title spacing (exclude title itself which lives in global header) */
+.viewport-panel[data-tool="ChemScope"] *,
+.controls-area .tool-panel[data-tool="ChemScope"] * {
+    letter-spacing: normal !important;
+}
+
+/* ChemScope control panel content slightly smaller (without changing panel size) */
+.controls-area .tool-panel[data-tool="ChemScope"] {
+    zoom: 0.85;
+}
+/* Firefox fallback */
+@supports (-moz-appearance:none) {
+    .controls-area .tool-panel[data-tool="ChemScope"] {
+        transform: scale(0.85);
+        transform-origin: top left;
+        width: 117.64%;
+    }
+}
+
 /* Fallback for older browsers */
 .viewport-panel.active[data-tool="Elements"] ~ .controls-area,
 .viewport-panel.active[data-tool="Equation Balancer"] ~ .controls-area {
@@ -764,12 +799,12 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
 .viewport-panel[data-tool="Elements"] .periodic-table {
     display: grid;
     grid-template-columns: 30px repeat(18, 65px);
-    grid-template-rows: 30px 85px 85px 85px 85px 85px 85px 85px 85px;
+    grid-template-rows: 30px repeat(7, 85px) 30px 85px 85px;
     gap: 4px;
     /* Remove max-width/overflow from here, let container handle it via transform */
     padding-bottom: 0; /* Remove padding-bottom */
     justify-content: center;
-    margin-top: 12vh; /* Move downward slightly */
+    margin-top: 1vh; /* Move upward even further */
     transform-origin: center center;
 }
 
@@ -982,7 +1017,7 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
 
 .viewport-panel[data-tool="Equation Balancer"] .balancer-instruction {
     margin-top: 0;
-    margin-bottom: 2.5vh;
+    margin-bottom: 1.5vh;
     font-size: 3.5vh;
     color: var(--accent-yellow);
     text-align: center;
@@ -992,7 +1027,7 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
 .viewport-panel[data-tool="Equation Balancer"] .input-row {
     display: flex;
     gap: 10px;
-    margin-bottom: 2.5vh;
+    margin-bottom: 1vh;
 }
 
 .viewport-panel[data-tool="Equation Balancer"] #eq-input {
@@ -1032,8 +1067,8 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
 }
 
 .viewport-panel[data-tool="Equation Balancer"] .eq-msg {
-    min-height: 24px;
-    margin-bottom: 10px;
+    min-height: 15px;
+    margin-bottom: 0;
     font-weight: bold;
 }
 
@@ -1041,28 +1076,22 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
     color: #ff4d4d;
 }
 
-.viewport-panel[data-tool="Equation Balancer"] .eq-msg.type {
-    color: var(--accent-yellow);
-    margin-top: 2vh;
-    font-size: 3.5vh;
-    text-align: center;
-}
-
 .viewport-panel[data-tool="Equation Balancer"] .eq-result {
     font-size: 4.5vh;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0;
     padding: 10px 20px;
     background: transparent;
     border-radius: 12px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     line-height: 1.5;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .viewport-panel[data-tool="Equation Balancer"] .balanced-eq {
@@ -1118,7 +1147,7 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
         
         <div class="controls-container">
             <button id="mode-toggle" class="control-button active">模式: 複合</button>
-            <button id="lang-toggle" class="control-button" title="切換語言">EN</button>
+            <button id="lang-toggle" class="control-button" title="切換語言">English</button>
         </div>
 
         <script>
@@ -1245,7 +1274,6 @@ body:has(.viewport-panel.active[data-tool="Equation Balancer"]) .controls-area {
                 </div>
                 <div id="eq-error" class="eq-msg error"></div>
                 <div id="eq-result" class="eq-result"></div>
-                <div id="eq-type" class="eq-msg type"></div>
             </div>
         </div>
     </div>
@@ -1539,6 +1567,127 @@ const ELEMENT_PROPS = {
 })();
 
 // ========== [每日運勢資料庫：最終修訂版]
+    const EXTRA_ELEMENT_DATA = {
+        "H": { ox: "+1, -1", en: "2.20", year: "1766" },
+        "He": { ox: "0", en: "0", year: "1868" },
+        "Li": { ox: "+1", en: "0.98", year: "1817" },
+        "Be": { ox: "+2", en: "1.57", year: "1798" },
+        "B": { ox: "+3", en: "2.04", year: "1808" },
+        "C": { ox: "+4, +2, -4", en: "2.55", year: "Ancient" },
+        "N": { ox: "+5, +4, +3, +2, +1, -3", en: "3.04", year: "1772" },
+        "O": { ox: "-2", en: "3.44", year: "1774" },
+        "F": { ox: "-1", en: "3.98", year: "1886" },
+        "Ne": { ox: "0", en: "0", year: "1898" },
+        "Na": { ox: "+1", en: "0.93", year: "1807" },
+        "Mg": { ox: "+2", en: "1.31", year: "1755" },
+        "Al": { ox: "+3", en: "1.61", year: "1825" },
+        "Si": { ox: "+4, +2, -4", en: "1.90", year: "1824" },
+        "P": { ox: "+5, +3, -3", en: "2.19", year: "1669" },
+        "S": { ox: "+6, +4, +2, -2", en: "2.58", year: "Ancient" },
+        "Cl": { ox: "+7, +5, +3, +1, -1", en: "3.16", year: "1774" },
+        "Ar": { ox: "0", en: "0", year: "1894" },
+        "K": { ox: "+1", en: "0.82", year: "1807" },
+        "Ca": { ox: "+2", en: "1.00", year: "1808" },
+        "Sc": { ox: "+3", en: "1.36", year: "1879" },
+        "Ti": { ox: "+4, +3", en: "1.54", year: "1791" },
+        "V": { ox: "+5, +4, +3, +2", en: "1.63", year: "1801" },
+        "Cr": { ox: "+6, +3, +2", en: "1.66", year: "1797" },
+        "Mn": { ox: "+7, +4, +3, +2", en: "1.55", year: "1774" },
+        "Fe": { ox: "+3, +2", en: "1.83", year: "Ancient" },
+        "Co": { ox: "+3, +2", en: "1.88", year: "1735" },
+        "Ni": { ox: "+3, +2", en: "1.91", year: "1751" },
+        "Cu": { ox: "+2, +1", en: "1.90", year: "Ancient" },
+        "Zn": { ox: "+2", en: "1.65", year: "1746" },
+        "Ga": { ox: "+3", en: "1.81", year: "1875" },
+        "Ge": { ox: "+4, +2", en: "2.01", year: "1886" },
+        "As": { ox: "+5, +3, -3", en: "2.18", year: "Ancient" },
+        "Se": { ox: "+6, +4, -2", en: "2.55", year: "1817" },
+        "Br": { ox: "+5, +1, -1", en: "2.96", year: "1826" },
+        "Kr": { ox: "+2", en: "3.00", year: "1898" },
+        "Rb": { ox: "+1", en: "0.82", year: "1861" },
+        "Sr": { ox: "+2", en: "0.95", year: "1790" },
+        "Y": { ox: "+3", en: "1.22", year: "1794" },
+        "Zr": { ox: "+4", en: "1.33", year: "1789" },
+        "Nb": { ox: "+5, +3", en: "1.60", year: "1801" },
+        "Mo": { ox: "+6, +4", en: "2.16", year: "1778" },
+        "Tc": { ox: "+7, +4", en: "1.90", year: "1937" },
+        "Ru": { ox: "+3, +4", en: "2.20", year: "1844" },
+        "Rh": { ox: "+3", en: "2.28", year: "1803" },
+        "Pd": { ox: "+2, +4", en: "2.20", year: "1803" },
+        "Ag": { ox: "+1", en: "1.93", year: "Ancient" },
+        "Cd": { ox: "+2", en: "1.69", year: "1817" },
+        "In": { ox: "+3", en: "1.78", year: "1863" },
+        "Sn": { ox: "+4, +2", en: "1.96", year: "Ancient" },
+        "Sb": { ox: "+5, +3, -3", en: "2.05", year: "Ancient" },
+        "Te": { ox: "+6, +4, -2", en: "2.10", year: "1782" },
+        "I": { ox: "+7, +5, +1, -1", en: "2.66", year: "1811" },
+        "Xe": { ox: "+2, +4, +6, +8", en: "2.60", year: "1898" },
+        "Cs": { ox: "+1", en: "0.79", year: "1860" },
+        "Ba": { ox: "+2", en: "0.89", year: "1808" },
+        "La": { ox: "+3", en: "1.10", year: "1839" },
+        "Ce": { ox: "+3, +4", en: "1.12", year: "1803" },
+        "Pr": { ox: "+3", en: "1.13", year: "1885" },
+        "Nd": { ox: "+3", en: "1.14", year: "1885" },
+        "Pm": { ox: "+3", en: "1.13", year: "1945" },
+        "Sm": { ox: "+3, +2", en: "1.17", year: "1879" },
+        "Eu": { ox: "+3, +2", en: "1.20", year: "1901" },
+        "Gd": { ox: "+3", en: "1.20", year: "1880" },
+        "Tb": { ox: "+3, +4", en: "1.10", year: "1843" },
+        "Dy": { ox: "+3", en: "1.22", year: "1886" },
+        "Ho": { ox: "+3", en: "1.23", year: "1878" },
+        "Er": { ox: "+3", en: "1.24", year: "1842" },
+        "Tm": { ox: "+3", en: "1.25", year: "1879" },
+        "Yb": { ox: "+3, +2", en: "1.10", year: "1878" },
+        "Lu": { ox: "+3", en: "1.27", year: "1907" },
+        "Hf": { ox: "+4", en: "1.30", year: "1923" },
+        "Ta": { ox: "+5", en: "1.50", year: "1802" },
+        "W": { ox: "+6, +4", en: "2.36", year: "1783" },
+        "Re": { ox: "+7, +6, +4", en: "1.90", year: "1925" },
+        "Os": { ox: "+4, +8", en: "2.20", year: "1803" },
+        "Ir": { ox: "+3, +4", en: "2.20", year: "1803" },
+        "Pt": { ox: "+4, +2", en: "2.28", year: "1735" },
+        "Au": { ox: "+3, +1", en: "2.54", year: "Ancient" },
+        "Hg": { ox: "+2, +1", en: "2.00", year: "Ancient" },
+        "Tl": { ox: "+3, +1", en: "1.62", year: "1861" },
+        "Pb": { ox: "+4, +2", en: "2.33", year: "Ancient" },
+        "Bi": { ox: "+3, +5", en: "2.02", year: "Ancient" },
+        "Po": { ox: "+4, +2", en: "2.00", year: "1898" },
+        "At": { ox: "-1, +1, +3, +5, +7", en: "2.20", year: "1940" },
+        "Rn": { ox: "0", en: "2.20", year: "1900" },
+        "Fr": { ox: "+1", en: "0.70", year: "1939" },
+        "Ra": { ox: "+2", en: "0.90", year: "1898" },
+        "Ac": { ox: "+3", en: "1.10", year: "1899" },
+        "Th": { ox: "+4", en: "1.30", year: "1828" },
+        "Pa": { ox: "+5, +4", en: "1.50", year: "1913" },
+        "U": { ox: "+6, +5, +4, +3", en: "1.38", year: "1789" },
+        "Np": { ox: "+6, +5, +4, +3", en: "1.36", year: "1940" },
+        "Pu": { ox: "+6, +5, +4, +3", en: "1.28", year: "1940" },
+        "Am": { ox: "+6, +5, +4, +3", en: "1.13", year: "1944" },
+        "Cm": { ox: "+3", en: "1.28", year: "1944" },
+        "Bk": { ox: "+3, +4", en: "1.30", year: "1949" },
+        "Cf": { ox: "+3", en: "1.30", year: "1950" },
+        "Es": { ox: "+3", en: "1.30", year: "1952" },
+        "Fm": { ox: "+3", en: "1.30", year: "1952" },
+        "Md": { ox: "+3, +2", en: "1.30", year: "1955" },
+        "No": { ox: "+2, +3", en: "1.30", year: "1958" },
+        "Lr": { ox: "+3", en: "1.30", year: "1961" },
+        "Rf": { ox: "+4", en: "0", year: "1964" },
+        "Db": { ox: "+5", en: "0", year: "1967" },
+        "Sg": { ox: "+6", en: "0", year: "1974" },
+        "Bh": { ox: "+7", en: "0", year: "1981" },
+        "Hs": { ox: "+8", en: "0", year: "1984" },
+        "Mt": { ox: "0", en: "0", year: "1982" },
+        "Ds": { ox: "0", en: "0", year: "1994" },
+        "Rg": { ox: "0", en: "0", year: "1994" },
+        "Cn": { ox: "+2", en: "0", year: "1996" },
+        "Nh": { ox: "0", en: "0", year: "2003" },
+        "Fl": { ox: "0", en: "0", year: "1998" },
+        "Mc": { ox: "0", en: "0", year: "2003" },
+        "Lv": { ox: "0", en: "0", year: "2000" },
+        "Ts": { ox: "0", en: "0", year: "2010" },
+        "Og": { ox: "0", en: "0", year: "2002" }
+    };
+
     const ELECTRON_DATA = [
     // Period 1
     { z: 1, s: "H", n: "Hydrogen", cn: "氫", type: "非金屬", state: "氣體", mp: "-259°C", bp: "-253°C", p: 1, g: "1A", iupac: 1, c: "1s1", noble: "1s1" },
@@ -1558,7 +1707,7 @@ const ELEMENT_PROPS = {
     { z: 13, s: "Al", n: "Aluminium", cn: "鋁", type: "金屬", state: "固體", mp: "660°C", bp: "2519°C", p: 3, g: "3A", iupac: 13, c: "1s2 2s2 2p6 3s2 3p1", noble: "[Ne] 3s2 3p1" },
     { z: 14, s: "Si", n: "Silicon", cn: "矽", type: "類金屬", state: "固體", mp: "1414°C", bp: "3265°C", p: 3, g: "4A", iupac: 14, c: "1s2 2s2 2p6 3s2 3p2", noble: "[Ne] 3s2 3p2" },
     { z: 15, s: "P", n: "Phosphorus", cn: "磷", type: "非金屬", state: "固體", mp: "44°C", bp: "280°C", p: 3, g: "5A", iupac: 15, c: "1s2 2s2 2p6 3s2 3p3", noble: "[Ne] 3s2 3p3" },
-    { z: 16, s: "S", n: "Sulfur", cn: "硫", type: "非金屬", state: "固體", mp: "115°C", bp: "445°C", p: 3, g: "6A", iupac: 16, c: "1s2 2s2 2p6 3s2 3p4", noble: "[Ne] 3s2 3p4" },
+    { z: 16, s: "S", n: "Sulphur", cn: "硫", type: "非金屬", state: "固體", mp: "115°C", bp: "445°C", p: 3, g: "6A", iupac: 16, c: "1s2 2s2 2p6 3s2 3p4", noble: "[Ne] 3s2 3p4" },
     { z: 17, s: "Cl", n: "Chlorine", cn: "氯", type: "非金屬", state: "氣體", mp: "-101°C", bp: "-34°C", p: 3, g: "7A", iupac: 17, c: "1s2 2s2 2p6 3s2 3p5", noble: "[Ne] 3s2 3p5" },
     { z: 18, s: "Ar", n: "Argon", cn: "氬", type: "非金屬", state: "氣體", mp: "-189°C", bp: "-186°C", p: 3, g: "8A", iupac: 18, c: "1s2 2s2 2p6 3s2 3p6", noble: "[Ne] 3s2 3p6" },
     // Period 4
@@ -1600,7 +1749,7 @@ const ELEMENT_PROPS = {
     { z: 53, s: "I", n: "Iodine", cn: "碘", type: "非金屬", state: "固體", mp: "114°C", bp: "184°C", p: 5, g: "7A", iupac: 17, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p5", noble: "[Kr] 4d10 5s2 5p5" },
     { z: 54, s: "Xe", n: "Xenon", cn: "氙", type: "非金屬", state: "氣體", mp: "-112°C", bp: "-108°C", p: 5, g: "8A", iupac: 18, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6", noble: "[Kr] 4d10 5s2 5p6" },
     // Period 6
-    { z: 55, s: "Cs", n: "Cesium", cn: "銫", type: "金屬", state: "固體", mp: "28°C", bp: "671°C", p: 6, g: "1A", iupac: 1, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s1", noble: "[Xe] 6s1" },
+    { z: 55, s: "Cs", n: "Caesium", cn: "銫", type: "金屬", state: "固體", mp: "28°C", bp: "671°C", p: 6, g: "1A", iupac: 1, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s1", noble: "[Xe] 6s1" },
     { z: 56, s: "Ba", n: "Barium", cn: "鋇", type: "金屬", state: "固體", mp: "727°C", bp: "1897°C", p: 6, g: "2A", iupac: 2, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s2", noble: "[Xe] 6s2" },
     { z: 57, s: "La", n: "Lanthanum", cn: "鑭", type: "金屬", state: "固體", mp: "920°C", bp: "3464°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 5d1 6s2", noble: "[Xe] 5d1 6s2", ex: true },    
     { z: 58, s: "Ce", n: "Cerium", cn: "鈰", type: "金屬", state: "固體", mp: "795°C", bp: "3443°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f1 5d1 6s2", noble: "[Xe] 4f1 5d1 6s2", ex: true },    
@@ -1752,21 +1901,143 @@ const COMMON_EN_NAMES = {
     'CO': 'Carbon monoxide', 'NO': 'Nitric oxide', 'CN-': 'Cyanide', 'O22-': 'Peroxide',
     'H2O2': 'Hydrogen peroxide',
     'HF': 'Hydrogen fluoride', 'HCl': 'Hydrogen chloride', 'HBr': 'Hydrogen bromide', 'HI': 'Hydrogen iodide',
-    'NaCl': 'Sodium chloride', 'CsCl': 'Cesium chloride', 'ZnS': 'Zinc sulphide', 'CuCl': 'Copper(I) chloride',
+    'NaCl': 'Sodium chloride', 'CsCl': 'Caesium chloride', 'ZnS': 'Zinc sulphide', 'CuCl': 'Copper(I) chloride',
     'TiO2': 'Titanium dioxide', 'Cu2O': 'Copper(I) oxide', 'CO2': 'Carbon dioxide', 'CH3OH': 'Methanol',
-    // Common ions and polyatomic ions (British spelling: sulph-)
-    'NH4+': 'Ammonium ion', 'SO42-': 'Sulphate ion', 'HSO4-': 'hydrogensulphate', 'NO3-': 'Nitrate',
-    'HSO3-': 'hydrogensulphite', 'HSO3': 'hydrogensulphite',
-    'H3O+': 'Hydronium ion',
-    'BRO3-': 'Bromate ion', 'BrO3-': 'Bromate ion', 'IO3-': 'Iodate ion',
-    'S2O32-': 'Thiosulphate ion',
-    'HS2O3-': 'hydrogenthiosulphate',
-    'H2PO2-': 'Hypophosphite ion', 'H2PO3-': 'hydrogenphosphite', 'H2PO4-': 'dihydrogenphosphate',
-    'HPO32-': 'Phosphite ion', 'HPO42-': 'hydrogenphosphate', 'HS-': 'hydrosulphide',
-    'CO32-': 'Carbonate ion', 'OH-': 'Hydroxide', 'PO43-': 'Phosphate ion',
-    // Sulphite (provide several common token forms)
-    'SO3^2-': 'Sulphite ion', 'SO32-': 'Sulphite ion', 'SO3 2-': 'Sulphite ion', 'SO3-': 'Sulphite ion',
-    'S2-': 'Sulphide ion', 'SO2': 'Sulphur dioxide', 'HCO3-': 'hydrogencarbonate'
+    'O3': 'Ozone', 'NO2': 'Nitrogen dioxide', 'N2O': 'Nitrous oxide', 'N2O3': 'Dinitrogen trioxide',
+    'N2O4': 'Dinitrogen tetroxide', 'N2O5': 'Dinitrogen pentoxide', 'SO3': 'Sulphur trioxide',
+    'NO2+': 'Nitronium ion', 'S8': 'Sulphur',
+    'Al2O3': 'Aluminium oxide', 'Fe2O3': 'Iron(III) oxide', 'MgO': 'Magnesium oxide', 'CaO': 'Calcium oxide',
+    'Na2O': 'Sodium oxide', 'K2O': 'Potassium oxide', 'Li2O': 'Lithium oxide', 'BaCl2': 'Barium chloride',
+    'CuCl2': 'Copper(II) chloride', 'PbI2': 'Lead(II) iodide', 'CaH2': 'Calcium hydride', 'Na2S': 'Sodium sulphide',
+    'FeCl2': 'Iron(II) chloride', 'FeCl3': 'Iron(III) chloride', 'AlCl3': 'Aluminium chloride',
+    'KCl': 'Potassium chloride', 'KI': 'Potassium iodide', 'KBr': 'Potassium bromide',
+    'NaF': 'Sodium fluoride', 'AgCl': 'Silver chloride', 'AgBr': 'Silver bromide', 'AgI': 'Silver iodide',
+    'BaO': 'Barium oxide', 'AlBr3': 'Aluminium bromide', '共振結構': 'Resonance Structure',
+    'C3H6': 'Propene', 'CCl4': 'Carbon tetrachloride', '四氯化碳': 'Carbon tetrachloride',
+    '丙烯': 'Propene', '環丙烷': 'Cyclopropane',
+    'C2H2': 'Ethyne', '乙炔': 'Ethyne',
+    'C3H4': 'Propyne', '丙炔': 'Propyne',
+    'C4H6': 'Butyne', '1-丁炔': '1-Butyne', '2-丁炔': '2-Butyne', '1,3-丁二烯': '1,3-Butadiene', '1,2-丁二烯': '1,2-Butadiene',
+    '1,3-二氯丙烷': '1,3-Dichloropropane', '1,2-二氯丙烷': '1,2-Dichloropropane', '2,2-二氯丙烷': '2,2-Dichloropropane', '1,1-二氯丙烷': '1,1-Dichloropropane',
+    '1,3-Dichloropropane': '1,3-Dichloropropane', '1,2-Dichloropropane': '1,2-Dichloropropane', '2,2-Dichloropropane': '2,2-Dichloropropane', '1,1-Dichloropropane': '1,1-Dichloropropane',
+    '氮化硼(平面層狀)': 'Boron nitride (Layered)', '氮化硼(立體)': 'Boron nitride (Cubic)',
+    '1,3-丁二烯': '1,3-Butadiene', '1,2-丁二烯': '1,2-Butadiene', '1-丁炔': '1-Butyne', '2-丁炔': '2-Butyne',
+    '1-甲基環丙烯': '1-Methylcyclopropene', '甲基環丙烷': 'Methylcyclopropane', '環丁烷': 'Cyclobutane',
+    '順-1,2-二氯乙烯': 'cis-1,2-Dichloroethene', '反-1,2-二氯乙烯': 'trans-1,2-Dichloroethene', '1,1-二氯乙烯': '1,1-Dichloroethene',
+    '1,1,1,2-四氯乙烷': '1,1,1,2-Tetrachloroethane', '1,1,2,2-四氯乙烷': '1,1,2,2-Tetrachloroethane',
+    '鄰二甲苯': 'o-Xylene', '間二甲苯': 'm-Xylene', '對二甲苯': 'p-Xylene',
+    '1,2-乙二醇': 'Ethylene glycol', '乙二酸': 'Oxalic acid', '丙三醇': 'Glycerol',
+    '苯胺': 'Aniline', '苯酚': 'Phenol', '甲苯': 'Toluene', '乙苯': 'Ethylbenzene', '氯苯': 'Chlorobenzene', '硝基苯': 'Nitrobenzene',
+    '苯磺酸': 'Benzenesulfonic acid', '水楊酸': 'Salicylic acid', '乙醯胺基苯酚': 'Paracetamol',
+    '三硝基甲苯': 'Trinitrotoluene', 'TNT': 'TNT',
+    '乙酸甲酯': 'Methyl acetate', '乙酸乙酯': 'Ethyl acetate', '甲酸甲酯': 'Methyl formate',
+    '甲乙醚': 'Methoxyethane', '二甲醚': 'Dimethyl ether', '乙醚': 'Diethyl ether',
+    '甲醛': 'Formaldehyde', '乙醛': 'Acetaldehyde', '丙醛': 'Propionaldehyde', '丙酮': 'Acetone',
+    '甲酸': 'Formic acid', '乙酸': 'Acetic acid', '丙酸': 'Propionic acid',
+    '甲醇': 'Methanol', '乙醇': 'Ethanol', '1-丙醇': '1-Propanol', '2-丙醇': '2-Propanol',
+    '甲胺': 'Methylamine', '二甲胺': 'Dimethylamine', '三甲胺': 'Trimethylamine', '乙胺': 'Ethylamine',
+    '甲醯胺': 'Formamide', '乙醯胺': 'Acetamide', '尿素': 'Urea',
+    '葡萄糖': 'Glucose', '果糖': 'Fructose', '半乳糖': 'Galactose', '蔗糖': 'Sucrose', '麥芽糖': 'Maltose', '乳糖': 'Lactose',
+    '澱粉': 'Starch', '纖維素': 'Cellulose', '肝糖': 'Glycogen',
+    '金剛石': 'Diamond', '石墨': 'Graphite', '富勒烯': 'Fullerene', '碳60': 'Buckminsterfullerene',
+    '白磷': 'White phosphorus', '紅磷': 'Red phosphorus', '斜方硫': 'Rhombic sulphur', '單斜硫': 'Monoclinic sulphur',
+    '臭氧': 'Ozone', '氧氣': 'Oxygen',
+    '氫化鈉': 'Sodium hydride', '氫化鈣': 'Calcium hydride', '氫化鋁鋰': 'Lithium aluminium hydride', '硼氫化鈉': 'Sodium borohydride',
+    '碳化鈣': 'Calcium carbide', '電石': 'Calcium carbide',
+    '過氧化氫': 'Hydrogen peroxide', '雙氧水': 'Hydrogen peroxide',
+    '次氯酸': 'Hypochlorous acid', '亞氯酸': 'Chlorous acid', '氯酸': 'Chloric acid', '過氯酸': 'Perchloric acid',
+    '次氯酸鈉': 'Sodium hypochlorite', '亞氯酸鈉': 'Sodium chlorite', '氯酸鉀': 'Potassium chlorate', '過氯酸鉀': 'Potassium perchlorate',
+    '次氯酸鈣': 'Calcium hypochlorite', '漂白粉': 'Bleaching powder',
+    '亞硝酸': 'Nitrous acid', '硝酸': 'Nitric acid', '亞硝酸鈉': 'Sodium nitrite', '硝酸鉀': 'Potassium nitrate', '硝酸銨': 'Ammonium nitrate',
+    '亞硫酸': 'Sulphurous acid', '硫酸': 'Sulphuric acid', '亞硫酸鈉': 'Sodium sulphite', '硫酸鈉': 'Sodium sulphate', '硫代硫酸鈉': 'Sodium thiosulphate',
+    '碳酸': 'Carbonic acid', '碳酸鈉': 'Sodium carbonate', '碳酸氫鈉': 'Sodium bicarbonate', '蘇打': 'Soda ash', '小蘇打': 'Baking soda',
+    '磷酸': 'Phosphoric acid', '亞磷酸': 'Phosphorous acid', '次磷酸': 'Hypophosphorous acid',
+    '氫氧化鈉': 'Sodium hydroxide', '氫氧化鉀': 'Potassium hydroxide', '氫氧化鈣': 'Calcium hydroxide', '熟石灰': 'Slaked lime',
+    '氧化鈣': 'Calcium oxide', '生石灰': 'Quicklime',
+    '氨': 'Ammonia', '銨根': 'Ammonium', '銨離子': 'Ammonium ion',
+    '氰化鉀': 'Potassium cyanide', '氰化鈉': 'Sodium cyanide',
+    '高錳酸鉀': 'Potassium permanganate', '重鉻酸鉀': 'Potassium dichromate', '鉻酸鉀': 'Potassium chromate',
+    '草酸': 'Oxalic acid', '草酸鈉': 'Sodium oxalate',
+    '肥皂': 'Soap', '硬脂酸鈉': 'Sodium stearate',
+    '甘油': 'Glycerol', '硝化甘油': 'Nitroglycerin',
+    '阿斯匹靈': 'Aspirin', '乙醯水楊酸': 'Acetylsalicylic acid',
+    '味精': 'MSG', '麩胺酸鈉': 'Monosodium glutamate',
+    '聚乙烯': 'Polyethylene', '聚氯乙烯': 'Polyvinyl chloride', '聚苯乙烯': 'Polystyrene', '聚丙烯': 'Polypropylene',
+    '鐵氟龍': 'Teflon', '聚四氟乙烯': 'Polytetrafluoroethylene',
+    '尼龍': 'Nylon', '達克綸': 'Dacron', '奧龍': 'Orlon',
+    '天然橡膠': 'Natural rubber', '異戊二烯': 'Isoprene', '氯丁橡膠': 'Neoprene', '丁苯橡膠': 'SBR',
+    '電木': 'Bakelite', '酚醛樹脂': 'Phenol-formaldehyde resin',
+    '尿素甲醛樹脂': 'Urea-formaldehyde resin',
+    '矽氧樹脂': 'Silicone',
+    '玻璃': 'Glass', '水泥': 'Cement', '陶瓷': 'Ceramics',
+    '光氣': 'Phosgene', '芥子氣': 'Mustard gas',
+    '路易士氣': 'Lewisite',
+    '橙劑': 'Agent Orange', '戴奧辛': 'Dioxin',
+    '多氯聯苯': 'PCB',
+    '氟利昂': 'Freon', '海龍': 'Halon',
+    'DDT': 'DDT', 'BHC': 'BHC',
+    '三聚氰胺': 'Melamine',
+    '塑化劑': 'Plasticizer', '鄰苯二甲酸酯': 'Phthalate',
+    '雙酚A': 'Bisphenol A',
+    '黃麴毒素': 'Aflatoxin',
+    '肉毒桿菌毒素': 'Botulinum toxin',
+    '河豚毒素': 'Tetrodotoxin',
+    '氰化物': 'Cyanide',
+    '砒霜': 'Arsenic trioxide', '三氧化二砷': 'Arsenic trioxide',
+    '硃砂': 'Cinnabar', '硫化汞': 'Mercury(II) sulphide',
+    '雄黃': 'Realgar', '四硫化四砷': 'Tetraarsenic tetrasulphide',
+    '雌黃': 'Orpiment', '三硫化二砷': 'Arsenic trisulphide',
+    '膽礬': 'Blue vitriol', '五水合硫酸銅': 'Copper(II) sulphate pentahydrate',
+    '綠礬': 'Green vitriol', '七水合硫酸亞鐵': 'Iron(II) sulphate heptahydrate',
+    '皓礬': 'White vitriol', '七水合硫酸鋅': 'Zinc sulphate heptahydrate',
+    '明礬': 'Alum', '十二水合硫酸鋁鉀': 'Potassium aluminium sulphate dodecahydrate',
+    '石膏': 'Gypsum', '二水合硫酸鈣': 'Calcium sulphate dihydrate',
+    '熟石膏': 'Plaster of Paris', '半水合硫酸鈣': 'Calcium sulphate hemihydrate',
+    '瀉鹽': 'Epsom salt', '七水合硫酸鎂': 'Magnesium sulphate heptahydrate',
+    '大理石': 'Marble', '方解石': 'Calcite', '石灰岩': 'Limestone', '白堊': 'Chalk',
+    '赤鐵礦': 'Hematite', '磁鐵礦': 'Magnetite', '黃鐵礦': 'Pyrite', '褐鐵礦': 'Limonite', '菱鐵礦': 'Siderite',
+    '鋁土礦': 'Bauxite', '冰晶石': 'Cryolite', '六氟鋁酸鈉': 'Sodium hexafluoroaluminate',
+    '孔雀石': 'Malachite', '藍銅礦': 'Azurite', '輝銅礦': 'Chalcocite', '黃銅礦': 'Chalcopyrite',
+    '方鉛礦': 'Galena', '白鉛礦': 'Cerussite',
+    '閃鋅礦': 'Sphalerite', '菱鋅礦': 'Smithsonite',
+    '辰砂': 'Cinnabar',
+    '軟錳礦': 'Pyrolusite',
+    '金紅石': 'Rutile', '鈦鐵礦': 'Ilmenite',
+    '錫石': 'Cassiterite',
+    '黑鎢礦': 'Wolframite', '白鎢礦': 'Scheelite',
+    '瀝青鈾礦': 'Pitchblende',
+    '獨居石': 'Monazite',
+    '磷灰石': 'Apatite',
+    '螢石': 'Fluorite',
+    '重晶石': 'Barite',
+    '天青石': 'Celestite',
+    '石英': 'Quartz', '水晶': 'Crystal', '瑪瑙': 'Agate', '燧石': 'Flint', '矽藻土': 'Diatomaceous earth',
+    '長石': 'Feldspar', '雲母': 'Mica', '滑石': 'Talc', '高嶺土': 'Kaolin', '石棉': 'Asbestos', '沸石': 'Zeolite',
+    '剛玉': 'Corundum', '紅寶石': 'Ruby', '藍寶石': 'Sapphire', '綠寶石': 'Emerald', '金綠寶石': 'Chrysoberyl', '貓眼石': 'Cat\'s eye', '變石': 'Alexandrite',
+    '拓帕石': 'Topaz', '黃玉': 'Topaz',
+    '鋯石': 'Zircon',
+    '石榴石': 'Garnet',
+    '橄欖石': 'Peridot',
+    '碧璽': 'Tourmaline', '電氣石': 'Tourmaline',
+    '玉': 'Jade', '硬玉': 'Jadeite', '軟玉': 'Nephrite', '翡翠': 'Jadeite',
+    '珍珠': 'Pearl', '珊瑚': 'Coral', '琥珀': 'Amber', '煤精': 'Jet',
+    '煤炭': 'Coal', '石油': 'Petroleum', '天然氣': 'Natural gas',
+    '空氣': 'Air', '水': 'Water', '土壤': 'Soil', '岩石': 'Rock', '礦物': 'Mineral',
+    '金屬': 'Metal', '非金屬': 'Non-metal', '類金屬': 'Metalloid',
+    '合金': 'Alloy', '鋼': 'Steel', '不鏽鋼': 'Stainless steel', '黃銅': 'Brass', '青銅': 'Bronze', '白銅': 'Cupronickel', '洋銀': 'Nickel silver',
+    '硬鋁': 'Duralumin', '鎂鋁合金': 'Magnalium',
+    '焊錫': 'Solder', '鉛錫合金': 'Lead-tin alloy',
+    '伍德合金': 'Wood\'s metal',
+    '汞齊': 'Amalgam',
+    'K金': 'Karat gold', '白金': 'Platinum', '銀': 'Silver', '銅': 'Copper', '鐵': 'Iron', '鋁': 'Aluminium', '錫': 'Tin', '鉛': 'Lead', '鋅': 'Zinc', '鎳': 'Nickel', '鉻': 'Chromium', '錳': 'Manganese', '鈦': 'Titanium', '鎢': 'Tungsten', '鉬': 'Molybdenum', '釩': 'Vanadium', '鈷': 'Cobalt', '鎘': 'Cadmium', '汞': 'Mercury', '金': 'Gold',
+    '氫': 'Hydrogen', '氦': 'Helium', '鋰': 'Lithium', '鈹': 'Beryllium', '硼': 'Boron', '碳': 'Carbon', '氮': 'Nitrogen', '氧': 'Oxygen', '氟': 'Fluorine', '氖': 'Neon',
+    '鈉': 'Sodium', '鎂': 'Magnesium', '鋁': 'Aluminium', '矽': 'Silicon', '磷': 'Phosphorus', '硫': 'Sulphur', '氯': 'Chlorine', '氬': 'Argon',
+    '鉀': 'Potassium', '鈣': 'Calcium', '鈧': 'Scandium', '鈦': 'Titanium', '釩': 'Vanadium', '鉻': 'Chromium', '錳': 'Manganese', '鐵': 'Iron', '鈷': 'Cobalt', '鎳': 'Nickel', '銅': 'Copper', '鋅': 'Zinc', '鎵': 'Gallium', '鍺': 'Germanium', '砷': 'Arsenic', '硒': 'Selenium', '溴': 'Bromine', '氪': 'Krypton',
+    '銣': 'Rubidium', '鍶': 'Strontium', '釔': 'Yttrium', '鋯': 'Zirconium', '鈮': 'Niobium', '鉬': 'Molybdenum', '鎝': 'Technetium', '釕': 'Ruthenium', '銠': 'Rhodium', '鈀': 'Palladium', '銀': 'Silver', '鎘': 'Cadmium', '銦': 'Indium', '錫': 'Tin', '銻': 'Antimony', '碲': 'Tellurium', '碘': 'Iodine', '氙': 'Xenon',
+    '銫': 'Caesium', '鋇': 'Barium', '鑭': 'Lanthanum', '鈰': 'Cerium', '鐠': 'Praseodymium', '釹': 'Neodymium', '鉕': 'Promethium', '釤': 'Samarium', '銪': 'Europium', '釓': 'Gadolinium', '鋱': 'Terbium', '鏑': 'Dysprosium', '鈥': 'Holmium', '鉺': 'Erbium', '銩': 'Thulium', '鐿': 'Ytterbium', '鎦': 'Lutetium',
+    '鉿': 'Hafnium', '鉭': 'Tantalum', '鎢': 'Tungsten', '錸': 'Rhenium', '鋨': 'Osmium', '銥': 'Iridium', '鉑': 'Platinum', '金': 'Gold', '汞': 'Mercury', '鉈': 'Thallium', '鉛': 'Lead', '鉍': 'Bismuth', '釙': 'Polonium', '砈': 'Astatine', '氡': 'Radon',
+    '鍅': 'Francium', '鐳': 'Radium', '錒': 'Actinium', '釷': 'Thorium', '鏷': 'Protactinium', '鈾': 'Uranium', '錼': 'Neptunium', '鈽': 'Plutonium', '鋂': 'Americium', '鋦': 'Curium', '鉳': 'Berkelium', '鉲': 'Californium', '鑀': 'Einsteinium', '鐨': 'Fermium', '鍆': 'Mendelevium', '鍩': 'Nobelium', '鐒': 'Lawrencium',
+    '鑪': 'Rutherfordium', '杜': 'Dubnium', '𨭎': 'Seaborgium', '波': 'Bohrium', '黑': 'Hassium', '麥': 'Meitnerium', '鐽': 'Darmstadtium', '錀': 'Roentgenium', '鎶': 'Copernicium', '鉨': 'Nihonium', '鈇': 'Flerovium', '鏌': 'Moscovium', '鉝': 'Livermorium', '石田': 'Tennessine', '氣奧': 'Oganesson'
 };
 
 // 主註冊函式 (已修改：直接使用傳入的 hybrid 字串，不添加贅字)
@@ -1789,7 +2060,7 @@ const addMol = (keysStr, center, hybrid, shape, angle, mp, bp, atoms, bonds, var
     // prefer explicitly-provided English; otherwise try common name map
     if (!nameCN && nameEN) nameCN = nameEN;
     if (!nameEN) {
-        nameEN = COMMON_EN_NAMES[mainKey.toUpperCase()] || '';
+        nameEN = COMMON_EN_NAMES[mainKey] || COMMON_EN_NAMES[mainKey.toUpperCase()] || '';
         if (!nameEN && nameCN && /[A-Za-z]/.test(nameCN)) nameEN = nameCN;
     }
 
@@ -1833,15 +2104,24 @@ const addMol = (keysStr, center, hybrid, shape, angle, mp, bp, atoms, bonds, var
                     else if (!vNameCN && !/[A-Za-z]/.test(p)) vNameCN = p;
                 }
                 if(!vNameCN) vNameCN = baseData.nameCN;
+                // Try to find English name from Chinese name if not provided
+                if (!vNameEN && vNameCN && COMMON_EN_NAMES[vNameCN]) {
+                    vNameEN = COMMON_EN_NAMES[vNameCN];
+                }
                 if(!vNameEN) {
                     const rawVariant = vKeys[0] ? String(vKeys[0]) : '';
                     const variantFormula = rawVariant.replace(/\s/g,'').replace(/\^/g,'').toUpperCase();
-                    const tryVKeys = [variantFormula, rawVariant.replace(/\s/g,'').toUpperCase(), rawVariant.replace(/\^/g,'').toUpperCase()];
+                    const tryVKeys = [rawVariant, variantFormula, rawVariant.replace(/\s/g,'').toUpperCase(), rawVariant.replace(/\^/g,'').toUpperCase()];
                     for (let tk of tryVKeys) {
                         if (!tk) continue;
                         if (COMMON_EN_NAMES[tk]) { vNameEN = COMMON_EN_NAMES[tk]; break; }
                     }
-                    if(!vNameEN) vNameEN = COMMON_EN_NAMES[uniqueID] || COMMON_EN_NAMES[mainKey.toUpperCase()] || baseData.nameEN || '';
+                    if(!vNameEN) vNameEN = COMMON_EN_NAMES[uniqueID] || COMMON_EN_NAMES[mainKey] || COMMON_EN_NAMES[mainKey.toUpperCase()] || baseData.nameEN || '';
+                }
+                // [Fix] If the variant name is just a structural description (like "Simple" or "Crystal"), 
+                // force the display name to be the substance name to avoid "Basic Unit" appearing as the molecule name.
+                if (vNameEN === 'Simple' || vNameEN === 'Crystal' || vNameEN === 'Basic Unit') {
+                    vNameEN = baseData.nameEN || COMMON_EN_NAMES[mainKey] || COMMON_EN_NAMES[mainKey.toUpperCase()] || '';
                 }
 
             baseData.variants[uniqueID] = { 
@@ -1903,7 +2183,7 @@ function markReps(atoms, bonds, cnA, elemA, cnB, elemB) {
     ca.push({elem:"Cs",x:0,y:0,z:0,r:26,isRepresentative:true});
     [-1,1].forEach(x=>[-1,1].forEach(y=>[-1,1].forEach(z=>{ca.push({elem:"Cl",x:x*s*0.5,y:y*s*0.5,z:z*s*0.5,r:34,isCorner:true}); cb.push([0,ca.length-1,"ionic_thin"]);})));
     for(let i=1;i<ca.length;i++) for(let j=i+1;j<ca.length;j++) if(Math.abs((Math.abs(ca[i].x-ca[j].x)+Math.abs(ca[i].y-ca[j].y)+Math.abs(ca[i].z-ca[j].z))-s)<5) cb.push([i,j,"ionic_thick"]);
-    addMol("CsCl|氯化銫|Cesium Chloride","Cs","-","-","-","645","1290",sa,sb,{
+    addMol("CsCl|氯化銫|Caesium Chloride","Cs","-","-","-","645","1290",sa,sb,{
         "Simple|基本單元 (離子對)":{atoms:sa,bonds:sb,hybrid:"-",shape:"-",desc:'<div class="info-section"><div class="info-title">⚛️ 物質簡介</div><div class="info-body"><strong>氯化銫 (CsCl)</strong><br>由銫離子 (Cs⁺) 與氯離子 (Cl⁻) 組成。銫離子半徑較大，形成配位數 8 的結構。</div></div>'},
         "Crystal|晶體堆積 (SC)":{atoms:ca,bonds:cb,isIonic:true,edgeRelation:"√3 a = 2(r⁺+r⁻)",desc:'<div class="info-section"><div class="info-title">🧊 晶體結構</div><div class="info-body"><strong>簡單立方堆積 (SC)</strong><br>氯離子構成簡單立方，銫離子填入體心。配位數為 8。<br><span style="color:#facc15">★ 點擊中央 Cs 離子可查看配位數。</span></div></div>'}
     },'<div class="info-section"><div class="info-title">🧊 氯化銫</div><div class="info-body">請切換選項檢視。</div></div>');
@@ -3803,7 +4083,7 @@ function handleLoadBtn() {
     } else if (MOLECULE_DB[searchKey]) {
         loadMolecule(searchKey);
     } else {
-        alert("資料庫中未找到該分子: " + rawVal);
+        alert("Not found in database: " + rawVal);
     }
 }
 
@@ -4011,25 +4291,14 @@ function loadMolecule(key, variantKey = null) {
     // [修改] 標籤顯示邏輯（會依語言切換）
     const currentLang = (window.__APP_LANG) || localStorage.getItem('app_lang') || ((navigator.language && navigator.language.startsWith('en')) ? 'en' : 'zh');
     let labels = { hybrid: '', shape: '', angle: '', bonds: '', mass: '' };
-    if (data.isMetal) {
-        labels.hybrid = (currentLang === 'en') ? 'Crystal packing' : '晶體堆積';
-        labels.shape = (currentLang === 'en') ? 'Packing efficiency' : '空間利用率';
-        labels.angle = (currentLang === 'en') ? 'Coordination number' : '配位數';
-        labels.bonds = (currentLang === 'en') ? 'Edge relation' : '邊長關係';
-        labels.mass = (currentLang === 'en') ? 'Atomic mass' : '原子量';
-    } else if (isIonic) {
-        labels.hybrid = (currentLang === 'en') ? 'Crystal packing' : '晶體堆積';
-        labels.shape = (currentLang === 'en') ? 'Radius ratio (r⁺/r⁻)' : '半徑比 (r⁺/r⁻)';
-        labels.angle = (currentLang === 'en') ? 'Coordination number' : '配位數';
-        labels.bonds = (currentLang === 'en') ? 'Edge relation' : '邊長關係';
-        labels.mass = (currentLang === 'en') ? 'Formula mass' : '式量';
-    } else {
-        labels.hybrid = (currentLang === 'en') ? 'Hybridization' : '混成軌域';
-        labels.shape = (currentLang === 'en') ? 'Shape' : '形狀';
-        labels.angle = (currentLang === 'en') ? 'Bond angle' : '鍵角';
-        labels.bonds = (currentLang === 'en') ? 'Bond stats' : '鍵結統計';
-        labels.mass = (currentLang === 'en') ? 'Molar mass' : '分子量';
-    }
+    
+    // Always use standard labels as requested
+    labels.hybrid = (currentLang === 'en') ? 'Hybridization' : '混成軌域';
+    labels.shape = (currentLang === 'en') ? 'Shape' : '形狀';
+    labels.angle = (currentLang === 'en') ? 'Bond Angle' : '鍵角';
+    labels.bonds = (currentLang === 'en') ? 'Bond Stats' : '鍵結統計';
+    labels.mass = (currentLang === 'en') ? 'Molar Mass / Formula Mass' : '分子量 / 式量';
+
     if (lblHybrid) lblHybrid.textContent = labels.hybrid;
     if (lblShape) lblShape.textContent = labels.shape;
     if (lblAngle) lblAngle.textContent = labels.angle;
@@ -4038,16 +4307,36 @@ function loadMolecule(key, variantKey = null) {
 
     const formulaEl = document.getElementById('info-formula');
     const nameEl = document.getElementById('info-name');
-    const keyParts = (data.fullKey || key).split('|');
-    let formulaText = keyParts[0];
+    
+    // [Fix] Determine formula text: use variant key if it's a chemical substance, otherwise use main key
+    let formulaText = key.split('|')[0];
+    if (data.fullKey) {
+        const variantFirstPart = data.fullKey.split('|')[0].trim();
+        const structuralKeywords = ["Simple", "Crystal", "Basic Unit", "Ionic", "Packing"];
+        // If the variant key is NOT a structural keyword, assume it's a distinct chemical formula (e.g. AgBrO3)
+        if (!structuralKeywords.some(kw => variantFirstPart.includes(kw))) {
+             formulaText = variantFirstPart;
+        }
+    }
+
     // determine current language (use runtime global or fallback to localStorage / navigator)
     // reuse `currentLang` declared earlier for label translations
     // choose display name: prefer data.nameEN/nameCN if available
+    const keyParts = (data.fullKey || key).split('|');
     let nameText = '';
     if (currentLang === 'en') {
-        nameText = data.nameEN || data.nameCN || (keyParts.length>1? keyParts[1] : '') || '';
+        if (data.nameEN) {
+            nameText = data.nameEN;
+        } else if (data.nameCN && COMMON_EN_NAMES[data.nameCN]) {
+            nameText = COMMON_EN_NAMES[data.nameCN];
+        } else {
+            nameText = data.nameCN || (keyParts.length > 1 ? keyParts[1] : '') || '';
+            if (COMMON_EN_NAMES[nameText]) nameText = COMMON_EN_NAMES[nameText];
+        }
+        // Force lowercase for main molecule name in English mode
+        if (nameText) nameText = nameText.toLowerCase(); 
     } else {
-        nameText = data.nameCN || data.nameEN || (keyParts.length>1? keyParts[1] : '') || '';
+        nameText = data.nameCN || data.nameEN || (keyParts.length > 1 ? keyParts[1] : '') || '';
     }
     if(formulaEl) formulaEl.innerHTML = formatFormula(formulaText);
     if(nameEl) nameEl.textContent = nameText;
@@ -4058,32 +4347,60 @@ function loadMolecule(key, variantKey = null) {
     if (dispFormulaEl) dispFormulaEl.innerHTML = formatFormula(formulaText);
     const dispCenterEl = document.getElementById("disp-center");
     if (dispCenterEl) dispCenterEl.textContent = nameText;
+    
     const dispHybridEl = document.getElementById("disp-hybrid");
-    if (dispHybridEl) dispHybridEl.textContent = data.hybrid;
+    if (dispHybridEl) {
+        if (isIonic || data.isMetal) {
+            dispHybridEl.textContent = "-";
+        } else {
+            dispHybridEl.textContent = data.hybrid;
+        }
+    }
+    
     const dispShapeEl = document.getElementById("disp-shape");
     if (dispShapeEl) {
-        const shapeText = (currentLang === 'en') ? (data.shapeEN || data.shapeCN || data.shape) : (data.shapeCN || data.shapeEN || data.shape);
-        dispShapeEl.textContent = shapeText;
+        if (isIonic || data.isMetal) {
+            dispShapeEl.textContent = "-";
+        } else {
+            let shapeText = (currentLang === 'en') ? (data.shapeEN || data.shapeCN || data.shape) : (data.shapeCN || data.shapeEN || data.shape);
+            if (currentLang === 'en' && shapeText) shapeText = shapeText.toLowerCase();
+            dispShapeEl.textContent = shapeText;
+        }
     }
+    
     const dispAngleEl = document.getElementById("disp-angle");
-    if (dispAngleEl) dispAngleEl.textContent = data.angle;
+    if (dispAngleEl) {
+        if (isIonic || data.isMetal) {
+            dispAngleEl.textContent = "-";
+        } else {
+            dispAngleEl.textContent = data.angle;
+        }
+    }
+    
     const dispMpEl = document.getElementById("disp-mp");
     const missingText = currentLang === 'en' ? 'No data' : '無資料';
-    if (dispMpEl) dispMpEl.textContent = (data.mp && data.mp !== "-") ? `${data.mp} °C` : missingText;
+    if (dispMpEl) {
+        const val = parseFloat(data.mp);
+        dispMpEl.textContent = (data.mp && data.mp !== "-" && !isNaN(val)) ? `${Math.round(val)} °C` : missingText;
+    }
     const dispBpEl = document.getElementById("disp-bp");
-    if (dispBpEl) dispBpEl.textContent = (data.bp && data.bp !== "-") ? `${data.bp} °C` : missingText;
+    if (dispBpEl) {
+        const val = parseFloat(data.bp);
+        dispBpEl.textContent = (data.bp && data.bp !== "-" && !isNaN(val)) ? `${Math.round(val)} °C` : missingText;
+    }
     
     const bondDisp = document.getElementById("disp-bonds");
     if(bondDisp) {
-        if (isIonic) {
-            bondDisp.innerHTML = data.edgeRelation || "a = 2(r<sub>+</sub> + r<sub>-</sub>)";
+        if (isIonic || data.isMetal) {
+            bondDisp.textContent = "-";
         } else {
             let sigma = 0, pi = 0, totalLP = 0;
             if (currentMolecule.bonds3D) currentMolecule.bonds3D.forEach(b => { 
                 sigma++; if(b[2]==='double') pi++; if(b[2]==='triple') pi+=2; 
             });
             currentMolecule.renderObjects.forEach(obj => { if (obj.type === 'atom') totalLP += (obj.calculatedLP||0); });
-            bondDisp.innerHTML = `&sigma;: ${sigma} &nbsp; &pi;: ${pi} &nbsp; LP: ${totalLP}`;
+            const lpLabel = (currentLang === 'en') ? "lone pair(s)" : "LP";
+            bondDisp.innerHTML = `&sigma;: ${sigma} &nbsp; &pi;: ${pi} &nbsp; ${lpLabel}: ${totalLP}`;
         }
     }
     
@@ -4092,7 +4409,7 @@ function loadMolecule(key, variantKey = null) {
         if (isIonic && key.includes("NaCl")) totalMass = 22.99 + 35.45; 
         else data.atomsRaw.forEach(a => { totalMass += (ELEMENT_PROPS[a.elem]?.mass || 0); });
     }
-    document.getElementById("disp-mass").textContent = totalMass > 0 ? `${totalMass.toFixed(2)} g/mol` : "N/A";
+    document.getElementById("disp-mass").textContent = totalMass > 0 ? `${totalMass.toFixed(1)} g/mol` : "N/A";
     
     const subtitle = document.getElementById("viewport-subtitle");
     
@@ -4313,6 +4630,9 @@ function updateVariantUI(key, activeVariant) {
     // 清除所有舊的主題 class
     variantSelector.classList.remove('acid-theme', 'resonance-theme', 'structure-theme');
     
+    // Determine current language
+    const currentLang = (window.__APP_LANG) || localStorage.getItem('app_lang') || ((navigator.language && navigator.language.startsWith('en')) ? 'en' : 'zh');
+
     if (rootData.variants) {
         // Only show variants that share the same molecular formula as the base
         const allVariantKeys = Object.keys(rootData.variants);
@@ -4336,16 +4656,21 @@ function updateVariantUI(key, activeVariant) {
         const isStructure = visibleVariantKeys.some(vKey => vKey.includes("晶體") || vKey.includes("堆積") || vKey.includes("Crystal"));
 
         const hdr = document.createElement('div');
-        hdr.className = 'variant-header';
+        hdr.className = 'card-title large-title';
+        
+        const titleSpan = document.createElement('span');
+        titleSpan.style.textTransform = 'none';
+
         if (isResonance) {
             variantSelector.classList.add('resonance-theme');
-            hdr.textContent = '選擇共振結構 (Resonance):';
+            titleSpan.textContent = (currentLang === 'en') ? 'Select Resonance Structure' : '選擇共振結構 (Resonance)';
         } else if (isStructure) {
             variantSelector.classList.add('structure-theme');
-            hdr.textContent = '選擇結構層次 (Structure):';
+            titleSpan.textContent = (currentLang === 'en') ? 'Select Structure Level' : '選擇結構層次 (Structure)';
         } else {
-            hdr.textContent = '選擇同分異構物:';
+            titleSpan.textContent = (currentLang === 'en') ? 'Select Isomer' : '選擇同分異構物';
         }
+        hdr.appendChild(titleSpan);
         variantSelector.appendChild(hdr);
 
         // Populate only visible variants (same formula)
@@ -4357,16 +4682,47 @@ function updateVariantUI(key, activeVariant) {
             if (vKey === activeVariant) radio.checked = true;
             const span = document.createElement('span');
             const variantData = rootData.variants[vKey];
-            const fullKeyString = variantData.fullKey || vKey;
-            const parts = fullKeyString.split('|');
+            
             let labelText = "";
-            if (parts.length > 1) {
-                labelText = parts[1].trim();
-                span.textContent = ` ${labelText}`;
+            if (currentLang === 'en') {
+                // Try to use the English name if available
+                if (variantData.nameEN) {
+                    labelText = variantData.nameEN;
+                } else if (variantData.nameCN && COMMON_EN_NAMES[variantData.nameCN]) {
+                    // Try to find a translation for the Chinese name
+                    labelText = COMMON_EN_NAMES[variantData.nameCN];
+                } else {
+                    // Fallback to Chinese name or empty
+                    labelText = variantData.nameCN || "";
+                }
+
+                // If still empty, try to parse from key parts
+                if (!labelText) {
+                    const parts = (variantData.fullKey || vKey).split('|');
+                    labelText = (parts.length > 1) ? parts[1].trim() : parts[0].trim();
+                    // Check if the parsed part is in COMMON_EN_NAMES
+                    if (COMMON_EN_NAMES[labelText]) {
+                        labelText = COMMON_EN_NAMES[labelText];
+                    }
+                }
+                // Force lowercase as requested by user
+                if (labelText) labelText = labelText.toLowerCase();
             } else {
-                labelText = parts[0].trim();
-                span.innerHTML = ` ${formatFormula(labelText)}`;
+                // Chinese mode: prefer Chinese name
+                labelText = variantData.nameCN || variantData.nameEN || "";
+                if (!labelText) {
+                    const parts = (variantData.fullKey || vKey).split('|');
+                    labelText = (parts.length > 1) ? parts[1].trim() : parts[0].trim();
+                }
             }
+            
+            // If label is still empty or looks like a formula, format it
+            if (!labelText || /^[A-Z0-9]+$/.test(labelText)) {
+                 span.innerHTML = ` ${formatFormula(labelText || vKey.split('|')[0])}`;
+            } else {
+                 span.textContent = ` ${labelText}`;
+            }
+
             div.appendChild(radio); div.appendChild(span);
             div.addEventListener('click', () => loadMolecule(key, vKey));
             variantSelector.appendChild(div);
@@ -4964,7 +5320,7 @@ function animate() {
     if (!isDragging && !isReactionRunning && !isLongPressActive) {
         rotVelocity.x *= 0.96; rotVelocity.y *= 0.96; rotVelocity.z *= 0.96;
         let speed = Math.sqrt(rotVelocity.x*rotVelocity.x + rotVelocity.y*rotVelocity.y + rotVelocity.z*rotVelocity.z);
-        const MIN_SPEED = 0.004; 
+        const MIN_SPEED = 0.001; 
         const autoRotateEl = document.getElementById('toggle-auto-rotate');
         const isAutoRotateOn = autoRotateEl ? autoRotateEl.checked : true;
 
@@ -4977,7 +5333,7 @@ function animate() {
             }
             applyRotation(rotVelocity.y, rotVelocity.x, rotVelocity.z);
         } else {
-            if (isAutoRotateOn) applyRotation(0.004, 0, 0); 
+            if (isAutoRotateOn) applyRotation(0.001, 0, 0); 
         }
     }
     renderScene(time);
@@ -5006,7 +5362,10 @@ function setupInteractions() {
     const inputField = document.getElementById('formula-input');
     if (inputField) {
         inputField.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') handleLoadBtn();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleLoadBtn();
+            }
         });
     }
 
@@ -5939,18 +6298,18 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             'mode-toggle': 'Mode: Composite',
             'theme-toggle': 'Theme: Dark',
             'card-title-input': 'Enter Formula',
-            'load-btn': 'Load',
-            'lbl-lp': 'Show lone pairs',
-            'lbl-auto-rotate': 'Auto-rotate',
+            'load-btn': 'load',
+            'lbl-lp': 'show lone pairs of electrons',
+            'lbl-auto-rotate': 'auto-rotate',
             'data-card-title': 'Substance Data',
             'lbl-formula': 'Formula',
             'lbl-name': 'Name',
             'lbl-shape': 'Shape',
-            'lbl-angle': 'Bond angle',
-            'lbl-mp': 'Melting point',
-            'lbl-bp': 'Boiling point',
-            'lbl-bonds': 'Bond stats',
-            'lbl-mass': 'Molar mass'
+            'lbl-angle': 'Bond Angle',
+            'lbl-mp': 'Melting Point',
+            'lbl-bp': 'Boiling Point',
+            'lbl-bonds': 'Bond Stats',
+            'lbl-mass': 'Molar Mass'
         }
     };
 
@@ -5967,7 +6326,7 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             }
         });
         const langBtn = document.getElementById('lang-toggle');
-        if(langBtn) langBtn.textContent = (lang === 'zh' ? 'EN' : '中');
+        if(langBtn) langBtn.textContent = (lang === 'zh' ? 'English' : '繁體中文');
         window.__APP_LANG = lang;
     }
 
@@ -6011,96 +6370,124 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
     // Periodic Table Logic
     (function() {
         const elements = [
-            // Period 1
-            { num: 1, sym: "H", name: "Hydrogen", mass: "1", col: 8, row: 2, cat: "Non-metal" },
-            { num: 2, sym: "He", name: "Helium", mass: "4", col: 18, row: 2, cat: "Noble Gas" },
-            // Period 2
-            { num: 3, sym: "Li", name: "Lithium", mass: "7", col: 1, row: 3, cat: "Alkali Metal" },
-            { num: 4, sym: "Be", name: "Beryllium", mass: "9", col: 2, row: 3, cat: "Alkaline Earth" },
-            { num: 5, sym: "B", name: "Boron", mass: "11", col: 13, row: 3, cat: "Metalloid" },
-            { num: 6, sym: "C", name: "Carbon", mass: "12", col: 14, row: 3, cat: "Non-metal" },
-            { num: 7, sym: "N", name: "Nitrogen", mass: "14", col: 15, row: 3, cat: "Non-metal" },
-            { num: 8, sym: "O", name: "Oxygen", mass: "16", col: 16, row: 3, cat: "Non-metal" },
-            { num: 9, sym: "F", name: "Fluorine", mass: "19", col: 17, row: 3, cat: "Halogen" },
-            { num: 10, sym: "Ne", name: "Neon", mass: "20", col: 18, row: 3, cat: "Noble Gas" },
-            // Period 3
-            { num: 11, sym: "Na", name: "Sodium", mass: "23", col: 1, row: 4, cat: "Alkali Metal" },
-            { num: 12, sym: "Mg", name: "Magnesium", mass: "24", col: 2, row: 4, cat: "Alkaline Earth" },
-            { num: 13, sym: "Al", name: "Aluminium", mass: "27", col: 13, row: 4, cat: "Post-transition" },
-            { num: 14, sym: "Si", name: "Silicon", mass: "28", col: 14, row: 4, cat: "Metalloid" },
-            { num: 15, sym: "P", name: "Phosphorus", mass: "31", col: 15, row: 4, cat: "Non-metal" },
-            { num: 16, sym: "S", name: "Sulfur", mass: "32", col: 16, row: 4, cat: "Non-metal" },
-            { num: 17, sym: "Cl", name: "Chlorine", mass: "35.5", col: 17, row: 4, cat: "Halogen" },
-            { num: 18, sym: "Ar", name: "Argon", mass: "40", col: 18, row: 4, cat: "Noble Gas" },
-            // Period 4
-            { num: 19, sym: "K", name: "Potassium", mass: "39", col: 1, row: 5, cat: "Alkali Metal" },
-            { num: 20, sym: "Ca", name: "Calcium", mass: "40", col: 2, row: 5, cat: "Alkaline Earth" },
-            { num: 21, sym: "Sc", name: "Scandium", mass: "45", col: 3, row: 5, cat: "Transition Metal" },
-            { num: 22, sym: "Ti", name: "Titanium", mass: "48", col: 4, row: 5, cat: "Transition Metal" },
-            { num: 23, sym: "V", name: "Vanadium", mass: "51", col: 5, row: 5, cat: "Transition Metal" },
-            { num: 24, sym: "Cr", name: "Chromium", mass: "52", col: 6, row: 5, cat: "Transition Metal" },
-            { num: 25, sym: "Mn", name: "Manganese", mass: "55", col: 7, row: 5, cat: "Transition Metal" },
-            { num: 26, sym: "Fe", name: "Iron", mass: "56", col: 8, row: 5, cat: "Transition Metal" },
-            { num: 27, sym: "Co", name: "Cobalt", mass: "59", col: 9, row: 5, cat: "Transition Metal" },
-            { num: 28, sym: "Ni", name: "Nickel", mass: "59", col: 10, row: 5, cat: "Transition Metal" },
-            { num: 29, sym: "Cu", name: "Copper", mass: "63.5", col: 11, row: 5, cat: "Transition Metal" },
-            { num: 30, sym: "Zn", name: "Zinc", mass: "65", col: 12, row: 5, cat: "Transition Metal" },
-            { num: 31, sym: "Ga", name: "Gallium", mass: "70", col: 13, row: 5, cat: "Post-transition" },
-            { num: 32, sym: "Ge", name: "Germanium", mass: "73", col: 14, row: 5, cat: "Metalloid" },
-            { num: 33, sym: "As", name: "Arsenic", mass: "75", col: 15, row: 5, cat: "Metalloid" },
-            { num: 34, sym: "Se", name: "Selenium", mass: "79", col: 16, row: 5, cat: "Non-metal" },
-            { num: 35, sym: "Br", name: "Bromine", mass: "80", col: 17, row: 5, cat: "Halogen" },
-            { num: 36, sym: "Kr", name: "Krypton", mass: "84", col: 18, row: 5, cat: "Noble Gas" },
-            // Period 5
-            { num: 37, sym: "Rb", name: "Rubidium", mass: "85", col: 1, row: 6, cat: "Alkali Metal" },
-            { num: 38, sym: "Sr", name: "Strontium", mass: "88", col: 2, row: 6, cat: "Alkaline Earth" },
-            { num: 39, sym: "Y", name: "Yttrium", mass: "89", col: 3, row: 6, cat: "Transition Metal" },
-            { num: 40, sym: "Zr", name: "Zirconium", mass: "91", col: 4, row: 6, cat: "Transition Metal" },
-            { num: 41, sym: "Nb", name: "Niobium", mass: "93", col: 5, row: 6, cat: "Transition Metal" },
-            { num: 42, sym: "Mo", name: "Molybdenum", mass: "96", col: 6, row: 6, cat: "Transition Metal" },
+            { num: 1, sym: "H", name: "Hydrogen", mass: "1.008", col: 8, row: 2, cat: "Non-metal" },
+            { num: 2, sym: "He", name: "Helium", mass: "4.0026", col: 18, row: 2, cat: "Noble Gas" },
+            { num: 3, sym: "Li", name: "Lithium", mass: "6.94", col: 1, row: 3, cat: "Alkali Metal" },
+            { num: 4, sym: "Be", name: "Beryllium", mass: "9.0122", col: 2, row: 3, cat: "Alkaline Earth Metal" },
+            { num: 5, sym: "B", name: "Boron", mass: "10.81", col: 13, row: 3, cat: "Metalloid" },
+            { num: 6, sym: "C", name: "Carbon", mass: "12.011", col: 14, row: 3, cat: "Non-metal" },
+            { num: 7, sym: "N", name: "Nitrogen", mass: "14.007", col: 15, row: 3, cat: "Non-metal" },
+            { num: 8, sym: "O", name: "Oxygen", mass: "15.999", col: 16, row: 3, cat: "Non-metal" },
+            { num: 9, sym: "F", name: "Fluorine", mass: "18.998", col: 17, row: 3, cat: "Halogen" },
+            { num: 10, sym: "Ne", name: "Neon", mass: "20.180", col: 18, row: 3, cat: "Noble Gas" },
+            { num: 11, sym: "Na", name: "Sodium", mass: "22.990", col: 1, row: 4, cat: "Alkali Metal" },
+            { num: 12, sym: "Mg", name: "Magnesium", mass: "24.305", col: 2, row: 4, cat: "Alkaline Earth Metal" },
+            { num: 13, sym: "Al", name: "Aluminium", mass: "26.982", col: 13, row: 4, cat: "Post-transition Metal" },
+            { num: 14, sym: "Si", name: "Silicon", mass: "28.085", col: 14, row: 4, cat: "Metalloid" },
+            { num: 15, sym: "P", name: "Phosphorus", mass: "30.974", col: 15, row: 4, cat: "Non-metal" },
+            { num: 16, sym: "S", name: "Sulphur", mass: "32.06", col: 16, row: 4, cat: "Non-metal" },
+            { num: 17, sym: "Cl", name: "Chlorine", mass: "35.45", col: 17, row: 4, cat: "Halogen" },
+            { num: 18, sym: "Ar", name: "Argon", mass: "39.948", col: 18, row: 4, cat: "Noble Gas" },
+            { num: 19, sym: "K", name: "Potassium", mass: "39.098", col: 1, row: 5, cat: "Alkali Metal" },
+            { num: 20, sym: "Ca", name: "Calcium", mass: "40.078", col: 2, row: 5, cat: "Alkaline Earth Metal" },
+            { num: 21, sym: "Sc", name: "Scandium", mass: "44.956", col: 3, row: 5, cat: "Transition Metal" },
+            { num: 22, sym: "Ti", name: "Titanium", mass: "47.867", col: 4, row: 5, cat: "Transition Metal" },
+            { num: 23, sym: "V", name: "Vanadium", mass: "50.942", col: 5, row: 5, cat: "Transition Metal" },
+            { num: 24, sym: "Cr", name: "Chromium", mass: "51.996", col: 6, row: 5, cat: "Transition Metal" },
+            { num: 25, sym: "Mn", name: "Manganese", mass: "54.938", col: 7, row: 5, cat: "Transition Metal" },
+            { num: 26, sym: "Fe", name: "Iron", mass: "55.845", col: 8, row: 5, cat: "Transition Metal" },
+            { num: 27, sym: "Co", name: "Cobalt", mass: "58.933", col: 9, row: 5, cat: "Transition Metal" },
+            { num: 28, sym: "Ni", name: "Nickel", mass: "58.693", col: 10, row: 5, cat: "Transition Metal" },
+            { num: 29, sym: "Cu", name: "Copper", mass: "63.546", col: 11, row: 5, cat: "Transition Metal" },
+            { num: 30, sym: "Zn", name: "Zinc", mass: "65.38", col: 12, row: 5, cat: "Transition Metal" },
+            { num: 31, sym: "Ga", name: "Gallium", mass: "69.723", col: 13, row: 5, cat: "Post-transition Metal" },
+            { num: 32, sym: "Ge", name: "Germanium", mass: "72.630", col: 14, row: 5, cat: "Metalloid" },
+            { num: 33, sym: "As", name: "Arsenic", mass: "74.922", col: 15, row: 5, cat: "Metalloid" },
+            { num: 34, sym: "Se", name: "Selenium", mass: "78.971", col: 16, row: 5, cat: "Non-metal" },
+            { num: 35, sym: "Br", name: "Bromine", mass: "79.904", col: 17, row: 5, cat: "Halogen" },
+            { num: 36, sym: "Kr", name: "Krypton", mass: "83.798", col: 18, row: 5, cat: "Noble Gas" },
+            { num: 37, sym: "Rb", name: "Rubidium", mass: "85.468", col: 1, row: 6, cat: "Alkali Metal" },
+            { num: 38, sym: "Sr", name: "Strontium", mass: "87.62", col: 2, row: 6, cat: "Alkaline Earth Metal" },
+            { num: 39, sym: "Y", name: "Yttrium", mass: "88.906", col: 3, row: 6, cat: "Transition Metal" },
+            { num: 40, sym: "Zr", name: "Zirconium", mass: "91.224", col: 4, row: 6, cat: "Transition Metal" },
+            { num: 41, sym: "Nb", name: "Niobium", mass: "92.906", col: 5, row: 6, cat: "Transition Metal" },
+            { num: 42, sym: "Mo", name: "Molybdenum", mass: "95.95", col: 6, row: 6, cat: "Transition Metal" },
             { num: 43, sym: "Tc", name: "Technetium", mass: "[98]", col: 7, row: 6, cat: "Transition Metal" },
-            { num: 44, sym: "Ru", name: "Ruthenium", mass: "101", col: 8, row: 6, cat: "Transition Metal" },
-            { num: 45, sym: "Rh", name: "Rhodium", mass: "103", col: 9, row: 6, cat: "Transition Metal" },
-            { num: 46, sym: "Pd", name: "Palladium", mass: "106", col: 10, row: 6, cat: "Transition Metal" },
-            { num: 47, sym: "Ag", name: "Silver", mass: "108", col: 11, row: 6, cat: "Transition Metal" },
-            { num: 48, sym: "Cd", name: "Cadmium", mass: "112", col: 12, row: 6, cat: "Transition Metal" },
-            { num: 49, sym: "In", name: "Indium", mass: "115", col: 13, row: 6, cat: "Post-transition" },
-            { num: 50, sym: "Sn", name: "Tin", mass: "119", col: 14, row: 6, cat: "Post-transition" },
-            { num: 51, sym: "Sb", name: "Antimony", mass: "122", col: 15, row: 6, cat: "Metalloid" },
-            { num: 52, sym: "Te", name: "Tellurium", mass: "128", col: 16, row: 6, cat: "Metalloid" },
-            { num: 53, sym: "I", name: "Iodine", mass: "127", col: 17, row: 6, cat: "Halogen" },
-            { num: 54, sym: "Xe", name: "Xenon", mass: "131", col: 18, row: 6, cat: "Noble Gas" },
-            // Period 6
-            { num: 55, sym: "Cs", name: "Caesium", mass: "133", col: 1, row: 7, cat: "Alkali Metal" },
-            { num: 56, sym: "Ba", name: "Barium", mass: "137", col: 2, row: 7, cat: "Alkaline Earth" },
-            { num: 57, sym: "La*", name: "Lanthanum", mass: "139", col: 3, row: 7, cat: "Lanthanide" },
-            { num: 72, sym: "Hf", name: "Hafnium", mass: "178", col: 4, row: 7, cat: "Transition Metal" },
-            { num: 73, sym: "Ta", name: "Tantalum", mass: "181", col: 5, row: 7, cat: "Transition Metal" },
-            { num: 74, sym: "W", name: "Tungsten", mass: "184", col: 6, row: 7, cat: "Transition Metal" },
-            { num: 75, sym: "Re", name: "Rhenium", mass: "186", col: 7, row: 7, cat: "Transition Metal" },
-            { num: 76, sym: "Os", name: "Osmium", mass: "190", col: 8, row: 7, cat: "Transition Metal" },
-            { num: 77, sym: "Ir", name: "Iridium", mass: "192", col: 9, row: 7, cat: "Transition Metal" },
-            { num: 78, sym: "Pt", name: "Platinum", mass: "195", col: 10, row: 7, cat: "Transition Metal" },
-            { num: 79, sym: "Au", name: "Gold", mass: "197", col: 11, row: 7, cat: "Transition Metal" },
-            { num: 80, sym: "Hg", name: "Mercury", mass: "201", col: 12, row: 7, cat: "Transition Metal" },
-            { num: 81, sym: "Tl", name: "Thallium", mass: "204", col: 13, row: 7, cat: "Post-transition" },
-            { num: 82, sym: "Pb", name: "Lead", mass: "207", col: 14, row: 7, cat: "Post-transition" },
-            { num: 83, sym: "Bi", name: "Bismuth", mass: "209", col: 15, row: 7, cat: "Post-transition" },
-            { num: 84, sym: "Po", name: "Polonium", mass: "[209]", col: 16, row: 7, cat: "Metalloid" },
+            { num: 44, sym: "Ru", name: "Ruthenium", mass: "101.07", col: 8, row: 6, cat: "Transition Metal" },
+            { num: 45, sym: "Rh", name: "Rhodium", mass: "102.91", col: 9, row: 6, cat: "Transition Metal" },
+            { num: 46, sym: "Pd", name: "Palladium", mass: "106.42", col: 10, row: 6, cat: "Transition Metal" },
+            { num: 47, sym: "Ag", name: "Silver", mass: "107.87", col: 11, row: 6, cat: "Transition Metal" },
+            { num: 48, sym: "Cd", name: "Cadmium", mass: "112.41", col: 12, row: 6, cat: "Transition Metal" },
+            { num: 49, sym: "In", name: "Indium", mass: "114.82", col: 13, row: 6, cat: "Post-transition Metal" },
+            { num: 50, sym: "Sn", name: "Tin", mass: "118.71", col: 14, row: 6, cat: "Post-transition Metal" },
+            { num: 51, sym: "Sb", name: "Antimony", mass: "121.76", col: 15, row: 6, cat: "Metalloid" },
+            { num: 52, sym: "Te", name: "Tellurium", mass: "127.60", col: 16, row: 6, cat: "Metalloid" },
+            { num: 53, sym: "I", name: "Iodine", mass: "126.90", col: 17, row: 6, cat: "Halogen" },
+            { num: 54, sym: "Xe", name: "Xenon", mass: "131.29", col: 18, row: 6, cat: "Noble Gas" },
+            { num: 55, sym: "Cs", name: "Caesium", mass: "132.91", col: 1, row: 7, cat: "Alkali Metal" },
+            { num: 56, sym: "Ba", name: "Barium", mass: "137.33", col: 2, row: 7, cat: "Alkaline Earth Metal" },
+            { num: 72, sym: "Hf", name: "Hafnium", mass: "178.49", col: 4, row: 7, cat: "Transition Metal" },
+            { num: 73, sym: "Ta", name: "Tantalum", mass: "180.95", col: 5, row: 7, cat: "Transition Metal" },
+            { num: 74, sym: "W", name: "Tungsten", mass: "183.84", col: 6, row: 7, cat: "Transition Metal" },
+            { num: 75, sym: "Re", name: "Rhenium", mass: "186.21", col: 7, row: 7, cat: "Transition Metal" },
+            { num: 76, sym: "Os", name: "Osmium", mass: "190.23", col: 8, row: 7, cat: "Transition Metal" },
+            { num: 77, sym: "Ir", name: "Iridium", mass: "192.22", col: 9, row: 7, cat: "Transition Metal" },
+            { num: 78, sym: "Pt", name: "Platinum", mass: "195.08", col: 10, row: 7, cat: "Transition Metal" },
+            { num: 79, sym: "Au", name: "Gold", mass: "196.97", col: 11, row: 7, cat: "Transition Metal" },
+            { num: 80, sym: "Hg", name: "Mercury", mass: "200.59", col: 12, row: 7, cat: "Transition Metal" },
+            { num: 81, sym: "Tl", name: "Thallium", mass: "204.38", col: 13, row: 7, cat: "Post-transition Metal" },
+            { num: 82, sym: "Pb", name: "Lead", mass: "207.2", col: 14, row: 7, cat: "Post-transition Metal" },
+            { num: 83, sym: "Bi", name: "Bismuth", mass: "208.98", col: 15, row: 7, cat: "Post-transition Metal" },
+            { num: 84, sym: "Po", name: "Polonium", mass: "[209]", col: 16, row: 7, cat: "Post-transition Metal" },
             { num: 85, sym: "At", name: "Astatine", mass: "[210]", col: 17, row: 7, cat: "Halogen" },
             { num: 86, sym: "Rn", name: "Radon", mass: "[222]", col: 18, row: 7, cat: "Noble Gas" },
-            // Period 7
             { num: 87, sym: "Fr", name: "Francium", mass: "[223]", col: 1, row: 8, cat: "Alkali Metal" },
-            { num: 88, sym: "Ra", name: "Radium", mass: "[226]", col: 2, row: 8, cat: "Alkaline Earth" },
-            { num: 89, sym: "Ac*", name: "Actinium", mass: "[227]", col: 3, row: 8, cat: "Actinide" },
-            { num: 104, sym: "Rf", name: "Ruther.", mass: "[261]", col: 4, row: 8, cat: "Transition Metal" },
-            { num: 105, sym: "Db", name: "Dubnium", mass: "[262]", col: 5, row: 8, cat: "Transition Metal" },
-            { num: 106, sym: "Sg", name: "Seaborg.", mass: "[266]", col: 6, row: 8, cat: "Transition Metal" },
-            { num: 107, sym: "Bh", name: "Bohrium", mass: "[264]", col: 7, row: 8, cat: "Transition Metal" },
-            { num: 108, sym: "Hs", name: "Hassium", mass: "[277]", col: 8, row: 8, cat: "Transition Metal" },
-            { num: 109, sym: "Mt", name: "Meitner.", mass: "[268]", col: 9, row: 8, cat: "Unknown" },
-            { num: 110, sym: "Ds", name: "Darmst.", mass: "[271]", col: 10, row: 8, cat: "Unknown" },
-            { num: 111, sym: "Rg", name: "Roent.", mass: "[272]", col: 11, row: 8, cat: "Unknown" },
+            { num: 88, sym: "Ra", name: "Radium", mass: "[226]", col: 2, row: 8, cat: "Alkaline Earth Metal" },
+            { num: 104, sym: "Rf", name: "Rutherfordium", mass: "[267]", col: 4, row: 8, cat: "Transition Metal" },
+            { num: 105, sym: "Db", name: "Dubnium", mass: "[268]", col: 5, row: 8, cat: "Transition Metal" },
+            { num: 106, sym: "Sg", name: "Seaborgium", mass: "[269]", col: 6, row: 8, cat: "Transition Metal" },
+            { num: 107, sym: "Bh", name: "Bohrium", mass: "[270]", col: 7, row: 8, cat: "Transition Metal" },
+            { num: 108, sym: "Hs", name: "Hassium", mass: "[269]", col: 8, row: 8, cat: "Transition Metal" },
+            { num: 109, sym: "Mt", name: "Meitnerium", mass: "[278]", col: 9, row: 8, cat: "Unknown" },
+            { num: 110, sym: "Ds", name: "Darmstadtium", mass: "[281]", col: 10, row: 8, cat: "Unknown" },
+            { num: 111, sym: "Rg", name: "Roentgenium", mass: "[282]", col: 11, row: 8, cat: "Unknown" },
+            { num: 112, sym: "Cn", name: "Copernicium", mass: "[285]", col: 12, row: 8, cat: "Transition Metal" },
+            { num: 113, sym: "Nh", name: "Nihonium", mass: "[286]", col: 13, row: 8, cat: "Unknown" },
+            { num: 114, sym: "Fl", name: "Flerovium", mass: "[289]", col: 14, row: 8, cat: "Unknown" },
+            { num: 115, sym: "Mc", name: "Moscovium", mass: "[290]", col: 15, row: 8, cat: "Unknown" },
+            { num: 116, sym: "Lv", name: "Livermorium", mass: "[293]", col: 16, row: 8, cat: "Unknown" },
+            { num: 117, sym: "Ts", name: "Tennessine", mass: "[294]", col: 17, row: 8, cat: "Unknown" },
+            { num: 118, sym: "Og", name: "Oganesson", mass: "[294]", col: 18, row: 8, cat: "Unknown" },
+            { num: 57, sym: "La", name: "Lanthanum", mass: "138.91", col: 4, row: 10, cat: "Lanthanide" },
+            { num: 58, sym: "Ce", name: "Cerium", mass: "140.12", col: 5, row: 10, cat: "Lanthanide" },
+            { num: 59, sym: "Pr", name: "Praseodymium", mass: "140.91", col: 6, row: 10, cat: "Lanthanide" },
+            { num: 60, sym: "Nd", name: "Neodymium", mass: "144.24", col: 7, row: 10, cat: "Lanthanide" },
+            { num: 61, sym: "Pm", name: "Promethium", mass: "[145]", col: 8, row: 10, cat: "Lanthanide" },
+            { num: 62, sym: "Sm", name: "Samarium", mass: "150.36", col: 9, row: 10, cat: "Lanthanide" },
+            { num: 63, sym: "Eu", name: "Europium", mass: "151.96", col: 10, row: 10, cat: "Lanthanide" },
+            { num: 64, sym: "Gd", name: "Gadolinium", mass: "157.25", col: 11, row: 10, cat: "Lanthanide" },
+            { num: 65, sym: "Tb", name: "Terbium", mass: "158.93", col: 12, row: 10, cat: "Lanthanide" },
+            { num: 66, sym: "Dy", name: "Dysprosium", mass: "162.50", col: 13, row: 10, cat: "Lanthanide" },
+            { num: 67, sym: "Ho", name: "Holmium", mass: "164.93", col: 14, row: 10, cat: "Lanthanide" },
+            { num: 68, sym: "Er", name: "Erbium", mass: "167.26", col: 15, row: 10, cat: "Lanthanide" },
+            { num: 69, sym: "Tm", name: "Thulium", mass: "168.93", col: 16, row: 10, cat: "Lanthanide" },
+            { num: 70, sym: "Yb", name: "Ytterbium", mass: "173.05", col: 17, row: 10, cat: "Lanthanide" },
+            { num: 71, sym: "Lu", name: "Lutetium", mass: "174.97", col: 18, row: 10, cat: "Lanthanide" },
+            { num: 89, sym: "Ac", name: "Actinium", mass: "[227]", col: 4, row: 11, cat: "Actinide" },
+            { num: 90, sym: "Th", name: "Thorium", mass: "232.04", col: 5, row: 11, cat: "Actinide" },
+            { num: 91, sym: "Pa", name: "Protactinium", mass: "231.04", col: 6, row: 11, cat: "Actinide" },
+            { num: 92, sym: "U", name: "Uranium", mass: "238.03", col: 7, row: 11, cat: "Actinide" },
+            { num: 93, sym: "Np", name: "Neptunium", mass: "[237]", col: 8, row: 11, cat: "Actinide" },
+            { num: 94, sym: "Pu", name: "Plutonium", mass: "[244]", col: 9, row: 11, cat: "Actinide" },
+            { num: 95, sym: "Am", name: "Americium", mass: "[243]", col: 10, row: 11, cat: "Actinide" },
+            { num: 96, sym: "Cm", name: "Curium", mass: "[247]", col: 11, row: 11, cat: "Actinide" },
+            { num: 97, sym: "Bk", name: "Berkelium", mass: "[247]", col: 12, row: 11, cat: "Actinide" },
+            { num: 98, sym: "Cf", name: "Californium", mass: "[251]", col: 13, row: 11, cat: "Actinide" },
+            { num: 99, sym: "Es", name: "Einsteinium", mass: "[252]", col: 14, row: 11, cat: "Actinide" },
+            { num: 100, sym: "Fm", name: "Fermium", mass: "[257]", col: 15, row: 11, cat: "Actinide" },
+            { num: 101, sym: "Md", name: "Mendelevium", mass: "[258]", col: 16, row: 11, cat: "Actinide" },
+            { num: 102, sym: "No", name: "Nobelium", mass: "[259]", col: 17, row: 11, cat: "Actinide" },
+            { num: 103, sym: "Lr", name: "Lawrencium", mass: "[266]", col: 18, row: 11, cat: "Actinide" }
         ];
 
         const container = document.getElementById('table-container');
@@ -6132,6 +6519,42 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             container.appendChild(div);
         }
 
+        // Add Bridges (Ba to La and Ra to Ac)
+        (function() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            // Width: 3 columns (65*3) + 2 gaps (4*2) = 203
+            // Height: 4 rows (85*4) + 1 gap row (30) + 4 gaps (4*4) = 386
+            svg.setAttribute("viewBox", "0 0 203 386");
+            svg.style.gridColumn = "3 / 6";
+            svg.style.gridRow = "7 / 12";
+            svg.style.width = "100%";
+            svg.style.height = "100%";
+            svg.style.pointerEvents = "none";
+            svg.style.zIndex = "0";
+            svg.style.overflow = "visible";
+
+            // Bridge 1: Ba (Row 7) to La (Row 10)
+            // Ba right edge: x=65. La left edge: x=138.
+            // Adding 4px spacing (grid gap) on both sides: x=69 to x=134
+            const bridge1 = document.createElementNS(svgNS, "polygon");
+            bridge1.setAttribute("points", "69,0 69,85 134,297 134,212");
+            bridge1.setAttribute("fill", "#80DEEA");
+            bridge1.setAttribute("opacity", "0.5");
+            svg.appendChild(bridge1);
+
+            // Bridge 2: Ra (Row 8) to Ac (Row 11)
+            // Ra right edge: x=65. Ac left edge: x=138.
+            // Adding 4px spacing (grid gap) on both sides: x=69 to x=134
+            const bridge2 = document.createElementNS(svgNS, "polygon");
+            bridge2.setAttribute("points", "69,89 69,174 134,386 134,301");
+            bridge2.setAttribute("fill", "#82B1FF");
+            bridge2.setAttribute("opacity", "0.5");
+            svg.appendChild(bridge2);
+
+            container.appendChild(svg);
+        })();
+
         // Generate Element Boxes
         elements.forEach(el => {
             const div = document.createElement('div');
@@ -6157,9 +6580,9 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             let bgColor = '#f9f9f9';
             const catColors = {
                 "Alkali Metal": "#EF9A9A",      // More Red (Red 200)
-                "Alkaline Earth": "#FFCC80",    // Lighter Orange
+                "Alkaline Earth Metal": "#FFCC80",    // Lighter Orange
                 "Transition Metal": "#FFF59D",  // Lighter Yellow
-                "Post-transition": "#B9F6CA",   // Lighter Green
+                "Post-transition Metal": "#B9F6CA",   // Lighter Green
                 "Metalloid": "#B3E5FC",         // Lighter Sky Blue
                 "Halogen": "#F8BBD0",           // Further Lighter Pink
                 "Noble Gas": "#D1C4E9",         // Lighter Purple
@@ -6261,6 +6684,13 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             const block = el.block;
             
             const rawConfig = eData ? eData.c : '-';
+            
+            // Get extra data
+            const extra = EXTRA_ELEMENT_DATA[el.sym] || { ox: '-', en: '-', year: '-' };
+            const ox = extra.ox;
+            const en = extra.en;
+            const year = extra.year;
+
             // Superscript numbers in config
             const config = rawConfig.replace(/(\d+)([spdf])(\d+)/g, '$1$2<sup>$3</sup>');
             
@@ -6300,7 +6730,9 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
                             <div class="detail-row"><strong>Atomic No.</strong> <span class="detail-val">${atomicNum}</span></div>
                             <div class="detail-row"><strong>Relative Atomic Mass</strong> <span class="detail-val">${mass}</span></div>
                             <div class="detail-row"><strong>Category</strong> <span class="detail-val">${category}</span></div>
-                            <div class="detail-row"><strong>rtp State</strong> <span class="detail-val">${state}</span></div>
+                            <div class="detail-row"><strong>Standard State</strong> <span class="detail-val">${state}</span></div>
+                            <div class="detail-row"><strong>Oxidation States</strong> <span class="detail-val">${ox}</span></div>
+                            <div class="detail-row"><strong>Electronegativity</strong> <span class="detail-val">${en}</span></div>
                         </div>
                         <div class="detail-col">
                             <div class="detail-row"><strong>Melting Point</strong> <span class="detail-val">${mp}</span></div>
@@ -6308,6 +6740,7 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
                             <div class="detail-row"><strong>Period</strong> <span class="detail-val">${period}</span></div>
                             <div class="detail-row"><strong>Group</strong> <span class="detail-val">${group}</span></div>
                             <div class="detail-row"><strong>Block</strong> <span class="detail-val">${block}</span></div>
+                            <div class="detail-row"><strong>Year Discovered</strong> <span class="detail-val">${year}</span></div>
                         </div>
                     </div>
                     
@@ -6408,7 +6841,6 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
     const btn = document.getElementById('btn-balance');
     const errorDiv = document.getElementById('eq-error');
     const resultDiv = document.getElementById('eq-result');
-    const typeDiv = document.getElementById('eq-type');
 
     if(btn) {
         btn.addEventListener('click', handleBalance);
@@ -6419,666 +6851,118 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
         });
     }
 
-    // Helper functions for Organic Prediction
-    const isHalogenoalkane = (f) => {
-        if (!f.includes('C') || !f.includes('H')) return false;
-        return /(Cl|Br|I)/.test(f);
-    };
-
-    const getHalogen = (f) => {
-        const m = f.match(/(Cl|Br|I)/);
-        return m ? m[0] : null;
-    };
-
-    const generateSubstitution = (haloalkane, nucleophile) => {
-        const X = getHalogen(haloalkane);
-        if (!X) return null;
-        
-        // Simple string replacement for the halogen
-        // Note: This assumes mono-substituted for simplicity or replaces first occurrence
-        let product = haloalkane.replace(X, '');
-        let byproduct = '';
-        
-        if (nucleophile === 'OH') {
-            product += 'OH';
-            byproduct = X + '-';
-            return `${haloalkane} + OH- = ${product} + ${byproduct}`;
-        } else if (nucleophile === 'CN') {
-            product += 'CN';
-            byproduct = X + '-';
-            return `${haloalkane} + CN- = ${product} + ${byproduct}`;
-        } else if (nucleophile === 'NH3') {
-            product += 'NH2';
-            byproduct = 'NH4' + X; 
-            return `${haloalkane} + NH3 = ${product} + ${byproduct}`;
+    window.addEventListener('resize', () => {
+        if (document.querySelector('.viewport-panel[data-tool="Equation Balancer"]').style.display !== 'none') {
+            const currentEq = input.value.trim();
+            if (currentEq && resultDiv.innerHTML !== '') {
+                // Re-run handleBalance to adjust font size on resize
+                // But we don't want to re-calculate the balance, just adjust the font
+                const balancedEq = resultDiv.querySelector('.balanced-eq');
+                if (balancedEq) {
+                    let fontSize = 4.5;
+                    balancedEq.style.fontSize = fontSize + 'vh';
+                    const containerWidth = resultDiv.clientWidth - 40;
+                    while (balancedEq.scrollWidth > containerWidth && fontSize > 1.0) {
+                        fontSize -= 0.1;
+                        balancedEq.style.fontSize = fontSize + 'vh';
+                    }
+                }
+            }
         }
-        return null;
-    };
-
-    const generateElimination = (haloalkane) => {
-        // Try to parse CnHmX
-        const match = haloalkane.match(/^C(\d+)H(\d+)(Cl|Br|I)$/);
-        if (match) {
-            const n = parseInt(match[1]);
-            const h = parseInt(match[2]);
-            const X = match[3];
-            // Alkene is CnH(h-1)
-            const alkene = `C${n}H${h-1}`;
-            return `${haloalkane} + OH- = ${alkene} + H2O + ${X}-`;
-        }
-        
-        // Handle structural formats like CH3CH2Cl
-        if (haloalkane === 'CH3CH2Cl') return `CH3CH2Cl + OH- = CH2=CH2 + H2O + Cl-`;
-        if (haloalkane === 'CH3CH2Br') return `CH3CH2Br + OH- = CH2=CH2 + H2O + Br-`;
-        if (haloalkane === 'CH3CH2I') return `CH3CH2I + OH- = CH2=CH2 + H2O + I-`;
-        
-        // Fallback for unparsed but valid looking
-        if (haloalkane.endsWith('Cl') || haloalkane.endsWith('Br') || haloalkane.endsWith('I')) {
-             // Try to guess alkene by removing HX?
-             // Without strict parsing, this is hard. Return null to avoid bad guesses.
-             return null;
-        }
-        return null;
-    };
-
-    function predictProducts(eq) {
-        const parts = eq.split('+').map(s => s.trim());
-        const haloalkane = parts.find(isHalogenoalkane);
-        
-        if (!haloalkane) return [];
-        
-        const results = [];
-        
-        // Check for OH- (or NaOH/KOH)
-        if (parts.some(p => p === 'OH-' || p === 'NaOH' || p === 'KOH')) {
-            // 1. Substitution (aq)
-            const subEq = generateSubstitution(haloalkane, 'OH');
-            if (subEq) results.push({ equation: subEq, type: 'substitution_aq', desc: 'Nucleophilic Substitution (aq)' });
-            
-            // 2. Elimination (eth)
-            const elimEq = generateElimination(haloalkane);
-            if (elimEq) results.push({ equation: elimEq, type: 'elimination_eth', desc: 'Elimination (eth)' });
-        }
-        
-        // Check for CN-
-        if (parts.some(p => p === 'CN-' || p === 'KCN' || p === 'NaCN')) {
-            const subEq = generateSubstitution(haloalkane, 'CN');
-            if (subEq) results.push({ equation: subEq, type: 'substitution_eth', desc: 'Nucleophilic Substitution (eth)' });
-        }
-        
-        // Check for NH3
-        if (parts.some(p => p === 'NH3')) {
-            const subEq = generateSubstitution(haloalkane, 'NH3');
-            if (subEq) results.push({ equation: subEq, type: 'substitution_eth', desc: 'Nucleophilic Substitution (eth)' });
-        }
-        
-        return results;
-    }
+    });
 
     function handleBalance() {
         const eq = input.value.trim();
         errorDiv.textContent = '';
         resultDiv.innerHTML = '';
-        typeDiv.textContent = '';
         
         if(!eq) return;
 
         try {
-            let resultsToRender = [];
+            const res = balanceEquation(eq);
+            resultDiv.innerHTML = renderResult(res);
             
-            if (!eq.includes('=')) {
-                // Try prediction
-                const predictions = predictProducts(eq);
-                if (predictions.length > 0) {
-                    predictions.forEach(pred => {
-                        const res = balanceEquation(pred.equation);
-                        resultsToRender.push({ result: res, type: pred.type, desc: pred.desc });
-                    });
-                } else {
-                    // Fallback to normal balance (will likely fail or throw)
-                    const res = balanceEquation(eq);
-                    resultsToRender.push({ result: res, type: null, desc: null });
+            // Auto-adjust font size to fit one line
+            const balancedEq = resultDiv.querySelector('.balanced-eq');
+            if (balancedEq) {
+                let fontSize = 4.5; // Initial font size in vh
+                balancedEq.style.fontSize = fontSize + 'vh';
+                
+                const containerWidth = resultDiv.clientWidth - 40; // Subtract padding
+                // Iteratively decrease font size until it fits or reaches a minimum
+                while (balancedEq.scrollWidth > containerWidth && fontSize > 1.0) {
+                    fontSize -= 0.1;
+                    balancedEq.style.fontSize = fontSize + 'vh';
                 }
-            } else {
-                const res = balanceEquation(eq);
-                resultsToRender.push({ result: res, type: null, desc: null });
             }
-
-            // Render all results
-            resultsToRender.forEach((item, index) => {
-                if (index > 0) {
-                    const sep = document.createElement('div');
-                    sep.style.borderTop = '1px dashed rgba(255,255,255,0.2)';
-                    sep.style.margin = '20px 0';
-                    resultDiv.appendChild(sep);
-                }
-                
-                const container = document.createElement('div');
-                // Create a temporary div to render into, then move children
-                const tempDiv = document.createElement('div');
-                
-                // We need to modify renderResult to target a specific element or return HTML
-                // Since renderResult writes to resultDiv directly, we need to patch this.
-                // Let's temporarily swap resultDiv
-                const originalResultDiv = resultDiv;
-                
-                // Hack: We can't easily change renderResult's target without changing its signature everywhere.
-                // But we just changed it to accept type.
-                // Let's assume renderResult appends to resultDiv.
-                // Wait, renderResult does `resultDiv.innerHTML = ...`. This overwrites.
-                
-                // I need to change renderResult to return the HTML string instead of setting innerHTML.
-                // OR, I can set resultDiv.innerHTML for the LAST one, but that overwrites previous ones.
-                
-                // Let's modify renderResult to return the HTML string.
-                // I will do another edit to renderResult to return string.
-            });
-            
-            // Re-implementing the loop after I fix renderResult
-             resultsToRender.forEach((item, index) => {
-                if (index > 0) {
-                    resultDiv.innerHTML += `<div style="border-top: 1px dashed rgba(255,255,255,0.2); margin: 20px 0;"></div>`;
-                }
-                
-                if (item.desc) {
-                    resultDiv.innerHTML += `<div style="color: var(--accent-yellow); font-size: 0.9rem; margin-bottom: 5px;">${item.desc}</div>`;
-                }
-                
-                // Call renderResult which now (will) return string or append?
-                // I'll change renderResult to return string.
-                const html = renderResult(item.result, item.type); 
-                resultDiv.innerHTML += html;
-                
-                if (!item.type) {
-                     const type = identifyReactionType(item.result.left, item.result.right);
-                     if(type) {
-                        resultDiv.innerHTML += `<div style="margin-top:25px; font-size:1.1rem; color:var(--accent-yellow); font-family:'Noto Serif TC', serif;"><span style="font-weight:bold;">Reaction Type:</span> ${type}</div>`;
-                     }
-                }
-            });
-
         } catch (e) {
             errorDiv.textContent = e.message || "Could not balance equation.";
         }
     }
 
-    function identifyReactionType(leftParts, rightParts) {
-        const left = leftParts.map(p => p.formula);
-        const right = rightParts.map(p => p.formula);
-        const types = [];
-        
-        // Helper: Check if formula is exactly an element (e.g. O2, Fe, Cl2)
-        const isElement = (f) => /^[A-Z][a-z]?\d*$/.test(f);
-        // Helper: Check if organic (contains C and H, OR C and Halogens for fully substituted)
-        const isOrganic = (f) => {
-            const hasC = /C(?![a-z])/.test(f);
-            const hasH = /H(?![a-z])/.test(f);
-            if (hasC && hasH) return true;
-            // Allow fully halogenated hydrocarbons (e.g. CCl4, C2Br6)
-            if (hasC && !hasH && (f.includes('Cl') || f.includes('Br') || f.includes('I') || f.includes('F'))) {
-                // Exclude inorganic carbon halides with Oxygen (like COCl2) if desired, but CCl4 is fine.
-                if (!f.includes('O')) return true;
-            }
-            return false;
-        };
-        // Helper: Get unique elements in a formula
-        const getElements = (f) => {
-            const matches = f.match(/[A-Z][a-z]?/g);
-            return matches ? [...new Set(matches)] : [];
-        };
-        
-        const allFormulas = [...left, ...right];
+    function renderResult(result) {
+        const splitFormulaAndCharge = (formula) => {
+            const f = String(formula || '').replace(/−/g, '-');
+            if (!f) return { neutral: '', charge: 0 };
 
-        // --- Redox Analysis (Disproportionation / Comproportionation) ---
-        let isRedox = false;
-        let isDisproportionation = false;
-        let isComproportionation = false;
-
-        if (allFormulas.some(isElement)) {
-            isRedox = true;
-        }
-
-        const elementCounts = {}; 
-        [...left].forEach(f => {
-            getElements(f).forEach(el => {
-                if(!elementCounts[el]) elementCounts[el] = { left: 0, right: 0, leftForms: [], rightForms: [] };
-                elementCounts[el].left++;
-                elementCounts[el].leftForms.push(f);
-            });
-        });
-        [...right].forEach(f => {
-            getElements(f).forEach(el => {
-                if(!elementCounts[el]) elementCounts[el] = { left: 0, right: 0, leftForms: [], rightForms: [] };
-                elementCounts[el].right++;
-                elementCounts[el].rightForms.push(f);
-            });
-        });
-
-        // Special detection for Ammonium Nitrite/Nitrate decomposition (Internal Comproportionation)
-        // NH4NO2 -> N2 + H2O
-        if (left.length === 1 && (left[0].includes('NH4') && (left[0].includes('NO2') || left[0].includes('NO3')))) {
-             if (right.includes('N2') || right.includes('N2O')) {
-                 isComproportionation = true;
-                 isRedox = true;
-             }
-        }
-
-        for (const el in elementCounts) {
-            // Skip H and O for general redox pattern matching to avoid false positives like Acid-Base
-            // (Unless they are in elemental form like O2, H2, which is handled by isElement check above)
-            if (el === 'H' || el === 'O') continue;
-
-            const data = elementCounts[el];
-            
-            // Disproportionation: 1 Reactant -> >=2 Products (e.g. NO2 -> HNO3 + NO)
-            if (data.left === 1 && data.right >= 2) {
-                // Exclude Carbonates decomposition: Ca(HCO3)2 -> CaCO3 + CO2 + H2O (C is +4 in all)
-                if (el === 'C' && data.rightForms.some(f => f.includes('CO3') || f === 'CO2')) continue;
-                // Exclude Sulfates: MnSO4 -> K2SO4 + H2SO4 (S stays +6)
-                if (el === 'S' && data.leftForms.every(f => f.includes('SO4')) && data.rightForms.every(f => f.includes('SO4'))) continue;
-                // Exclude Phosphates
-                if (el === 'P' && data.leftForms.every(f => f.includes('PO4')) && data.rightForms.every(f => f.includes('PO4'))) continue;
-                // Exclude Nitrates (if not redox N) - e.g. Pb(NO3)2 + ... -> NaNO3 + ... (Simple exchange)
-                if (el === 'N' && data.leftForms.every(f => f.includes('NO3')) && data.rightForms.every(f => f.includes('NO3'))) continue;
-                // Exclude Ammonia Substitution: NH3 -> Amine + NH4X (N stays -3)
-                if (el === 'N' && data.leftForms.every(f => f === 'NH3')) continue;
-
-                isDisproportionation = true;
-                isRedox = true;
-            }
-            
-            // Comproportionation: >=2 Reactants -> 1 Product (e.g. KMnO4 + MnSO4 -> MnO2)
-            if (data.left >= 2 && data.right === 1) {
-                // Exclude Carbon in Organic Synthesis (e.g. Williamson Ether: CH3I + NaOCH2CH3 -> CH3OCH2CH3 + NaI)
-                // Carbon appears in 2 reactants and 1 product, but it's usually substitution/addition, not redox comproportionation.
-                if (el === 'C' && left.some(isOrganic)) continue;
-
-                isComproportionation = true;
-                isRedox = true;
-            }
-        }
-
-        if (isDisproportionation) types.push("Redox (Disproportionation)");
-        else if (isComproportionation) types.push("Redox (Comproportionation)");
-        else if (isRedox) types.push("Redox");
-
-        // 2. Combustion / Incomplete Combustion / Oxidation
-        let isCombustion = false;
-        if (left.includes('O2')) {
-            if (left.some(isOrganic)) {
-                // Organic + O2
-                const rightHasOrganic = right.some(isOrganic);
-                
-                if (right.includes('CO2') && right.includes('H2O') && !rightHasOrganic) {
-                    types.push("Complete Combustion");
-                    isCombustion = true;
-                } else if ((right.includes('C') || right.includes('CO')) && right.includes('H2O') && !rightHasOrganic) {
-                    types.push("Incomplete Combustion");
-                    isCombustion = true;
-                } else if (rightHasOrganic) {
-                    // e.g. Alcohol + O2 -> Aldehyde + H2O
-                    types.push("Oxidation");
-                    isCombustion = true; 
-                } else {
-                    // Fallback for other organic oxidations
-                    types.push("Combustion");
-                    isCombustion = true;
-                }
-            } else {
-                // Inorganic + O2 (e.g. Mg + O2)
-                types.push("Combustion");
-                isCombustion = true;
-            }
-            
-            // Ensure Redox is present if not already (Combustion is Redox)
-            if (!types.some(t => t.includes("Redox"))) types.push("Redox");
-        }
-
-        // 3. Synthesis / Addition (A + B -> C)
-        if (left.length > 1 && right.length === 1) {
-            if (left.some(isOrganic)) {
-                // Check for Haloalkane + NH3 -> Salt (Nucleophilic Substitution)
-                const hasHaloalkane = left.some(f => isOrganic(f) && /(Cl|Br|I)/.test(f));
-                const hasAmmonia = left.includes('NH3');
-
-                if (hasHaloalkane && hasAmmonia) {
-                    types.push("Nucleophilic Substitution");
-                } else {
-                    // Electrophilic Addition (Alkene + X2/HX)
-                    if (left.some(f => f === 'Br2' || f === 'Cl2' || f === 'H2' || f.startsWith('H'))) {
-                        types.push("Electrophilic Addition");
-                    }
-                    types.push("Addition");
-                }
-            } else {
-                types.push("Synthesis");
-            }
-        }
-
-        // 4. Decomposition / Elimination / Cracking (A -> B + C)
-        if (left.length === 1 && right.length > 1) {
-            types.push("Decomposition");
-            
-            if (isOrganic(left[0])) {
-                types.push("Cracking");
-                types.push("Elimination");
-            }
-        }
-
-        // 5. Displacement (A + BC -> AC + B)
-        // Exclude if identified as Combustion/Oxidation to prevent CH4 + O2 = C + H2O being Displacement
-        if (left.length === 2 && right.length === 2 && !isCombustion) {
-            const leftHasElem = left.some(isElement);
-            const rightHasElem = right.some(isElement);
-            if (leftHasElem && rightHasElem) {
-                types.push("Displacement");
-            }
-        }
-
-        // 6. Neutralisation (Acid + Base -> Salt + Water)
-        const hasWaterProd = right.includes('H2O');
-        const hasAcid = left.some(f => f.startsWith('H') && f !== 'H2O' && !f.includes('O2'));
-        const hasHydroxide = left.some(f => f.endsWith('OH') || f.includes('OH)'));
-        const hasAmmonia = left.includes('NH3');
-        
-        let isNeutralisation = false;
-        
-        if (hasAcid) {
-            if (hasHydroxide && hasWaterProd) {
-                types.push("Double Decomposition (Neutralisation)");
-                isNeutralisation = true;
-            } else if (hasAmmonia) {
-                types.push("Neutralisation");
-                isNeutralisation = true;
-            }
-        }
-
-        // 7. Double Decomposition / Precipitation
-        // Solubility Rules Implementation
-        const isSoluble = (f) => {
-            const elements = getElements(f);
-            
-            // 1. Always Soluble (No Exceptions listed)
-            // Group 1: Li, Na, K, Rb, Cs, Fr
-            if (elements.some(e => ['Li', 'Na', 'K', 'Rb', 'Cs', 'Fr'].includes(e))) return true;
-            // Ammonium (NH4+)
-            if (f.includes('NH4')) return true;
-            // Nitrates (NO3-)
-            if (f.includes('NO3')) return true;
-            // Hydrogencarbonates (HCO3-)
-            if (f.includes('HCO3')) return true;
-            // Ethanoates (CH3COO- or C2H3O2-)
-            if (f.includes('CH3COO') || f.includes('C2H3O2')) return true;
-
-            // 2. Soluble with Exceptions
-            
-            // Halides (Cl-, Br-, I-) -> Check for Ag, Pb
-            // Regex to ensure it's a halide (ends with Cl/Br/I optionally followed by number)
-            if (/(Cl|Br|I)\d*$/.test(f)) {
-                if (elements.includes('Ag') || elements.includes('Pb')) return false;
-                return true;
+            // Caret notation: SO4^2-
+            const caretMatch = f.match(/^(.*)\^(\d+)([+\-])$/);
+            if (caretMatch) {
+                const neutral = caretMatch[1];
+                const magnitude = parseInt(caretMatch[2], 10);
+                const sign = caretMatch[3] === '-' ? -1 : 1;
+                return { neutral, charge: sign * magnitude };
             }
 
-            // Sulphates (SO4 2-) -> Check for Ca, Ba, Pb
-            if (f.includes('SO4')) {
-                if (elements.includes('Ca') || elements.includes('Ba') || elements.includes('Pb')) return false;
-                return true;
+            // Parenthesis notation: SO4(2-)
+            const parenMatch = f.match(/^(.*)\((\d+)([+\-])\)$/);
+            if (parenMatch) {
+                const neutral = parenMatch[1];
+                const magnitude = parseInt(parenMatch[2], 10);
+                const sign = parenMatch[3] === '-' ? -1 : 1;
+                return { neutral, charge: sign * magnitude };
             }
 
-            // 3. Insoluble with Exceptions
-            
-            // Carbonates (CO3 2-) -> Group 1/NH4 already handled.
-            if (f.includes('CO3')) return false;
+            // Simple trailing sign(s)
+            const signMatch = f.match(/^(.*?)([+\-]+)$/);
+            if (!signMatch) return { neutral: f, charge: 0 };
 
-            // Hydroxides (OH-) -> Group 1/NH4 already handled.
-            // Exceptions: Ca, Ba
-            // Exclude Organic Alcohols (contain C and H) from this check
-            if ((f.endsWith('OH') || f.includes('(OH)')) && !isOrganic(f)) {
-                if (elements.includes('Ca') || elements.includes('Ba')) return true;
-                return false;
+            const body = signMatch[1];
+            const signs = signMatch[2];
+            const sign = signs.includes('-') ? -1 : 1;
+
+            // Monatomic ions: Fe2+, Mn2+, H+
+            const monoMatch = f.match(/^([A-Z][a-z]?)(\d*)([+\-])$/);
+            if (monoMatch) {
+                const neutral = monoMatch[1];
+                const magnitude = monoMatch[2] ? parseInt(monoMatch[2], 10) : 1;
+                const monoSign = monoMatch[3] === '-' ? -1 : 1;
+                return { neutral, charge: monoSign * magnitude };
             }
 
-            // Oxides (O2-) -> Group 1/NH4 already handled.
-            // Exceptions: Ca, Ba
-            // Check if binary oxide (Element + O)
-            if (/^[A-Z][a-z]?\d*O\d*$/.test(f)) {
-                if (elements.includes('Ca') || elements.includes('Ba')) return true;
-                return false;
-            }
-            
-            // Default to soluble if no rule matches
-            return true;
+            // Polyatomic with trailing + or - (e.g. MnO4-): treat as ±1 and KEEP digits in body.
+            return { neutral: body, charge: sign * 1 };
         };
 
-        const hasPrecipitate = right.some(f => {
-            if (f === 'H2O') return false;
-            // Common gases
-            if (['CO2', 'SO2', 'NH3', 'H2', 'O2', 'N2', 'Cl2', 'NO', 'NO2'].includes(f)) return false;
-            return !isSoluble(f);
-        });
-
-        if (left.length === 2 && right.length === 2 && !isRedox && !isCombustion && !isNeutralisation && !left.some(isOrganic)) {
-            if (hasPrecipitate) {
-                types.push("Double Decomposition (Precipitation)");
-            } else {
-                types.push("Double Decomposition");
-            }
-        } else if (hasPrecipitate && !left.some(isOrganic)) {
-            // If it's not a standard Double Decomposition (e.g. it's Redox or complex), but forms a precipitate
-            types.push("Double Decomposition (Precipitation)");
-        }
-
-        // 8. Hydrolysis (Reactant + H2O -> ...)
-        // Fix: Exclude if it's Redox (e.g. NO2 + H2O -> HNO3 + NO is Redox, not Hydrolysis)
-        if (left.includes('H2O') && right.length >= 2 && !isRedox && !isNeutralisation) {
-            types.push("Hydrolysis");
-        }
-
-        // 8. Dehydration (Organic -> ... + H2O)
-        if (right.includes('H2O') && left.some(isOrganic) && left.length === 1) {
-            types.push("Dehydration");
-        }
-
-        // 9. Substitution / Elimination (Organic)
-        if (left.some(isOrganic) && right.some(isOrganic) && left.length >= 2 && right.length >= 2) {
-            // Free Radical: Alkane + Halogen -> Haloalkane + HX
-            if (left.some(f => f === 'Cl2' || f === 'Br2' || f === 'F2' || f === 'I2') && right.some(f => f === 'HCl' || f === 'HBr' || f === 'HF' || f === 'HI')) {
-                types.push("Free-radical Substitution");
-            }
-            // Elimination: Haloalkane + Base -> Alkene + H2O + Halide
-            else if (left.some(f => /(Cl|Br|I)/.test(f)) && left.some(f => f.includes('OH') || f.includes('O')) && right.includes('H2O')) {
-                types.push("Elimination");
-            }
-            // Nucleophilic: Haloalkane + Nucleophile -> Alcohol/Ether/Nitrile/Amine/Thiol + X-
-            // Also covers Halogen Exchange (Finkelstein) and Alcohol -> Haloalkane
-            else if (left.some(f => /(Cl|Br|I)/.test(f)) && 
-                     right.some(f => f.includes('OH') || f.includes('CN') || f.includes('NH') || f.includes('SH') || (isOrganic(f) && f.includes('O')) || (isOrganic(f) && /(Cl|Br|I)/.test(f)))) {
-                types.push("Nucleophilic Substitution");
-            }
-            // Electrophilic: Benzene + ...
-            else if (left.some(f => f === 'C6H6')) {
-                types.push("Electrophilic Substitution");
-            }
-        }
-
-        // 10. Crystallisation (Formation of Hydrate)
-        if (right.some(f => f.includes('.'))) {
-            types.push("Crystallisation");
-        }
-
-        // 11. Ligand Substitution
-        const isComplex = (f) => f.startsWith('[') && f.includes(']');
-        if (left.some(isComplex) && right.some(isComplex)) {
-            types.push("Ligand Substitution");
-        }
-        
-        // Deduplicate and return
-        const uniqueTypes = [...new Set(types)];
-        return uniqueTypes.length > 0 ? uniqueTypes.join(", ") : "Reaction";
-    }
-
-    function renderResult(result, reactionType) {
-        // Helper: Check if organic (Local definition for context detection)
-        const isOrganic = (f) => {
-            const hasC = /C(?![a-z])/.test(f);
-            const hasH = /H(?![a-z])/.test(f);
-            if (hasC && hasH) return true;
-            if (hasC && !hasH && (f.includes('Cl') || f.includes('Br') || f.includes('I') || f.includes('F'))) {
-                if (!f.includes('O')) return true;
-            }
-            return false;
-        };
-
-        const leftFormulas = result.left.map(p => p.formula);
-        const rightFormulas = result.right.map(p => p.formula);
-        
-        // Detect context if not provided
-        let context = reactionType;
-        if (!context) {
-             const hasOrganicHalide = leftFormulas.some(f => isOrganic(f) && /(Cl|Br|I)/.test(f));
-             const hasCyanide = leftFormulas.some(f => f === 'CN-' || f === 'KCN' || f === 'NaCN');
-             const hasAmmonia = leftFormulas.includes('NH3');
-             const hasHydrosulfide = leftFormulas.some(f => f === 'SH-' || f === 'KSH' || f === 'NaSH');
-             const hasHydroxide = leftFormulas.some(f => f === 'OH-' || f === 'NaOH' || f === 'KOH');
-             const hasAlkoxide = leftFormulas.some(f => (f.endsWith('O-') && isOrganic(f)) || ((f.startsWith('Na') || f.startsWith('K')) && f.includes('O') && isOrganic(f)));
-             
-             if (hasOrganicHalide) {
-                 if (hasCyanide) context = 'substitution_eth';
-                 else if (hasAmmonia) context = 'substitution_eth';
-                 else if (hasHydrosulfide) context = 'substitution_eth';
-                 else if (hasAlkoxide) context = 'substitution_eth';
-                 else if (hasHydroxide) {
-                     // Elimination produces H2O. Substitution produces Alcohol.
-                     if (rightFormulas.includes('H2O')) {
-                         context = 'elimination_eth';
-                     } else {
-                         context = 'substitution_aq';
-                     }
-                 }
-             }
-        } else if (reactionType.includes('Nucleophilic Substitution')) {
-             // If identified as Nucleophilic Substitution, check for specific reagents to set context
-             const hasCyanide = leftFormulas.some(f => f.includes('CN'));
-             const hasAmmonia = leftFormulas.includes('NH3');
-             const hasHydrosulfide = leftFormulas.some(f => f.includes('SH'));
-             const hasAlkoxide = leftFormulas.some(f => (f.endsWith('O-') && isOrganic(f)) || ((f.startsWith('Na') || f.startsWith('K')) && f.includes('O') && isOrganic(f)));
-             
-             if (hasCyanide || hasAmmonia || hasHydrosulfide || hasAlkoxide) {
-                 context = 'substitution_eth';
-             }
-        }
-
-        // Helper to determine state
-        const determineState = (f) => {
-            // 0. Special Organic Context Overrides
-            if (context === 'elimination_eth' && (f === 'OH-' || f === 'NaOH' || f === 'KOH')) return 'eth';
-            if (context === 'substitution_eth') {
-                if (f === 'CN-' || f === 'KCN' || f === 'NaCN') return 'eth';
-                if (f === 'NH3') return 'eth';
-                if (f === 'SH-' || f === 'KSH' || f === 'NaSH') return 'eth';
-                // Alkoxides
-                if ((f.endsWith('O-') && isOrganic(f)) || ((f.startsWith('Na') || f.startsWith('K')) && f.includes('O') && isOrganic(f))) return 'eth';
-            }
-
-            // 1. Common Gases
-            const gases = ['H2', 'N2', 'O2', 'O3', 'F2', 'Cl2', 'He', 'Ne', 'Ar', 'Kr', 'Xe', 'Rn',
-                           'CO', 'CO2', 'SO2', 'SO3', 'NO', 'NO2', 'N2O', 'NH3', 'H2S',
-                           'CH4', 'C2H6', 'C3H8', 'C4H10', 'C2H4', 'C3H6', 'C2H2'];
-            if (gases.includes(f)) return 'g';
-
-            // 2. Common Liquids
-            const liquids = ['H2O', 'Br2', 'Hg', 'C2H5OH', 'CH3OH', 'C6H6', 'l'];
-            if (liquids.includes(f)) return 'l';
-
-            // 3. Common Solids (Elements)
-            // Single elements that are not gases/liquids are usually solids (Metals, C, S, P)
-            if (/^[A-Z][a-z]?$/.test(f) && !gases.includes(f) && !liquids.includes(f)) return 's'; 
-            if (['I2', 'C', 'S', 'P', 'P4', 'S8', 'Si', 'SiO2'].includes(f)) return 's';
-
-            // 4. Acids (Default to aq)
-            if (f === 'HCl' || f === 'HBr' || f === 'HI' || f === 'HF') return 'aq'; // Usually aq in reactions
-            if (f === 'H2SO4' || f === 'HNO3' || f === 'H3PO4' || f === 'HClO4' || f === 'CH3COOH' || f === 'H2CO3' || f === 'H2SO3' || f === 'HNO2') return 'aq';
-
-            // 4.5 Hydrates (Solids)
-            if (f.includes('.')) return 's';
-
-            // 5. Solubility Rules
-            const getElements = (formula) => {
-                const matches = formula.match(/[A-Z][a-z]?/g);
-                return matches ? [...new Set(matches)] : [];
-            };
-            const elements = getElements(f);
-
-            // --- Solubility Logic (Same as identifyReactionType) ---
-            // 1. Always Soluble
-            if (elements.some(e => ['Li', 'Na', 'K', 'Rb', 'Cs', 'Fr'].includes(e))) return 'aq';
-            if (f.includes('NH4')) return 'aq';
-            if (f.includes('NO3')) return 'aq';
-            if (f.includes('HCO3')) return 'aq';
-            if (f.includes('CH3COO') || f.includes('C2H3O2')) return 'aq';
-
-            // 2. Soluble with Exceptions
-            // Halides
-            if (/(Cl|Br|I)\d*$/.test(f)) {
-                if (elements.includes('Ag') || elements.includes('Pb')) return 's';
-                return 'aq';
-            }
-            // Sulphates
-            if (f.includes('SO4')) {
-                if (elements.includes('Ca') || elements.includes('Ba') || elements.includes('Pb')) return 's';
-                return 'aq';
-            }
-
-            // 3. Insoluble with Exceptions
-            // Carbonates
-            if (f.includes('CO3')) return 's'; // Group 1/NH4 handled above
-            // Hydroxides
-            // Exclude Organic Alcohols (contain C and H) from this check
-            if ((f.endsWith('OH') || f.includes('(OH)')) && !(f.includes('C') && f.includes('H'))) {
-                if (elements.includes('Ca') || elements.includes('Ba')) return 'aq'; // Slightly soluble -> aq
-                return 's';
-            }
-            // Oxides
-            if (/^[A-Z][a-z]?\d*O\d*$/.test(f)) {
-                if (elements.includes('Ca') || elements.includes('Ba')) return 's'; // Reacts with water, but as oxide is solid
-                return 's';
-            }
-
-            // Default for ionic-looking things?
-            // If it has metal + non-metal, assume solid if not matched above?
-            // Or assume aqueous if not matched?
-            // Let's default to 'aq' for unknown salts to be safe, or 's'?
-            // Most common salts are soluble.
-            return 'aq';
+        const formatCharge = (charge) => {
+            if (!charge) return '';
+            const sign = charge < 0 ? '-' : '+';
+            const mag = Math.abs(charge);
+            return mag === 1 ? sign : `${mag}${sign}`;
         };
 
         const formatSide = (parts) => {
             return parts.map(p => {
                 const coeffHtml = p.coeff > 1 ? `<span class="chem-coeff">${p.coeff}</span>` : '';
                 
-                let f = p.formula;
-                let base = f;
-                let charge = '';
+                const { neutral: base, charge } = splitFormulaAndCharge(p.formula);
                 
-                // Check for charge at the end (e.g., 2+, 3-, +, -)
-                // We look for a sequence of digits (optional) followed by + or - at the end of the string
-                // Also handle unicode minus sign (U+2212) which is common in copy-pasted text
-                const chargeMatch = f.match(/^(.*?)(\d*[+\-−]+)$/);
-                if (chargeMatch) {
-                    base = chargeMatch[1];
-                    charge = chargeMatch[2].replace(/−/g, '-'); // Normalize unicode minus
-                }
-                
-                // Subscript numbers in base
                 let baseHtml = '';
                 if (base.includes('.')) {
                     const split = base.split('.');
                     const salt = split[0];
                     const hydrate = split[1];
-                    
                     const saltHtml = salt.replace(/(\d+)/g, '<sub>$1</sub>');
-                    
-                    // Handle hydrate part: "5H2O" -> "5" is normal, "2" is sub
                     const match = hydrate.match(/^(\d+)(.*)/);
                     let hydrateHtml = '';
                     if (match) {
@@ -7088,33 +6972,21 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
                     } else {
                         hydrateHtml = hydrate.replace(/(\d+)/g, '<sub>$1</sub>');
                     }
-                    
                     baseHtml = `${saltHtml}<sub>.</sub>${hydrateHtml}`;
                 } else {
                     baseHtml = base.replace(/(\d+)/g, '<sub>$1</sub>');
                 }
                 
-                // Superscript charge
-                const chargeHtml = charge ? `<sup>${charge}</sup>` : '';
-                
-                const formulaHtml = baseHtml + chargeHtml;
-                
-                const state = determineState(p.formula);
-                return `<span class="chem-formula">${coeffHtml}${formulaHtml}<sub style="font-size:0.8em; color:#dcd0c0;">(${state})</sub></span>`;
+                const chargeText = formatCharge(charge);
+                const chargeHtml = chargeText ? `<sup>${chargeText}</sup>` : '';
+                return `<span class="chem-formula">${coeffHtml}${baseHtml}${chargeHtml}</span>`;
             }).join('<span style="margin:0 10px; color:#aaaaaa; font-weight:bold;">+</span>');
         };
 
         const leftHtml = formatSide(result.left);
         const rightHtml = formatSide(result.right);
         
-        let html = `<div class="balanced-eq" style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap;">${leftHtml} <span style="margin:0 15px; color:#aaaaaa; font-size:1.5rem;">➝</span> ${rightHtml}</div>`;
-
-        // Add warning for Ammonia Substitution Salt
-        if (reactionType && reactionType.includes('Nucleophilic Substitution') && rightFormulas.length === 1 && leftFormulas.includes('NH3')) {
-             html += `<div style="margin-top:5px; font-size:0.85rem; color:#e6a23c;">Note: This equation shows the formation of the ammonium salt. The full substitution reaction typically requires 2NH<sub>3</sub> to form the amine and ammonium halide.</div>`;
-        }
-
-        return html;
+        return `<div class="balanced-eq" style="display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; white-space:nowrap;">${leftHtml} <span style="margin:0 15px; color:#aaaaaa; font-size:0.8em;">➝</span> ${rightHtml}</div>`;
     }
 
     function balanceEquation(equationStr) {
@@ -7127,8 +6999,56 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
                                      .replace(/[\s\u200b\u200c\u200d\u200e\u200f]+/g, '')
                                      .replace(/−/g, '-');
 
+        const splitFormulaAndCharge = (formula) => {
+            const f = String(formula || '').replace(/−/g, '-');
+            if (!f) return { neutral: '', charge: 0 };
+
+            // Caret notation: SO4^2-
+            const caretMatch = f.match(/^(.*)\^(\d+)([+\-])$/);
+            if (caretMatch) {
+                const neutral = caretMatch[1];
+                const magnitude = parseInt(caretMatch[2], 10);
+                const sign = caretMatch[3] === '-' ? -1 : 1;
+                return { neutral, charge: sign * magnitude };
+            }
+
+            // Parenthesis notation: SO4(2-)
+            const parenMatch = f.match(/^(.*)\((\d+)([+\-])\)$/);
+            if (parenMatch) {
+                const neutral = parenMatch[1];
+                const magnitude = parseInt(parenMatch[2], 10);
+                const sign = parenMatch[3] === '-' ? -1 : 1;
+                return { neutral, charge: sign * magnitude };
+            }
+
+            // Simple trailing sign(s)
+            const signMatch = f.match(/^(.*?)([+\-]+)$/);
+            if (!signMatch) return { neutral: f, charge: 0 };
+
+            const body = signMatch[1];
+            const signs = signMatch[2];
+            const sign = signs.includes('-') ? -1 : 1;
+
+            // Monatomic ions: Fe2+, Mn2+, H+
+            const monoMatch = f.match(/^([A-Z][a-z]?)(\d*)([+\-])$/);
+            if (monoMatch) {
+                const neutral = monoMatch[1];
+                const magnitude = monoMatch[2] ? parseInt(monoMatch[2], 10) : 1;
+                const monoSign = monoMatch[3] === '-' ? -1 : 1;
+                return { neutral, charge: monoSign * magnitude };
+            }
+
+            // Polyatomic with trailing + or - (e.g. MnO4-): treat as ±1 and KEEP digits in body.
+            return { neutral: body, charge: sign * 1 };
+        };
+
         const parseSide = (sideStr) => {
-            return sideStr.split('+').map(s => s.trim()).filter(s => s).map(cleanFormula);
+            // Split only on separator pluses (typically surrounded by spaces).
+            // This avoids breaking ionic charges like H+ or Fe2+.
+            const trimmed = String(sideStr || '').trim();
+            if (!trimmed) return [];
+            const tokens = trimmed.split(/\s+\+\s+/).map(s => s.trim()).filter(Boolean);
+            return tokens.map(cleanFormula);
         };
         
         const leftMols = parseSide(sides[0]);
@@ -7140,10 +7060,9 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
         const elements = new Set();
         
         const parseFormula = (formula) => {
-            // Remove charge part for atom counting (e.g. OH- -> OH, Fe3+ -> Fe)
-            // Match end of string charge like 2+, 3-, +, -
-            const chargeRegex = /(\d*[+\-−]+)$/;
-            const neutralFormula = formula.replace(chargeRegex, '');
+            // Remove charge part for atom counting, without accidentally stripping subscripts.
+            // e.g. MnO4- must stay MnO4 (charge -1), not MnO.
+            const neutralFormula = splitFormulaAndCharge(formula).neutral;
 
             // Inner function for parsing standard molecules
             const parseSimple = (fStr) => {
@@ -7226,6 +7145,8 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             return c;
         });
 
+        const molCharges = allMols.map(f => splitFormulaAndCharge(f).charge);
+
         const elemList = Array.from(elements);
         const colCount = allMols.length;
         const rowCount = elemList.length;
@@ -7241,6 +7162,15 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             }
             matrix.push(row);
         }
+
+        // Add charge balance row
+        const chargeRow = [];
+        for(let c=0; c<colCount; c++) {
+            let val = molCharges[c];
+            if(c >= leftMols.length) val = -val;
+            chargeRow.push(val);
+        }
+        matrix.push(chargeRow);
 
         const coeffs = solveHomogeneous(matrix);
         if(!coeffs) throw new Error("no solution found");
@@ -7327,8 +7257,16 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
         };
         
         let lcm = 1;
-        const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
-        const getLcm = (a, b) => (a * b) / gcd(a, b);
+        const gcd = (a, b) => {
+            a = Math.abs(a);
+            b = Math.abs(b);
+            return b === 0 ? a : gcd(b, a % b);
+        };
+        const getLcm = (a, b) => {
+            a = Math.abs(a);
+            b = Math.abs(b);
+            return (a * b) / gcd(a, b);
+        };
         
         solution.forEach(v => {
             if(Math.abs(v) > epsilon) {
@@ -7338,11 +7276,16 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
         });
         
         const intSolution = solution.map(v => Math.round(v * lcm));
-        const overallGcd = intSolution.reduce((acc, val) => gcd(acc, val), intSolution[0]);
-        const finalSolution = intSolution.map(v => v / overallGcd);
-        
+        const overallGcd = intSolution.reduce((acc, val) => gcd(acc, val), intSolution[0] || 1);
+        let finalSolution = intSolution.map(v => v / (overallGcd || 1));
+
+        // If we found an all-negative solution, flip the sign (valid scaling for homogeneous systems).
+        if (finalSolution.every(v => v < 0)) {
+            finalSolution = finalSolution.map(v => -v);
+        }
+
         if(finalSolution.some(v => v <= 0)) return null;
-        
+
         return finalSolution;
     }
 })();
