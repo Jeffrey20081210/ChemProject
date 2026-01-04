@@ -1902,6 +1902,9 @@ const COMMON_EN_NAMES = {
     'HF': 'Hydrogen fluoride', 'HCl': 'Hydrogen chloride', 'HBr': 'Hydrogen bromide', 'HI': 'Hydrogen iodide',
     'NaCl': 'Sodium chloride', 'CsCl': 'Caesium chloride', 'ZnS': 'Zinc sulphide', 'CuCl': 'Copper(I) chloride',
     'TiO2': 'Titanium dioxide', 'Cu2O': 'Copper(I) oxide', 'CO2': 'Carbon dioxide', 'CH3OH': 'Methanol',
+    'O3': 'Ozone', 'NO2': 'Nitrogen dioxide', 'N2O': 'Nitrous oxide', 'N2O3': 'Dinitrogen trioxide',
+    'N2O4': 'Dinitrogen tetroxide', 'N2O5': 'Dinitrogen pentoxide', 'SO3': 'Sulphur trioxide',
+    'NO2+': 'Nitronium ion', 'S8': 'Sulphur',
     // Common ions and polyatomic ions (British spelling: sulph-)
     'NH4+': 'Ammonium ion', 'SO42-': 'Sulphate ion', 'HSO4-': 'hydrogensulphate', 'NO3-': 'Nitrate',
     'HSO3-': 'hydrogensulphite', 'HSO3': 'hydrogensulphite',
@@ -4174,9 +4177,9 @@ function loadMolecule(key, variantKey = null) {
     } else {
         labels.hybrid = (currentLang === 'en') ? 'Hybridization' : '混成軌域';
         labels.shape = (currentLang === 'en') ? 'Shape' : '形狀';
-        labels.angle = (currentLang === 'en') ? 'Bond angle' : '鍵角';
-        labels.bonds = (currentLang === 'en') ? 'Bond stats' : '鍵結統計';
-        labels.mass = (currentLang === 'en') ? 'Molar mass' : '分子量';
+        labels.angle = (currentLang === 'en') ? 'Bond Angle' : '鍵角';
+        labels.bonds = (currentLang === 'en') ? 'Bond Stats' : '鍵結統計';
+        labels.mass = (currentLang === 'en') ? 'Molar Mass' : '分子量';
     }
     if (lblHybrid) lblHybrid.textContent = labels.hybrid;
     if (lblShape) lblShape.textContent = labels.shape;
