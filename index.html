@@ -303,10 +303,14 @@
     .switch-label { font-size: 0.95rem; color: var(--text-main); font-weight: 600; }
 
     #variant-selector {
-        display: none; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2);
-        padding: 15px; border-radius: 12px; margin-bottom: 15px;
+        display: none; background: var(--card-glass); border: 1px solid var(--panel-border);
+        padding: 20px; border-radius: 16px; margin-bottom: 20px;
     }
-    .variant-option { padding: 5px 0; display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--accent-blue); }
+    .variant-header {
+        font-size: 1rem; font-weight: 700; color: var(--text-highlight);
+        margin-bottom: 15px; display: flex; align-items: center; gap: 10px; text-transform: none; letter-spacing: 1px;
+    }
+    .variant-option { padding: 5px 0; display: flex; align-items: center; gap: 10px; cursor: pointer; color: var(--text-main); }
 
     #variant-selector.acid-theme { background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.3); }
     #variant-selector.acid-theme .variant-header { color: #fbbf24; }
@@ -1911,27 +1915,132 @@ const COMMON_EN_NAMES = {
     'FeCl2': 'Iron(II) chloride', 'FeCl3': 'Iron(III) chloride', 'AlCl3': 'Aluminium chloride',
     'KCl': 'Potassium chloride', 'KI': 'Potassium iodide', 'KBr': 'Potassium bromide',
     'NaF': 'Sodium fluoride', 'AgCl': 'Silver chloride', 'AgBr': 'Silver bromide', 'AgI': 'Silver iodide',
-    'BaO': 'Barium oxide', 'ZnO': 'Zinc oxide', 'CuO': 'Copper(II) oxide',
-    'MgCO3': 'Magnesium carbonate', 'CaCO3': 'Calcium carbonate',
-    'NaNO3': 'Sodium nitrate', 'KNO3': 'Potassium nitrate', 'AgNO3': 'Silver nitrate',
-    'MgSO4': 'Magnesium sulphate', 'CaSO4': 'Calcium sulphate', 'BaSO4': 'Barium sulphate',
-    'CuSO4': 'Copper(II) sulphate', 'FeSO4': 'Iron(II) sulphate',
-    'NaH': 'Sodium hydride', 'AlF3': 'Aluminium fluoride',
-    'KClO3': 'Potassium chlorate', 'KClO4': 'Potassium perchlorate',
-    'NaClO3': 'Sodium chlorate', 'NH4ClO4': 'Ammonium perchlorate',
-    // Common ions and polyatomic ions (British spelling: sulph-)
-    'NH4+': 'Ammonium ion', 'SO42-': 'Sulphate ion', 'HSO4-': 'hydrogensulphate', 'NO3-': 'Nitrate',
-    'HSO3-': 'hydrogensulphite', 'HSO3': 'hydrogensulphite',
-    'H3O+': 'Hydronium ion',
-    'BRO3-': 'Bromate ion', 'BrO3-': 'Bromate ion', 'IO3-': 'Iodate ion',
-    'S2O32-': 'Thiosulphate ion',
-    'HS2O3-': 'hydrogenthiosulphate',
-    'H2PO2-': 'Hypophosphite ion', 'H2PO3-': 'hydrogenphosphite', 'H2PO4-': 'dihydrogenphosphate',
-    'HPO32-': 'Phosphite ion', 'HPO42-': 'hydrogenphosphate', 'HS-': 'hydrosulphide',
-    'CO32-': 'Carbonate ion', 'OH-': 'Hydroxide', 'PO43-': 'Phosphate ion',
-    // Sulphite (provide several common token forms)
-    'SO3^2-': 'Sulphite ion', 'SO32-': 'Sulphite ion', 'SO3 2-': 'Sulphite ion', 'SO3-': 'Sulphite ion',
-    'S2-': 'Sulphide ion', 'SO2': 'Sulphur dioxide', 'HCO3-': 'hydrogencarbonate'
+    'BaO': 'Barium oxide', 'AlBr3': 'Aluminium bromide', '共振結構': 'Resonance Structure',
+    'C3H6': 'Propene', 'CCl4': 'Carbon tetrachloride', '四氯化碳': 'Carbon tetrachloride',
+    '丙烯': 'Propene', '環丙烷': 'Cyclopropane',
+    'C2H2': 'Ethyne', '乙炔': 'Ethyne',
+    'C3H4': 'Propyne', '丙炔': 'Propyne',
+    'C4H6': 'Butyne', '1-丁炔': '1-Butyne', '2-丁炔': '2-Butyne', '1,3-丁二烯': '1,3-Butadiene', '1,2-丁二烯': '1,2-Butadiene',
+    '1,3-二氯丙烷': '1,3-Dichloropropane', '1,2-二氯丙烷': '1,2-Dichloropropane', '2,2-二氯丙烷': '2,2-Dichloropropane', '1,1-二氯丙烷': '1,1-Dichloropropane',
+    '1,3-Dichloropropane': '1,3-Dichloropropane', '1,2-Dichloropropane': '1,2-Dichloropropane', '2,2-Dichloropropane': '2,2-Dichloropropane', '1,1-Dichloropropane': '1,1-Dichloropropane',
+    '氮化硼(平面層狀)': 'Boron nitride (Layered)', '氮化硼(立體)': 'Boron nitride (Cubic)',
+    '1,3-丁二烯': '1,3-Butadiene', '1,2-丁二烯': '1,2-Butadiene', '1-丁炔': '1-Butyne', '2-丁炔': '2-Butyne',
+    '1-甲基環丙烯': '1-Methylcyclopropene', '甲基環丙烷': 'Methylcyclopropane', '環丁烷': 'Cyclobutane',
+    '順-1,2-二氯乙烯': 'cis-1,2-Dichloroethene', '反-1,2-二氯乙烯': 'trans-1,2-Dichloroethene', '1,1-二氯乙烯': '1,1-Dichloroethene',
+    '1,1,1,2-四氯乙烷': '1,1,1,2-Tetrachloroethane', '1,1,2,2-四氯乙烷': '1,1,2,2-Tetrachloroethane',
+    '鄰二甲苯': 'o-Xylene', '間二甲苯': 'm-Xylene', '對二甲苯': 'p-Xylene',
+    '1,2-乙二醇': 'Ethylene glycol', '乙二酸': 'Oxalic acid', '丙三醇': 'Glycerol',
+    '苯胺': 'Aniline', '苯酚': 'Phenol', '甲苯': 'Toluene', '乙苯': 'Ethylbenzene', '氯苯': 'Chlorobenzene', '硝基苯': 'Nitrobenzene',
+    '苯磺酸': 'Benzenesulfonic acid', '水楊酸': 'Salicylic acid', '乙醯胺基苯酚': 'Paracetamol',
+    '三硝基甲苯': 'Trinitrotoluene', 'TNT': 'TNT',
+    '乙酸甲酯': 'Methyl acetate', '乙酸乙酯': 'Ethyl acetate', '甲酸甲酯': 'Methyl formate',
+    '甲乙醚': 'Methoxyethane', '二甲醚': 'Dimethyl ether', '乙醚': 'Diethyl ether',
+    '甲醛': 'Formaldehyde', '乙醛': 'Acetaldehyde', '丙醛': 'Propionaldehyde', '丙酮': 'Acetone',
+    '甲酸': 'Formic acid', '乙酸': 'Acetic acid', '丙酸': 'Propionic acid',
+    '甲醇': 'Methanol', '乙醇': 'Ethanol', '1-丙醇': '1-Propanol', '2-丙醇': '2-Propanol',
+    '甲胺': 'Methylamine', '二甲胺': 'Dimethylamine', '三甲胺': 'Trimethylamine', '乙胺': 'Ethylamine',
+    '甲醯胺': 'Formamide', '乙醯胺': 'Acetamide', '尿素': 'Urea',
+    '葡萄糖': 'Glucose', '果糖': 'Fructose', '半乳糖': 'Galactose', '蔗糖': 'Sucrose', '麥芽糖': 'Maltose', '乳糖': 'Lactose',
+    '澱粉': 'Starch', '纖維素': 'Cellulose', '肝糖': 'Glycogen',
+    '金剛石': 'Diamond', '石墨': 'Graphite', '富勒烯': 'Fullerene', '碳60': 'Buckminsterfullerene',
+    '白磷': 'White phosphorus', '紅磷': 'Red phosphorus', '斜方硫': 'Rhombic sulphur', '單斜硫': 'Monoclinic sulphur',
+    '臭氧': 'Ozone', '氧氣': 'Oxygen',
+    '氫化鈉': 'Sodium hydride', '氫化鈣': 'Calcium hydride', '氫化鋁鋰': 'Lithium aluminium hydride', '硼氫化鈉': 'Sodium borohydride',
+    '碳化鈣': 'Calcium carbide', '電石': 'Calcium carbide',
+    '過氧化氫': 'Hydrogen peroxide', '雙氧水': 'Hydrogen peroxide',
+    '次氯酸': 'Hypochlorous acid', '亞氯酸': 'Chlorous acid', '氯酸': 'Chloric acid', '過氯酸': 'Perchloric acid',
+    '次氯酸鈉': 'Sodium hypochlorite', '亞氯酸鈉': 'Sodium chlorite', '氯酸鉀': 'Potassium chlorate', '過氯酸鉀': 'Potassium perchlorate',
+    '次氯酸鈣': 'Calcium hypochlorite', '漂白粉': 'Bleaching powder',
+    '亞硝酸': 'Nitrous acid', '硝酸': 'Nitric acid', '亞硝酸鈉': 'Sodium nitrite', '硝酸鉀': 'Potassium nitrate', '硝酸銨': 'Ammonium nitrate',
+    '亞硫酸': 'Sulphurous acid', '硫酸': 'Sulphuric acid', '亞硫酸鈉': 'Sodium sulphite', '硫酸鈉': 'Sodium sulphate', '硫代硫酸鈉': 'Sodium thiosulphate',
+    '碳酸': 'Carbonic acid', '碳酸鈉': 'Sodium carbonate', '碳酸氫鈉': 'Sodium bicarbonate', '蘇打': 'Soda ash', '小蘇打': 'Baking soda',
+    '磷酸': 'Phosphoric acid', '亞磷酸': 'Phosphorous acid', '次磷酸': 'Hypophosphorous acid',
+    '氫氧化鈉': 'Sodium hydroxide', '氫氧化鉀': 'Potassium hydroxide', '氫氧化鈣': 'Calcium hydroxide', '熟石灰': 'Slaked lime',
+    '氧化鈣': 'Calcium oxide', '生石灰': 'Quicklime',
+    '氨': 'Ammonia', '銨根': 'Ammonium', '銨離子': 'Ammonium ion',
+    '氰化鉀': 'Potassium cyanide', '氰化鈉': 'Sodium cyanide',
+    '高錳酸鉀': 'Potassium permanganate', '重鉻酸鉀': 'Potassium dichromate', '鉻酸鉀': 'Potassium chromate',
+    '草酸': 'Oxalic acid', '草酸鈉': 'Sodium oxalate',
+    '肥皂': 'Soap', '硬脂酸鈉': 'Sodium stearate',
+    '甘油': 'Glycerol', '硝化甘油': 'Nitroglycerin',
+    '阿斯匹靈': 'Aspirin', '乙醯水楊酸': 'Acetylsalicylic acid',
+    '味精': 'MSG', '麩胺酸鈉': 'Monosodium glutamate',
+    '聚乙烯': 'Polyethylene', '聚氯乙烯': 'Polyvinyl chloride', '聚苯乙烯': 'Polystyrene', '聚丙烯': 'Polypropylene',
+    '鐵氟龍': 'Teflon', '聚四氟乙烯': 'Polytetrafluoroethylene',
+    '尼龍': 'Nylon', '達克綸': 'Dacron', '奧龍': 'Orlon',
+    '天然橡膠': 'Natural rubber', '異戊二烯': 'Isoprene', '氯丁橡膠': 'Neoprene', '丁苯橡膠': 'SBR',
+    '電木': 'Bakelite', '酚醛樹脂': 'Phenol-formaldehyde resin',
+    '尿素甲醛樹脂': 'Urea-formaldehyde resin',
+    '矽氧樹脂': 'Silicone',
+    '玻璃': 'Glass', '水泥': 'Cement', '陶瓷': 'Ceramics',
+    '光氣': 'Phosgene', '芥子氣': 'Mustard gas',
+    '路易士氣': 'Lewisite',
+    '橙劑': 'Agent Orange', '戴奧辛': 'Dioxin',
+    '多氯聯苯': 'PCB',
+    '氟利昂': 'Freon', '海龍': 'Halon',
+    'DDT': 'DDT', 'BHC': 'BHC',
+    '三聚氰胺': 'Melamine',
+    '塑化劑': 'Plasticizer', '鄰苯二甲酸酯': 'Phthalate',
+    '雙酚A': 'Bisphenol A',
+    '黃麴毒素': 'Aflatoxin',
+    '肉毒桿菌毒素': 'Botulinum toxin',
+    '河豚毒素': 'Tetrodotoxin',
+    '氰化物': 'Cyanide',
+    '砒霜': 'Arsenic trioxide', '三氧化二砷': 'Arsenic trioxide',
+    '硃砂': 'Cinnabar', '硫化汞': 'Mercury(II) sulphide',
+    '雄黃': 'Realgar', '四硫化四砷': 'Tetraarsenic tetrasulphide',
+    '雌黃': 'Orpiment', '三硫化二砷': 'Arsenic trisulphide',
+    '膽礬': 'Blue vitriol', '五水合硫酸銅': 'Copper(II) sulphate pentahydrate',
+    '綠礬': 'Green vitriol', '七水合硫酸亞鐵': 'Iron(II) sulphate heptahydrate',
+    '皓礬': 'White vitriol', '七水合硫酸鋅': 'Zinc sulphate heptahydrate',
+    '明礬': 'Alum', '十二水合硫酸鋁鉀': 'Potassium aluminium sulphate dodecahydrate',
+    '石膏': 'Gypsum', '二水合硫酸鈣': 'Calcium sulphate dihydrate',
+    '熟石膏': 'Plaster of Paris', '半水合硫酸鈣': 'Calcium sulphate hemihydrate',
+    '瀉鹽': 'Epsom salt', '七水合硫酸鎂': 'Magnesium sulphate heptahydrate',
+    '大理石': 'Marble', '方解石': 'Calcite', '石灰岩': 'Limestone', '白堊': 'Chalk',
+    '赤鐵礦': 'Hematite', '磁鐵礦': 'Magnetite', '黃鐵礦': 'Pyrite', '褐鐵礦': 'Limonite', '菱鐵礦': 'Siderite',
+    '鋁土礦': 'Bauxite', '冰晶石': 'Cryolite', '六氟鋁酸鈉': 'Sodium hexafluoroaluminate',
+    '孔雀石': 'Malachite', '藍銅礦': 'Azurite', '輝銅礦': 'Chalcocite', '黃銅礦': 'Chalcopyrite',
+    '方鉛礦': 'Galena', '白鉛礦': 'Cerussite',
+    '閃鋅礦': 'Sphalerite', '菱鋅礦': 'Smithsonite',
+    '辰砂': 'Cinnabar',
+    '軟錳礦': 'Pyrolusite',
+    '金紅石': 'Rutile', '鈦鐵礦': 'Ilmenite',
+    '錫石': 'Cassiterite',
+    '黑鎢礦': 'Wolframite', '白鎢礦': 'Scheelite',
+    '瀝青鈾礦': 'Pitchblende',
+    '獨居石': 'Monazite',
+    '磷灰石': 'Apatite',
+    '螢石': 'Fluorite',
+    '重晶石': 'Barite',
+    '天青石': 'Celestite',
+    '石英': 'Quartz', '水晶': 'Crystal', '瑪瑙': 'Agate', '燧石': 'Flint', '矽藻土': 'Diatomaceous earth',
+    '長石': 'Feldspar', '雲母': 'Mica', '滑石': 'Talc', '高嶺土': 'Kaolin', '石棉': 'Asbestos', '沸石': 'Zeolite',
+    '剛玉': 'Corundum', '紅寶石': 'Ruby', '藍寶石': 'Sapphire', '綠寶石': 'Emerald', '金綠寶石': 'Chrysoberyl', '貓眼石': 'Cat\'s eye', '變石': 'Alexandrite',
+    '拓帕石': 'Topaz', '黃玉': 'Topaz',
+    '鋯石': 'Zircon',
+    '石榴石': 'Garnet',
+    '橄欖石': 'Peridot',
+    '碧璽': 'Tourmaline', '電氣石': 'Tourmaline',
+    '玉': 'Jade', '硬玉': 'Jadeite', '軟玉': 'Nephrite', '翡翠': 'Jadeite',
+    '珍珠': 'Pearl', '珊瑚': 'Coral', '琥珀': 'Amber', '煤精': 'Jet',
+    '煤炭': 'Coal', '石油': 'Petroleum', '天然氣': 'Natural gas',
+    '空氣': 'Air', '水': 'Water', '土壤': 'Soil', '岩石': 'Rock', '礦物': 'Mineral',
+    '金屬': 'Metal', '非金屬': 'Non-metal', '類金屬': 'Metalloid',
+    '合金': 'Alloy', '鋼': 'Steel', '不鏽鋼': 'Stainless steel', '黃銅': 'Brass', '青銅': 'Bronze', '白銅': 'Cupronickel', '洋銀': 'Nickel silver',
+    '硬鋁': 'Duralumin', '鎂鋁合金': 'Magnalium',
+    '焊錫': 'Solder', '鉛錫合金': 'Lead-tin alloy',
+    '伍德合金': 'Wood\'s metal',
+    '汞齊': 'Amalgam',
+    'K金': 'Karat gold', '白金': 'Platinum', '銀': 'Silver', '銅': 'Copper', '鐵': 'Iron', '鋁': 'Aluminium', '錫': 'Tin', '鉛': 'Lead', '鋅': 'Zinc', '鎳': 'Nickel', '鉻': 'Chromium', '錳': 'Manganese', '鈦': 'Titanium', '鎢': 'Tungsten', '鉬': 'Molybdenum', '釩': 'Vanadium', '鈷': 'Cobalt', '鎘': 'Cadmium', '汞': 'Mercury', '金': 'Gold',
+    '氫': 'Hydrogen', '氦': 'Helium', '鋰': 'Lithium', '鈹': 'Beryllium', '硼': 'Boron', '碳': 'Carbon', '氮': 'Nitrogen', '氧': 'Oxygen', '氟': 'Fluorine', '氖': 'Neon',
+    '鈉': 'Sodium', '鎂': 'Magnesium', '鋁': 'Aluminium', '矽': 'Silicon', '磷': 'Phosphorus', '硫': 'Sulphur', '氯': 'Chlorine', '氬': 'Argon',
+    '鉀': 'Potassium', '鈣': 'Calcium', '鈧': 'Scandium', '鈦': 'Titanium', '釩': 'Vanadium', '鉻': 'Chromium', '錳': 'Manganese', '鐵': 'Iron', '鈷': 'Cobalt', '鎳': 'Nickel', '銅': 'Copper', '鋅': 'Zinc', '鎵': 'Gallium', '鍺': 'Germanium', '砷': 'Arsenic', '硒': 'Selenium', '溴': 'Bromine', '氪': 'Krypton',
+    '銣': 'Rubidium', '鍶': 'Strontium', '釔': 'Yttrium', '鋯': 'Zirconium', '鈮': 'Niobium', '鉬': 'Molybdenum', '鎝': 'Technetium', '釕': 'Ruthenium', '銠': 'Rhodium', '鈀': 'Palladium', '銀': 'Silver', '鎘': 'Cadmium', '銦': 'Indium', '錫': 'Tin', '銻': 'Antimony', '碲': 'Tellurium', '碘': 'Iodine', '氙': 'Xenon',
+    '銫': 'Caesium', '鋇': 'Barium', '鑭': 'Lanthanum', '鈰': 'Cerium', '鐠': 'Praseodymium', '釹': 'Neodymium', '鉕': 'Promethium', '釤': 'Samarium', '銪': 'Europium', '釓': 'Gadolinium', '鋱': 'Terbium', '鏑': 'Dysprosium', '鈥': 'Holmium', '鉺': 'Erbium', '銩': 'Thulium', '鐿': 'Ytterbium', '鎦': 'Lutetium',
+    '鉿': 'Hafnium', '鉭': 'Tantalum', '鎢': 'Tungsten', '錸': 'Rhenium', '鋨': 'Osmium', '銥': 'Iridium', '鉑': 'Platinum', '金': 'Gold', '汞': 'Mercury', '鉈': 'Thallium', '鉛': 'Lead', '鉍': 'Bismuth', '釙': 'Polonium', '砈': 'Astatine', '氡': 'Radon',
+    '鍅': 'Francium', '鐳': 'Radium', '錒': 'Actinium', '釷': 'Thorium', '鏷': 'Protactinium', '鈾': 'Uranium', '錼': 'Neptunium', '鈽': 'Plutonium', '鋂': 'Americium', '鋦': 'Curium', '鉳': 'Berkelium', '鉲': 'Californium', '鑀': 'Einsteinium', '鐨': 'Fermium', '鍆': 'Mendelevium', '鍩': 'Nobelium', '鐒': 'Lawrencium',
+    '鑪': 'Rutherfordium', '杜': 'Dubnium', '𨭎': 'Seaborgium', '波': 'Bohrium', '黑': 'Hassium', '麥': 'Meitnerium', '鐽': 'Darmstadtium', '錀': 'Roentgenium', '鎶': 'Copernicium', '鉨': 'Nihonium', '鈇': 'Flerovium', '鏌': 'Moscovium', '鉝': 'Livermorium', '石田': 'Tennessine', '氣奧': 'Oganesson'
 };
 
 // 主註冊函式 (已修改：直接使用傳入的 hybrid 字串，不添加贅字)
@@ -1998,6 +2107,10 @@ const addMol = (keysStr, center, hybrid, shape, angle, mp, bp, atoms, bonds, var
                     else if (!vNameCN && !/[A-Za-z]/.test(p)) vNameCN = p;
                 }
                 if(!vNameCN) vNameCN = baseData.nameCN;
+                // Try to find English name from Chinese name if not provided
+                if (!vNameEN && vNameCN && COMMON_EN_NAMES[vNameCN]) {
+                    vNameEN = COMMON_EN_NAMES[vNameCN];
+                }
                 if(!vNameEN) {
                     const rawVariant = vKeys[0] ? String(vKeys[0]) : '';
                     const variantFormula = rawVariant.replace(/\s/g,'').replace(/\^/g,'').toUpperCase();
@@ -4197,18 +4310,36 @@ function loadMolecule(key, variantKey = null) {
 
     const formulaEl = document.getElementById('info-formula');
     const nameEl = document.getElementById('info-name');
-    // [Fix] Always use the main key for formula display to avoid variant names (e.g. "Simple") appearing as formula
-    const keyParts = key.split('|');
-    let formulaText = keyParts[0];
+    
+    // [Fix] Determine formula text: use variant key if it's a chemical substance, otherwise use main key
+    let formulaText = key.split('|')[0];
+    if (data.fullKey) {
+        const variantFirstPart = data.fullKey.split('|')[0].trim();
+        const structuralKeywords = ["Simple", "Crystal", "Basic Unit", "Ionic", "Packing"];
+        // If the variant key is NOT a structural keyword, assume it's a distinct chemical formula (e.g. AgBrO3)
+        if (!structuralKeywords.some(kw => variantFirstPart.includes(kw))) {
+             formulaText = variantFirstPart;
+        }
+    }
+
     // determine current language (use runtime global or fallback to localStorage / navigator)
     // reuse `currentLang` declared earlier for label translations
     // choose display name: prefer data.nameEN/nameCN if available
+    const keyParts = (data.fullKey || key).split('|');
     let nameText = '';
     if (currentLang === 'en') {
-        nameText = data.nameEN || data.nameCN || (keyParts.length>1? keyParts[1] : '') || '';
-        if (nameText) nameText = nameText.toLowerCase();
+        if (data.nameEN) {
+            nameText = data.nameEN;
+        } else if (data.nameCN && COMMON_EN_NAMES[data.nameCN]) {
+            nameText = COMMON_EN_NAMES[data.nameCN];
+        } else {
+            nameText = data.nameCN || (keyParts.length > 1 ? keyParts[1] : '') || '';
+            if (COMMON_EN_NAMES[nameText]) nameText = COMMON_EN_NAMES[nameText];
+        }
+        // Force lowercase for main molecule name in English mode
+        if (nameText) nameText = nameText.toLowerCase(); 
     } else {
-        nameText = data.nameCN || data.nameEN || (keyParts.length>1? keyParts[1] : '') || '';
+        nameText = data.nameCN || data.nameEN || (keyParts.length > 1 ? keyParts[1] : '') || '';
     }
     if(formulaEl) formulaEl.innerHTML = formatFormula(formulaText);
     if(nameEl) nameEl.textContent = nameText;
@@ -4502,6 +4633,9 @@ function updateVariantUI(key, activeVariant) {
     // 清除所有舊的主題 class
     variantSelector.classList.remove('acid-theme', 'resonance-theme', 'structure-theme');
     
+    // Determine current language
+    const currentLang = (window.__APP_LANG) || localStorage.getItem('app_lang') || ((navigator.language && navigator.language.startsWith('en')) ? 'en' : 'zh');
+
     if (rootData.variants) {
         // Only show variants that share the same molecular formula as the base
         const allVariantKeys = Object.keys(rootData.variants);
@@ -4528,12 +4662,12 @@ function updateVariantUI(key, activeVariant) {
         hdr.className = 'variant-header';
         if (isResonance) {
             variantSelector.classList.add('resonance-theme');
-            hdr.textContent = '選擇共振結構 (Resonance):';
+            hdr.textContent = (currentLang === 'en') ? 'Select Resonance Structure' : '選擇共振結構 (Resonance)';
         } else if (isStructure) {
             variantSelector.classList.add('structure-theme');
-            hdr.textContent = '選擇結構層次 (Structure):';
+            hdr.textContent = (currentLang === 'en') ? 'Select Structure Level' : '選擇結構層次 (Structure)';
         } else {
-            hdr.textContent = '選擇同分異構物:';
+            hdr.textContent = (currentLang === 'en') ? 'Select Isomer' : '選擇同分異構物';
         }
         variantSelector.appendChild(hdr);
 
@@ -4546,16 +4680,47 @@ function updateVariantUI(key, activeVariant) {
             if (vKey === activeVariant) radio.checked = true;
             const span = document.createElement('span');
             const variantData = rootData.variants[vKey];
-            const fullKeyString = variantData.fullKey || vKey;
-            const parts = fullKeyString.split('|');
+            
             let labelText = "";
-            if (parts.length > 1) {
-                labelText = parts[1].trim();
-                span.textContent = ` ${labelText}`;
+            if (currentLang === 'en') {
+                // Try to use the English name if available
+                if (variantData.nameEN) {
+                    labelText = variantData.nameEN;
+                } else if (variantData.nameCN && COMMON_EN_NAMES[variantData.nameCN]) {
+                    // Try to find a translation for the Chinese name
+                    labelText = COMMON_EN_NAMES[variantData.nameCN];
+                } else {
+                    // Fallback to Chinese name or empty
+                    labelText = variantData.nameCN || "";
+                }
+
+                // If still empty, try to parse from key parts
+                if (!labelText) {
+                    const parts = (variantData.fullKey || vKey).split('|');
+                    labelText = (parts.length > 1) ? parts[1].trim() : parts[0].trim();
+                    // Check if the parsed part is in COMMON_EN_NAMES
+                    if (COMMON_EN_NAMES[labelText]) {
+                        labelText = COMMON_EN_NAMES[labelText];
+                    }
+                }
+                // Force lowercase as requested by user
+                if (labelText) labelText = labelText.toLowerCase();
             } else {
-                labelText = parts[0].trim();
-                span.innerHTML = ` ${formatFormula(labelText)}`;
+                // Chinese mode: prefer Chinese name
+                labelText = variantData.nameCN || variantData.nameEN || "";
+                if (!labelText) {
+                    const parts = (variantData.fullKey || vKey).split('|');
+                    labelText = (parts.length > 1) ? parts[1].trim() : parts[0].trim();
+                }
             }
+            
+            // If label is still empty or looks like a formula, format it
+            if (!labelText || /^[A-Z0-9]+$/.test(labelText)) {
+                 span.innerHTML = ` ${formatFormula(labelText || vKey.split('|')[0])}`;
+            } else {
+                 span.textContent = ` ${labelText}`;
+            }
+
             div.appendChild(radio); div.appendChild(span);
             div.addEventListener('click', () => loadMolecule(key, vKey));
             variantSelector.appendChild(div);
