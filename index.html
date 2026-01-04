@@ -2467,13 +2467,13 @@ addMol("CH4|甲烷", "C", "sp³", ["四面體","Tetrahedral"], "109.5°", "-182.
     </div>`, "Td");
 
 addMol("SiH4|矽烷", "Si", "sp³", ["四面體","Tetrahedral"], "109.5°", "-185", "-112", getTetra("Si","H", 55), [[0,1],[0,2],[0,3],[0,4]], null, null, "Td");
-addMol("NH3|氨系列", "N", "sp³", ["角錐形","Trigonal Pyramidal"], "106.7°", "-77.7", "-33.3", [], [], { "NH3|氨|氨氣": {pg: "C3v", mp: "-77.7", bp: "-33.3", desc: "<strong>氨 (Ammonia)</strong><br>三角錐形，具有一對孤對電子，為弱鹼。", atoms: [{elem:"N",x:0,y:10,z:0,lpCount:1}, {elem:"H",x:0,y:-25,z:40}, {elem:"H",x:35,y:-25,z:-20}, {elem:"H",x:-35,y:-25,z:-20}], bonds: [[0,1],[0,2],[0,3]] }, "NH4+|銨根離子|銨離子|銨根": {pg: "Td", mp: "-", bp: "-", desc: "<strong>銨離子</strong><br>正四面體結構，是氨氣與氫離子結合的產物。", atoms: getTetra("N","H", 50), bonds: [[0,1],[0,2],[0,3],[0,4]] }, "NH2-|胺基陰離子|胺基負離子": {pg: "C2v", mp: "-", bp: "-", desc: "<strong>胺基負離子</strong><br>氨失去一個質子後的強鹼性陰離子，V型結構，有兩對孤對電子。", atoms: [{elem:"N",x:0,y:5,z:0,lpCount:2},{elem:"H",x:35,y:-30,z:0},{elem:"H",x:-35,y:-30,z:0}], bonds: [[0,1],[0,2]] }});
-addMol("PH3|磷化氫系列", "P", "sp³", ["角錐形","Trigonal Pyramidal"], "93.3°", "-133.8", "-87.7", [], [], { "PH3|磷化氫": {pg: "C3v", mp: "-133.8", bp: "-87.7", desc: "<strong>磷化氫</strong><br>劇毒氣體，鍵角接近90度(p軌域特性)，但VSEPR視為sp³。", atoms: [{elem:"P",x:0,y:15,z:0,lpCount:1}, {elem:"H",x:0,y:-30,z:45}, {elem:"H",x:39,y:-30,z:-22}, {elem:"H",x:-39,y:-30,z:-22}], bonds: [[0,1],[0,2],[0,3]] }, "PH4+|鏻離子": {pg: "Td", mp: "-", bp: "-", desc: "<strong>鏻離子</strong><br>結構類似銨根，由膦與氫離子形成。", atoms: getTetra("P","H", 55), bonds: [[0,1],[0,2],[0,3],[0,4]] }});
+addMol("NH3|氨系列|Ammonia Series", "N", "sp³", ["角錐形","Trigonal Pyramidal"], "106.7°", "-77.7", "-33.3", [], [], { "NH3|氨|氨氣|Ammonia": {pg: "C3v", mp: "-77.7", bp: "-33.3", desc: "<strong>氨 (Ammonia)</strong><br>三角錐形，具有一對孤對電子，為弱鹼。", atoms: [{elem:"N",x:0,y:10,z:0,lpCount:1}, {elem:"H",x:0,y:-25,z:40}, {elem:"H",x:35,y:-25,z:-20}, {elem:"H",x:-35,y:-25,z:-20}], bonds: [[0,1],[0,2],[0,3]] }, "NH4+|銨根離子|銨離子|銨根|Ammonium ion": {pg: "Td", mp: "-", bp: "-", desc: "<strong>銨離子</strong><br>正四面體結構，是氨氣與氫離子結合的產物。", atoms: getTetra("N","H", 50), bonds: [[0,1],[0,2],[0,3],[0,4]] }, "NH2-|胺基陰離子|胺基負離子|Amide ion": {pg: "C2v", mp: "-", bp: "-", desc: "<strong>胺基負離子</strong><br>氨失去一個質子後的強鹼性陰離子，V型結構，有兩對孤對電子。", atoms: [{elem:"N",x:0,y:5,z:0,lpCount:2},{elem:"H",x:35,y:-30,z:0},{elem:"H",x:-35,y:-30,z:0}], bonds: [[0,1],[0,2]] }});
+addMol("PH3|磷化氫系列|Phosphine Series", "P", "sp³", ["角錐形","Trigonal Pyramidal"], "93.3°", "-133.8", "-87.7", [], [], { "PH3|磷化氫|Phosphine": {pg: "C3v", mp: "-133.8", bp: "-87.7", desc: "<strong>磷化氫</strong><br>劇毒氣體，鍵角接近90度(p軌域特性)，但VSEPR視為sp³。", atoms: [{elem:"P",x:0,y:15,z:0,lpCount:1}, {elem:"H",x:0,y:-30,z:45}, {elem:"H",x:39,y:-30,z:-22}, {elem:"H",x:-39,y:-30,z:-22}], bonds: [[0,1],[0,2],[0,3]] }, "PH4+|鏻離子|Phosphonium ion": {pg: "Td", mp: "-", bp: "-", desc: "<strong>鏻離子</strong><br>結構類似銨根，由膦與氫離子形成。", atoms: getTetra("P","H", 55), bonds: [[0,1],[0,2],[0,3],[0,4]] }});
 
-addMol("H2O|水系列", "O", "sp³", ["角形","Bent"], "104.5°", "0.0", "100.0", [], [], { "H2O|水|水分子": {pg: "C2v",mp: "0.0", bp: "100.0", desc: "<strong>水</strong><br>生命的基石，V型結構，中心氧原子有兩對孤對電子。", atoms: [{elem:"O",x:0,y:5,z:0,lpCount:2}, {elem:"H",x:38,y:-28,z:0}, {elem:"H",x:-38,y:-28,z:0}], bonds: [[0,1],[0,2]] }, "H3O+|水合氫離子|鋞離子": { pg: "C3v",mp: "-", bp: "-", desc: "<strong>水合氫離子</strong><br>水中氫離子的實際存在形式，三角錐形。", atoms: [{elem:"O",x:0,y:10,z:0,lpCount:1}, {elem:"H",x:0,y:-25,z:40}, {elem:"H",x:35,y:-25,z:-20}, {elem:"H",x:-35,y:-25,z:-20}], bonds: [[0,1],[0,2],[0,3]] }, "OH-|氫氧根|氫氧根離子": { pg: "Cinfv",mp: "-", bp: "-", desc: "<strong>氫氧根</strong><br>強鹼的特徵離子，氧原子周圍有三對孤對電子，帶負電。", atoms: [{elem:"O",x:-20,y:0,z:0,lpCount:3},{elem:"H",x:25,y:0,z:0}], bonds: [[0,1]] }});
+addMol("H2O|水系列|Water Series", "O", "sp³", ["角形","Bent"], "104.5°", "0.0", "100.0", [], [], { "H2O|水|水分子|Water": {pg: "C2v",mp: "0.0", bp: "100.0", desc: "<strong>水</strong><br>生命的基石，V型結構，中心氧原子有兩對孤對電子。", atoms: [{elem:"O",x:0,y:5,z:0,lpCount:2}, {elem:"H",x:38,y:-28,z:0}, {elem:"H",x:-38,y:-28,z:0}], bonds: [[0,1],[0,2]] }, "H3O+|水合氫離子|鋞離子|Hydronium ion": { pg: "C3v",mp: "-", bp: "-", desc: "<strong>水合氫離子</strong><br>水中氫離子的實際存在形式，三角錐形。", atoms: [{elem:"O",x:0,y:10,z:0,lpCount:1}, {elem:"H",x:0,y:-25,z:40}, {elem:"H",x:35,y:-25,z:-20}, {elem:"H",x:-35,y:-25,z:-20}], bonds: [[0,1],[0,2],[0,3]] }, "OH-|氫氧根|氫氧根離子|Hydroxide ion": { pg: "Cinfv",mp: "-", bp: "-", desc: "<strong>氫氧根</strong><br>強鹼的特徵離子，氧原子周圍有三對孤對電子，帶負電。", atoms: [{elem:"O",x:-20,y:0,z:0,lpCount:3},{elem:"H",x:25,y:0,z:0}], bonds: [[0,1]] }});
 
 
-addMol("H2S|硫化氫系列", "S", "sp³", ["角形","Bent"], "92.1°", "-85.5", "-60.3", [], [], { "H2S|硫化氫|氫硫酸": {pg: "C2v", mp: "-85.5", bp: "-60.3", desc: "<strong>硫化氫</strong><br>具有腐敗雞蛋味的氣體，V型結構。", atoms: [{elem:"S",x:0,y:5,z:0,lpCount:2}, {elem:"H",x:40,y:-35,z:0}, {elem:"H",x:-40,y:-35,z:0}], bonds: [[0,1],[0,2]] }, "HS-|硫氫根": {pg: "Cinfv", mp: "-", bp: "-", desc: "<strong>氫硫根</strong><br>硫化氫的一級解離產物，硫原子有三對孤對電子。", atoms: [{elem:"S",x:-20,y:0,z:0,lpCount:3},{elem:"H",x:30,y:0,z:0}], bonds: [[0,1]] }});
+addMol("H2S|硫化氫系列|Hydrogen Sulphide Series", "S", "sp³", ["角形","Bent"], "92.1°", "-85.5", "-60.3", [], [], { "H2S|硫化氫|氫硫酸|Hydrogen Sulphide": {pg: "C2v", mp: "-85.5", bp: "-60.3", desc: "<strong>硫化氫</strong><br>具有腐敗雞蛋味的氣體，V型結構。", atoms: [{elem:"S",x:0,y:5,z:0,lpCount:2}, {elem:"H",x:40,y:-35,z:0}, {elem:"H",x:-40,y:-35,z:0}], bonds: [[0,1],[0,2]] }, "HS-|硫氫根|Hydrosulphide ion": {pg: "Cinfv", mp: "-", bp: "-", desc: "<strong>氫硫根</strong><br>硫化氫的一級解離產物，硫原子有三對孤對電子。", atoms: [{elem:"S",x:-20,y:0,z:0,lpCount:3},{elem:"H",x:30,y:0,z:0}], bonds: [[0,1]] }});
 
 
 const halideProps = { "BF3": ["-126.8", "-100.3"], "BCl3": ["-107", "12.6"], "BBr3": ["-46", "91.3"], "BI3": ["49.9", "210"], "AlF3": ["1290 (昇華)", "-"], "AlCl3": ["192.4", "120 (昇華)"], "AlBr3": ["97.5", "255"], "AlI3": ["191", "360"], "CF4": ["-183.6", "-127.8"], "CCl4": ["-22.9", "76.7"], "CBr4": ["90.1", "189.5"], "CI4": ["171 (分解)", "-"], "SiF4": ["-90", "-86 (昇華)"], "SiCl4": ["-70", "57.7"], "SiBr4": ["5", "154"], "SiI4": ["120.5", "287.5"], "NF3": ["-206.8", "-129"], "NCl3": ["-40", "71"], "NBr3": ["-100", "爆炸"], "NI3": ["-", "爆炸"], "PF3": ["-151.5", "-101.8"], "PCl3": ["-93.6", "76.1"], "PBr3": ["-41.5", "173.2"], "PI3": ["61", "分解"], "OF2": ["-223.8", "-144.8"], "OCl2": ["-135", "2.0"], "OBr2": ["-", "-"], "OI2": ["-", "-"], "SF2": ["-", "-"], "SCl2": ["-121", "59 (分解)"], "SBr2": ["-", "-"], "SI2": ["-", "-"] };
@@ -2572,7 +2572,7 @@ addMol("CO2|二氧化碳|乾冰", "C", "sp", ["直線型","Linear"], "180°", "-
 addMol("CS2|二硫化碳", "C", "sp", ["直線型","Linear"], "180°", "-111.6", "46.2", getLinear("C","S", 75), [[0,1,"double"],[0,2,"double"]], null, null, "Dinfh");
 addMol("BeCl2|二氯化鈹", "Be", "sp", ["直線型","Linear"], "180°", "399", "482", getLinear("Be","Cl", 75), [[0,1], [0,2]], null, null, "Dinfh");
 addMol("BCl3|三氯化硼", "B", "sp²", ["平面三角形","Trigonal Planar"], "120°", "-107", "12.6", getTrigPlanar("B","Cl", 75), [[0,1], [0,2], [0,3]], null, null, "D3h");
-addMol("SO2|二氧化硫", "S", "sp²", ["角形","Bent"], "119°", "-72", "-10", 
+addMol("SO2|二氧化硫|Sulphur Dioxide", "S", "sp²", ["角形","Bent"], "119°", "-72", "-10", 
     [
         {elem:"S", x:0, y:15, z:0, lpCount:1, lp3d:[{x:0,y:1,z:0}]}, 
         {elem:"O", x:55, y:-30, z:0}, 
@@ -2580,7 +2580,7 @@ addMol("SO2|二氧化硫", "S", "sp²", ["角形","Bent"], "119°", "-72", "-10"
     ], 
     
     [[0,1,"double"], [0,2,"double"]], null, null, "C2v");
-addMol("SO3|三氧化硫", "S", "sp²", ["平面三角形","Trigonal Planar"], "120°", "16.9", "44.8", getTrigPlanar("S","O", 68), [[0,1,"double"],[0,2,"double"],[0,3,"double"]], null, null, "D3h");
+addMol("SO3|三氧化硫|Sulphur Trioxide", "S", "sp²", ["平面三角形","Trigonal Planar"], "120°", "16.9", "44.8", getTrigPlanar("S","O", 68), [[0,1,"double"],[0,2,"double"],[0,3,"double"]], null, null, "D3h");
 addMol("O3|臭氧", "O", "sp²", ["角形","Bent"], "117°", "-192.2", "-112", [{elem:"O",x:0,y:10,z:0,lp3d:[{x:0,y:1,z:0}]},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0,lpCount:3}], [[0,1,"double"],[0,2,"coordinate"]], null, null, "C2v");
 addMol("NO2|二氧化氮", "N", "sp²", ["角形","Bent"], "134°", "-11.2", "21.2", [{elem:"N",x:0,y:10,z:0,lp3d:[{x:0,y:1,z:0}],radical:true},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0,lpCount:3}], [[0,1,"double"],[0,2,"coordinate"]], null, null, "C2v");
 addMol("N2O|一氧化二氮|笑氣", "N", "sp", ["直線型","Linear"], "180°", "-90.8", "-88.5", [{elem:"N",x:0,y:0,z:0,lpCount:0},{elem:"N",x:-65,y:0,z:0,lp3d:[{x:-1,y:0,z:0}]},{elem:"O",x:65,y:0,z:0}], [[0,1,"triple"],[0,2,"coordinate"]], null, null, "Cinfv");
@@ -2612,8 +2612,8 @@ addMol("HOCN|氰酸", "C", "sp", ["直線/角形","Linear/Bent"], "180°/105°",
 
 addMol("PCl5|五氯化磷", "P", "sp³d", ["雙三角錐","Trigonal Bipyramidal"], "90°, 120°", "160.5", "166.8", [{elem:"P",x:0,y:0,z:0},{elem:"Cl",x:0,y:0,z:85},{elem:"Cl",x:0,y:0,z:-85},{elem:"Cl",x:-80,y:0,z:0},{elem:"Cl",x:40,y:69,z:0},{elem:"Cl",x:40,y:-69,z:0}], [[0,1],[0,2],[0,3],[0,4],[0,5]], null, null, "D3h");
 addMol("PBr5|五溴化磷", "P", "sp³d", ["雙三角錐","Trigonal Bipyramidal"], "90°, 120°", "100 (分解)", "106 (分解)", [{elem:"P",x:0,y:0,z:0}, {elem:"Br",x:0,y:90,z:0}, {elem:"Br",x:0,y:-90,z:0}, {elem:"Br",x:85,y:0,z:0}, {elem:"Br",x:-42,y:0,z:74}, {elem:"Br",x:-42,y:0,z:-74}], [[0,1],[0,2],[0,3],[0,4],[0,5]], null, null, "D3h");
-addMol("SF6|六氟化硫", "S", "sp³d²", ["八面體","Octahedral"], "90°", "-50.8", "-63.8 (昇華)", getOcta("S","F", 75), [[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]], null, null, "Oh");
-addMol("SF4|四氟化硫", "S", "sp³d", ["翹翹板型","Seesaw"], "<90°, <120°", "-121", "-38", [{elem:"S",x:0,y:0,z:0,lp3d:[{x:0,y:-1,z:0}]},{elem:"F",x:0,y:0,z:80},{elem:"F",x:0,y:0,z:-80},{elem:"F",x:45,y:65,z:0},{elem:"F",x:-45,y:65,z:0}], [[0,1],[0,2],[0,3],[0,4]], null, null, "C2v");
+addMol("SF6|六氟化硫|Sulphur Hexafluoride", "S", "sp³d²", ["八面體","Octahedral"], "90°", "-50.8", "-63.8 (昇華)", getOcta("S","F", 75), [[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]], null, null, "Oh");
+addMol("SF4|四氟化硫|Sulphur Tetrafluoride", "S", "sp³d", ["翹翹板型","Seesaw"], "<90°, <120°", "-121", "-38", [{elem:"S",x:0,y:0,z:0,lp3d:[{x:0,y:-1,z:0}]},{elem:"F",x:0,y:0,z:80},{elem:"F",x:0,y:0,z:-80},{elem:"F",x:45,y:65,z:0},{elem:"F",x:-45,y:65,z:0}], [[0,1],[0,2],[0,3],[0,4]], null, null, "C2v");
 addMol("ClF3|三氟化氯", "Cl", "sp³d", ["T型","T-shaped"], "<90°", "-76.3", "11.8", [{elem:"Cl",x:0,y:0,z:0,lp3d:[{x:-1,y:0.5,z:0}, {x:-1,y:-0.5,z:0}]}, {elem:"F",x:0,y:80,z:0}, {elem:"F",x:0,y:-80,z:0}, {elem:"F",x:70,y:0,z:0}], [[0,1],[0,2],[0,3]], null, null, "C2v");
 addMol("XeF2|二氟化氙", "Xe", "sp³d", ["直線型","Linear"], "180°", "128.6", "-", [{elem:"Xe",x:0,y:0,z:0,lp3d:[{x:0,y:1,z:0}, {x:0.866,y:-0.5,z:0}, {x:-0.866,y:-0.5,z:0}]}, {elem:"F",x:0,y:0,z:85}, {elem:"F",x:0,y:0,z:-85}], [[0,1],[0,2]], null, null, "Dinfh");
 
@@ -2651,45 +2651,45 @@ addMol("BH4-|硼氫化離子", "B", "sp³", ["四面體","Tetrahedral"], "109.5�
 
 
 
-addMol("H2SO4|硫酸系列", "S", "sp³", ["四面體","Tetrahedral"], "109.5°", "10.3", "337", [], [], {
-    "H2SO4|硫酸": { pg: "C2", mp: "10.3", bp: "337", desc: "<strong>硫酸</strong><br>工業之母，具強脫水性與氧化性，由兩個配位鍵 (S→O) 與兩個 S-OH 構成，分子電中性。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:2},{elem:"O",x:-60,y:-30,z:35,lpCount:2},{elem:"H",x:85,y:5,z:60},{elem:"H",x:-85,y:5,z:60}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[3,5],[4,6]] },
-    "HSO4-|硫酸氫根": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>硫酸氫根</strong><br>酸式鹽陰離子，水溶液呈強酸性，S-O⁻ 端帶有負電荷。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:2},{elem:"H",x:-85,y:5,z:60}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[4,5]] },
-    "SO42-|硫酸根": { pg: "Td", mp: "-", bp: "-", desc: "<strong>硫酸根</strong><br>正四面體結構，化學性質穩定，兩個 S-O⁻ 端顯示粉紅電子。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
-    "NaHSO4|硫酸氫鈉": { pg: "Cs", mp: "58 (分解)", bp: "-", desc: "<strong>硫酸氫鈉</strong><br>溶於水呈強酸性，常用於清潔劑或降低 pH 值。", atoms: [{elem:"S",x:-20,y:0,z:0},{elem:"O",x:-20,y:68,z:0,lpCount:3},{elem:"O",x:-20,y:-25,z:-63,lpCount:3},{elem:"O",x:40,y:-30,z:35,lpCount:3},{elem:"O",x:-80,y:-30,z:35,lpCount:2},{elem:"H",x:-105,y:-5,z:60},{elem:"Na",x:100,y:40,z:0,r:15}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[4,5]] },
-    "KHSO4|硫酸氫鉀": { pg: "Cs", mp: "197", bp: "-", desc: "<strong>硫酸氫鉀</strong><br>易溶於水呈強酸性，加熱失水可製備焦硫酸鉀。", atoms: [{elem:"S",x:-20,y:0,z:0},{elem:"O",x:-20,y:68,z:0,lpCount:3},{elem:"O",x:-20,y:-25,z:-63,lpCount:3},{elem:"O",x:40,y:-30,z:35,lpCount:3},{elem:"O",x:-80,y:-30,z:35,lpCount:2},{elem:"H",x:-105,y:-5,z:60},{elem:"K",x:110,y:40,z:0,r:22}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[4,5]] },
-    "CaSO4|硫酸鈣|石膏": { pg: "Td", mp: "1460", bp: "-", desc: "<strong>硫酸鈣 (石膏)</strong><br>微溶於水，廣泛用於建築材料、模型製作與作為豆腐凝固劑。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Ca",x:0,y:0,z:100,r:20,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
-    "BaSO4|硫酸鋇|重晶石": { pg: "Td", mp: "1580", bp: "-", desc: "<strong>硫酸鋇 (重晶石)</strong><br>極難溶於水與酸，無毒且密度大，醫學上用於消化道X光攝影(鋇餐)。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Ba",x:0,y:0,z:110,r:25,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
-    "CuSO4|硫酸銅": { pg: "Td", mp: "110 (失水)", bp: "-", desc: "<strong>硫酸銅</strong><br>無水物為白色，吸水後變藍色(五水合)，常用於游泳池殺菌、波爾多液原料與電鍍。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Cu",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
-    "FeSO4|硫酸亞鐵|綠礬": { pg: "Td", mp: "64 (失水)", bp: "-", desc: "<strong>硫酸亞鐵 (綠礬)</strong><br>淺綠色晶體，常用於醫療補血劑(鐵劑)、水處理絮凝劑與還原劑。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Fe",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
-    "ZnSO4|硫酸鋅|皓礬": { pg: "Td", mp: "100 (失水)", bp: "500 (分解)", desc: "<strong>硫酸鋅 (皓礬)</strong><br>無色針狀晶體，用於製造人造纖維、木材防腐與農業微量元素肥料。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Zn",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
-    "MgSO4|硫酸鎂|瀉鹽": { pg: "Td", mp: "1124", bp: "-", desc: "<strong>硫酸鎂 (瀉鹽)</strong><br>易溶於水，醫療上作為瀉劑或緩解子癇，生活中常用於泡澡浴鹽放鬆肌肉。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Mg",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] }
+addMol("H2SO4|硫酸系列|Sulphuric Acid Series", "S", "sp³", ["四面體","Tetrahedral"], "109.5°", "10.3", "337", [], [], {
+    "H2SO4|硫酸|Sulphuric Acid": { pg: "C2", mp: "10.3", bp: "337", desc: "<strong>硫酸</strong><br>工業之母，具強脫水性與氧化性，由兩個配位鍵 (S→O) 與兩個 S-OH 構成，分子電中性。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:2},{elem:"O",x:-60,y:-30,z:35,lpCount:2},{elem:"H",x:85,y:5,z:60},{elem:"H",x:-85,y:5,z:60}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[3,5],[4,6]] },
+    "HSO4-|硫酸氫根|Hydrogensulphate ion": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>硫酸氫根</strong><br>酸式鹽陰離子，水溶液呈強酸性，S-O⁻ 端帶有負電荷。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:2},{elem:"H",x:-85,y:5,z:60}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[4,5]] },
+    "SO42-|硫酸根|Sulphate ion": { pg: "Td", mp: "-", bp: "-", desc: "<strong>硫酸根</strong><br>正四面體結構，化學性質穩定，兩個 S-O⁻ 端顯示粉紅電子。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
+    "NaHSO4|硫酸氫鈉|Sodium Hydrogensulphate": { pg: "Cs", mp: "58 (分解)", bp: "-", desc: "<strong>硫酸氫鈉</strong><br>溶於水呈強酸性，常用於清潔劑或降低 pH 值。", atoms: [{elem:"S",x:-20,y:0,z:0},{elem:"O",x:-20,y:68,z:0,lpCount:3},{elem:"O",x:-20,y:-25,z:-63,lpCount:3},{elem:"O",x:40,y:-30,z:35,lpCount:3},{elem:"O",x:-80,y:-30,z:35,lpCount:2},{elem:"H",x:-105,y:-5,z:60},{elem:"Na",x:100,y:40,z:0,r:15}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[4,5]] },
+    "KHSO4|硫酸氫鉀|Potassium Hydrogensulphate": { pg: "Cs", mp: "197", bp: "-", desc: "<strong>硫酸氫鉀</strong><br>易溶於水呈強酸性，加熱失水可製備焦硫酸鉀。", atoms: [{elem:"S",x:-20,y:0,z:0},{elem:"O",x:-20,y:68,z:0,lpCount:3},{elem:"O",x:-20,y:-25,z:-63,lpCount:3},{elem:"O",x:40,y:-30,z:35,lpCount:3},{elem:"O",x:-80,y:-30,z:35,lpCount:2},{elem:"H",x:-105,y:-5,z:60},{elem:"K",x:110,y:40,z:0,r:22}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"],[4,5]] },
+    "CaSO4|硫酸鈣|石膏|Calcium Sulphate": { pg: "Td", mp: "1460", bp: "-", desc: "<strong>硫酸鈣 (石膏)</strong><br>微溶於水，廣泛用於建築材料、模型製作與作為豆腐凝固劑。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Ca",x:0,y:0,z:100,r:20,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
+    "BaSO4|硫酸鋇|重晶石|Barium Sulphate": { pg: "Td", mp: "1580", bp: "-", desc: "<strong>硫酸鋇 (重晶石)</strong><br>極難溶於水與酸，無毒且密度大，醫學上用於消化道X光攝影(鋇餐)。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Ba",x:0,y:0,z:110,r:25,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
+    "CuSO4|硫酸銅|Copper(II) Sulphate": { pg: "Td", mp: "110 (失水)", bp: "-", desc: "<strong>硫酸銅</strong><br>無水物為白色，吸水後變藍色(五水合)，常用於游泳池殺菌、波爾多液原料與電鍍。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Cu",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
+    "FeSO4|硫酸亞鐵|綠礬|Iron(II) Sulphate": { pg: "Td", mp: "64 (失水)", bp: "-", desc: "<strong>硫酸亞鐵 (綠礬)</strong><br>淺綠色晶體，常用於醫療補血劑(鐵劑)、水處理絮凝劑與還原劑。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Fe",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
+    "ZnSO4|硫酸鋅|皓礬|Zinc Sulphate": { pg: "Td", mp: "100 (失水)", bp: "500 (分解)", desc: "<strong>硫酸鋅 (皓礬)</strong><br>無色針狀晶體，用於製造人造纖維、木材防腐與農業微量元素肥料。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Zn",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] },
+    "MgSO4|硫酸鎂|瀉鹽|Magnesium Sulphate": { pg: "Td", mp: "1124", bp: "-", desc: "<strong>硫酸鎂 (瀉鹽)</strong><br>易溶於水，醫療上作為瀉劑或緩解子癇，生活中常用於泡澡浴鹽放鬆肌肉。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"O",x:0,y:68,z:0,lpCount:3},{elem:"O",x:0,y:-25,z:-63,lpCount:3},{elem:"O",x:60,y:-30,z:35,lpCount:3},{elem:"O",x:-60,y:-30,z:35,lpCount:3},{elem:"Mg",x:0,y:0,z:100,r:18,lpCount:0}], bonds: [[0,1,"coordinate"],[0,2,"coordinate"],[0,3,"single"],[0,4,"single"]] }
 });
 
-addMol("H2SO3|亞硫酸系列", "S", "sp³", ["角錐形","Trigonal Pyramidal"], "106°", "-", "不穩定", [], [], {
-"H2SO3|亞硫酸": { pg: "Cs", mp: "-", bp: "不穩定", desc: "<strong>亞硫酸</strong><br>僅存在於水溶液中的二元弱酸，極不穩定。具有強還原性與漂白能力，受熱或久置易分解出二氧化硫氣體。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"H",x:85,y:-10,z:30},{elem:"H",x:-85,y:-10,z:30}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4],[3,5]] },
-"HSO3-|亞硫酸氫根": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>亞硫酸氫根</strong><br>亞硫酸的第一級電離產物，為兩性離子。在酸性環境中不穩定，廣泛存在於亞硫酸氫鹽溶液中，具抗氧化性質。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"H",x:85,y:-10,z:30}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4]] },
-"SO32-|亞硫酸根": { pg: "C3v", mp: "-", bp: "-", desc: "<strong>亞硫酸根</strong><br>亞硫酸的完全電離產物，中心硫原子有一對孤對電子。具有強還原性，易被空氣中的氧氧化成硫酸根。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
-"Na2SO3|亞硫酸鈉": { pg: "C3v", mp: "33.4 (分解)", bp: "-", desc: "<strong>亞硫酸鈉</strong><br>常見的亞硫酸鹽，為白色粉末，易溶於水。常用作還原劑、防腐劑以及攝影顯影劑的保護劑。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"Na",x:100,y:20,z:0,r:15},{elem:"Na",x:-100,y:20,z:0,r:15}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"],[4,2,"ionic_thin"],[5,3,"ionic_thin"]] },
-"NaHSO3|亞硫酸氫鈉": { pg: "Cs", mp: "150 (分解)", bp: "-", desc: "<strong>亞硫酸氫鈉</strong><br>亞硫酸的酸式鹽，為白色結晶粉末，有二氧化硫的刺激氣氣味。常用於漂白織物、食品防腐及處理工業廢水。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"H",x:85,y:-10,z:30},{elem:"Na",x:-100,y:0,z:0,r:15}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4],[5,3,"ionic_thin"]] },
-"CaSO3|亞硫酸鈣": { pg: "C3v", mp: "600 (分解)", bp: "-", desc: "<strong>亞硫酸鈣</strong><br>白色結晶粉末，微溶於水。主要用作食品防腐劑、消毒劑，也是煙氣脫硫工藝中的常見產物。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"Ca",x:0,y:0,z:90,r:20}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"],[4,2,"ionic_thin"],[4,3,"ionic_thin"]] }
+addMol("H2SO3|亞硫酸系列|Sulphurous Acid Series", "S", "sp³", ["角錐形","Trigonal Pyramidal"], "106°", "-", "不穩定", [], [], {
+"H2SO3|亞硫酸|Sulphurous Acid": { pg: "Cs", mp: "-", bp: "不穩定", desc: "<strong>亞硫酸</strong><br>僅存在於水溶液中的二元弱酸，極不穩定。具有強還原性與漂白能力，受熱或久置易分解出二氧化硫氣體。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"H",x:85,y:-10,z:30},{elem:"H",x:-85,y:-10,z:30}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4],[3,5]] },
+"HSO3-|亞硫酸氫根|Hydrogensulphite ion": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>亞硫酸氫根</strong><br>亞硫酸的第一級電離產物，為兩性離子。在酸性環境中不穩定，廣泛存在於亞硫酸氫鹽溶液中，具抗氧化性質。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"H",x:85,y:-10,z:30}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4]] },
+"SO32-|亞硫酸根|Sulphite ion": { pg: "C3v", mp: "-", bp: "-", desc: "<strong>亞硫酸根</strong><br>亞硫酸的完全電離產物，中心硫原子有一對孤對電子。具有強還原性，易被空氣中的氧氧化成硫酸根。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
+"Na2SO3|亞硫酸鈉|Sodium Sulphite": { pg: "C3v", mp: "33.4 (分解)", bp: "-", desc: "<strong>亞硫酸鈉</strong><br>常見的亞硫酸鹽，為白色粉末，易溶於水。常用作還原劑、防腐劑以及攝影顯影劑的保護劑。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"Na",x:100,y:20,z:0,r:15},{elem:"Na",x:-100,y:20,z:0,r:15}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"],[4,2,"ionic_thin"],[5,3,"ionic_thin"]] },
+"NaHSO3|亞硫酸氫鈉|Sodium Hydrogensulphite": { pg: "Cs", mp: "150 (分解)", bp: "-", desc: "<strong>亞硫酸氫鈉</strong><br>亞硫酸的酸式鹽，為白色結晶粉末，有二氧化硫的刺激氣氣味。常用於漂白織物、食品防腐及處理工業廢水。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"H",x:85,y:-10,z:30},{elem:"Na",x:-100,y:0,z:0,r:15}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4],[5,3,"ionic_thin"]] },
+"CaSO3|亞硫酸鈣|Calcium Sulphite": { pg: "C3v", mp: "600 (分解)", bp: "-", desc: "<strong>亞硫酸鈣</strong><br>白色結晶粉末，微溶於水。主要用作食品防腐劑、消毒劑，也是煙氣脫硫工藝中的常見產物。", atoms: [{elem:"S",x:0,y:15,z:0,lpCount:1},{elem:"O",x:0,y:80,z:0},{elem:"O",x:55,y:-30,z:30},{elem:"O",x:-55,y:-30,z:30},{elem:"Ca",x:0,y:0,z:90,r:20}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"],[4,2,"ionic_thin"],[4,3,"ionic_thin"]] }
 });
 
-addMol("H2S2O3|硫代硫酸系列", "S", "sp³", ["四面體","Tetrahedral"], "109.5°", "-78 (分解)", "-", [], [], {
-    "H2S2O3|硫代硫酸": { pg: "Cs", mp: "-78", bp: "-", desc: "<strong>硫代硫酸</strong><br>不穩定酸，中心S連接另一個外圍S原子。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35},{elem:"H",x:85,y:5,z:60},{elem:"H",x:-85,y:5,z:60}], bonds: [[0,1,"double"],[0,2,"double"],[0,3],[0,4],[3,5],[4,6]] },
-    "HS2O3-|硫代硫酸氫根": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>硫代硫酸氫根</strong><br>結構類似硫酸氫根但一個O被S取代。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35},{elem:"H",x:85,y:5,z:60}], bonds: [[0,1,"double"],[0,2,"double"],[0,3],[0,4],[3,5]] },
-    "S2O32-|硫代硫酸根": { pg: "C3v", mp: "-", bp: "-", desc: "<strong>硫代硫酸根</strong><br>具還原性，中心硫原子與外圍硫形成雙鍵。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35}], bonds: [[0,1,"double"],[0,2,"double"],[0,3,"single"],[0,4,"single"]] },
-    "Na2S2O3|硫代硫酸鈉|大蘇打|海波": { pg: "C3v", mp: "48.3", bp: "100 (分解)", desc: "<strong>硫代硫酸鈉 (海波)</strong><br>Na⁺ 位於結構外側，無實體鍵連線。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35},{elem:"Na",x:100,y:20,z:0,r:15},{elem:"Na",x:-100,y:20,z:0,r:15}], bonds: [[0,1,"double"],[0,2,"double"],[0,3,"single"],[0,4,"single"]] }
+addMol("H2S2O3|硫代硫酸系列|Thiosulphuric Acid Series", "S", "sp³", ["四面體","Tetrahedral"], "109.5°", "-78 (分解)", "-", [], [], {
+    "H2S2O3|硫代硫酸|Thiosulphuric Acid": { pg: "Cs", mp: "-78", bp: "-", desc: "<strong>硫代硫酸</strong><br>不穩定酸，中心S連接另一個外圍S原子。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35},{elem:"H",x:85,y:5,z:60},{elem:"H",x:-85,y:5,z:60}], bonds: [[0,1,"double"],[0,2,"double"],[0,3],[0,4],[3,5],[4,6]] },
+    "HS2O3-|硫代硫酸氫根|Hydrogenthiosulphate ion": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>硫代硫酸氫根</strong><br>結構類似硫酸氫根但一個O被S取代。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35},{elem:"H",x:85,y:5,z:60}], bonds: [[0,1,"double"],[0,2,"double"],[0,3],[0,4],[3,5]] },
+    "S2O32-|硫代硫酸根|Thiosulphate ion": { pg: "C3v", mp: "-", bp: "-", desc: "<strong>硫代硫酸根</strong><br>具還原性，中心硫原子與外圍硫形成雙鍵。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35}], bonds: [[0,1,"double"],[0,2,"double"],[0,3,"single"],[0,4,"single"]] },
+    "Na2S2O3|硫代硫酸鈉|大蘇打|海波|Sodium Thiosulphate": { pg: "C3v", mp: "48.3", bp: "100 (分解)", desc: "<strong>硫代硫酸鈉 (海波)</strong><br>Na⁺ 位於結構外側，無實體鍵連線。", atoms: [{elem:"S",x:0,y:0,z:0},{elem:"S",x:0,y:80,z:0},{elem:"O",x:0,y:-25,z:-63},{elem:"O",x:60,y:-30,z:35},{elem:"O",x:-60,y:-30,z:35},{elem:"Na",x:100,y:20,z:0,r:15},{elem:"Na",x:-100,y:20,z:0,r:15}], bonds: [[0,1,"double"],[0,2,"double"],[0,3,"single"],[0,4,"single"]] }
 });
 
-addMol("H2CO3|碳酸系列", "C", "sp²", ["平面三角形","Trigonal Planar"], "120°", "-", "不穩定", [], [], {
-    "H2CO3|碳酸": { pg: "Cs", mp: "-", bp: "不穩定", desc: "<strong>碳酸</strong><br>二質子弱酸，存在於汽水中。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"H",x:90,y:-10,z:0},{elem:"H",x:-90,y:-10,z:0}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4],[3,5]] },
-    "HCO3-|碳酸氫根": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>碳酸氫根</strong><br>帶-1價電荷，小蘇打的主要成分。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"H",x:-90,y:-10,z:0}], bonds: [[0,1,"double"],[0,2],[0,3],[3,4]] },
-    "CO32-|碳酸根": { pg: "D3h", mp: "-", bp: "-", desc: "<strong>碳酸根</strong><br>帶-2價電荷，共振結構。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
-    "CaCO3|碳酸鈣|灰石": { pg: "D3h", mp: "825 (分解)", bp: "-", desc: "<strong>碳酸鈣</strong><br>Ca²⁺ 位於碳酸根平面上方。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"Ca",x:0,y:0,z:90,r:20,lpCount:0}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
-    "MgCO3|碳酸鎂": { pg: "D3h", mp: "350 (分解)", bp: "-", desc: "<strong>碳酸鎂</strong><br>Mg²⁺ 位於碳酸根平面上方。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"Mg",x:0,y:0,z:90,r:18,lpCount:0}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
-    "Na2CO3|碳酸鈉|蘇打": { pg: "D3h", mp: "851", bp: "-", desc: "<strong>碳酸鈉 (蘇打)</strong><br>兩個 Na⁺ 位於外側。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"Na",x:100,y:-20,z:0,r:15},{elem:"Na",x:-100,y:-20,z:0,r:15}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
-    "K2CO3|碳酸鉀|草木灰": { pg: "D3h", mp: "891", bp: "-", desc: "<strong>碳酸鉀</strong><br>兩個 K⁺ 位於外側。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"K",x:100,y:-20,z:0,r:22},{elem:"K",x:-100,y:-20,z:0,r:22}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
-    "NaHCO3|碳酸氫鈉|小蘇打": { pg: "Cs", mp: "50 (分解)", bp: "-", desc: "<strong>碳酸氫鈉</strong><br>Na⁺ 位於外側。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"H",x:-90,y:-10,z:0},{elem:"Na",x:100,y:-20,z:0,r:15}], bonds: [[0,1,"double"],[0,2],[0,3],[3,4]] }
+addMol("H2CO3|碳酸系列|Carbonic Acid Series", "C", "sp²", ["平面三角形","Trigonal Planar"], "120°", "-", "不穩定", [], [], {
+    "H2CO3|碳酸|Carbonic Acid": { pg: "Cs", mp: "-", bp: "不穩定", desc: "<strong>碳酸</strong><br>二質子弱酸，存在於汽水中。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"H",x:90,y:-10,z:0},{elem:"H",x:-90,y:-10,z:0}], bonds: [[0,1,"double"],[0,2],[0,3],[2,4],[3,5]] },
+    "HCO3-|碳酸氫根|Hydrogencarbonate ion": { pg: "Cs", mp: "-", bp: "-", desc: "<strong>碳酸氫根</strong><br>帶-1價電荷，小蘇打的主要成分。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"H",x:-90,y:-10,z:0}], bonds: [[0,1,"double"],[0,2],[0,3],[3,4]] },
+    "CO32-|碳酸根|Carbonate ion": { pg: "D3h", mp: "-", bp: "-", desc: "<strong>碳酸根</strong><br>帶-2價電荷，共振結構。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
+    "CaCO3|碳酸鈣|灰石|Calcium Carbonate": { pg: "D3h", mp: "825 (分解)", bp: "-", desc: "<strong>碳酸鈣</strong><br>Ca²⁺ 位於碳酸根平面上方。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"Ca",x:0,y:0,z:90,r:20,lpCount:0}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
+    "MgCO3|碳酸鎂|Magnesium Carbonate": { pg: "D3h", mp: "350 (分解)", bp: "-", desc: "<strong>碳酸鎂</strong><br>Mg²⁺ 位於碳酸根平面上方。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"Mg",x:0,y:0,z:90,r:18,lpCount:0}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
+    "Na2CO3|碳酸鈉|蘇打|Sodium Carbonate": { pg: "D3h", mp: "851", bp: "-", desc: "<strong>碳酸鈉 (蘇打)</strong><br>兩個 Na⁺ 位於外側。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"Na",x:100,y:-20,z:0,r:15},{elem:"Na",x:-100,y:-20,z:0,r:15}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
+    "K2CO3|碳酸鉀|草木灰|Potassium Carbonate": { pg: "D3h", mp: "891", bp: "-", desc: "<strong>碳酸鉀</strong><br>兩個 K⁺ 位於外側。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"K",x:100,y:-20,z:0,r:22},{elem:"K",x:-100,y:-20,z:0,r:22}], bonds: [[0,1,"double"],[0,2,"single"],[0,3,"single"]] },
+    "NaHCO3|碳酸氫鈉|小蘇打|Sodium Hydrogencarbonate": { pg: "Cs", mp: "50 (分解)", bp: "-", desc: "<strong>碳酸氫鈉</strong><br>Na⁺ 位於外側。", atoms: [{elem:"C",x:0,y:0,z:0},{elem:"O",x:0,y:70,z:0},{elem:"O",x:60,y:-35,z:0},{elem:"O",x:-60,y:-35,z:0},{elem:"H",x:-90,y:-10,z:0},{elem:"Na",x:100,y:-20,z:0,r:15}], bonds: [[0,1,"double"],[0,2],[0,3],[3,4]] }
 });
 
 addMol("HNO3|硝酸系列", "N", "sp²", ["平面三角形","Trigonal Planar"], "120°", "-42", "83", [], [], {
@@ -6723,28 +6723,51 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
 
         const formatSide = (parts) => {
             return parts.map(p => {
-                const coeffHtml = p.coeff > 1 ? `<span class="chem-coeff">${p.coeff}</span>` : '';
+                let { neutral: base, charge } = splitFormulaAndCharge(p.formula);
                 
-                const { neutral: base, charge } = splitFormulaAndCharge(p.formula);
+                // Handle 'n' coefficient (Polymerization)
+                let coeffSuffix = '';
+                // Only check for 'n' prefix if coeff is a number (not already processed into a string like 'n' or '2n')
+                if (typeof p.coeff === 'number' && base.startsWith('n')) {
+                    coeffSuffix = 'n';
+                    base = base.substring(1);
+                }
+
+                const displayCoeff = p.coeff;
+                let coeffHtml = '';
                 
+                if (typeof displayCoeff === 'string') {
+                    // If coeff is already a string (e.g. "n", "2n"), display it directly
+                    coeffHtml = `<span class="chem-coeff">${displayCoeff}</span>`;
+                } else {
+                    // Numeric coefficient logic
+                    coeffHtml = (displayCoeff > 1 || coeffSuffix) 
+                        ? `<span class="chem-coeff">${displayCoeff > 1 ? displayCoeff : ''}${coeffSuffix}</span>` 
+                        : '';
+                }
+                
+                const formatPart = (s) => s.replace(/(\d+)/g, '<sub>$1</sub>')
+                                           .replace(/_n/g, '<sub>n</sub>')
+                                           .replace(/\)n/g, ')<sub>n</sub>');
+
                 let baseHtml = '';
                 if (base.includes('.')) {
                     const split = base.split('.');
                     const salt = split[0];
                     const hydrate = split[1];
-                    const saltHtml = salt.replace(/(\d+)/g, '<sub>$1</sub>');
+                    const saltHtml = formatPart(salt);
                     const match = hydrate.match(/^(\d+)(.*)/);
                     let hydrateHtml = '';
                     if (match) {
                         const coef = match[1];
                         const rest = match[2];
-                        hydrateHtml = coef + rest.replace(/(\d+)/g, '<sub>$1</sub>');
+                        hydrateHtml = coef + formatPart(rest);
                     } else {
-                        hydrateHtml = hydrate.replace(/(\d+)/g, '<sub>$1</sub>');
+                        hydrateHtml = formatPart(hydrate);
                     }
                     baseHtml = `${saltHtml}<sub>.</sub>${hydrateHtml}`;
                 } else {
-                    baseHtml = base.replace(/(\d+)/g, '<sub>$1</sub>');
+                    baseHtml = formatPart(base);
                 }
                 
                 const chargeText = formatCharge(charge);
@@ -6756,7 +6779,30 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
         const leftHtml = formatSide(result.left);
         const rightHtml = formatSide(result.right);
         
-        return `<div class="balanced-eq" style="display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; white-space:nowrap;">${leftHtml} <span style="margin:0 15px; color:#aaaaaa; font-size:0.8em;">➝</span> ${rightHtml}</div>`;
+        // Determine arrow type
+        const leftFormulas = result.left.map(p => p.formula);
+        const rightFormulas = result.right.map(p => p.formula);
+
+        const isAcid = f => f.endsWith('COOH');
+        const isAlcohol = f => f.endsWith('OH') && f.includes('C');
+        const isEster = f => f.includes('COO') && !f.endsWith('COOH');
+        const isWater = f => f === 'H2O';
+        const has = (arr, fn) => arr.some(fn);
+
+        let arrowSymbol = '➝';
+        
+        // Check for Esterification: Acid + Alcohol -> Ester + Water
+        if (has(leftFormulas, isAcid) && has(leftFormulas, isAlcohol) && 
+            has(rightFormulas, isEster) && has(rightFormulas, isWater)) {
+            arrowSymbol = '⇌';
+        }
+        // Check for Acid Hydrolysis: Ester + Water -> Acid + Alcohol
+        else if (has(leftFormulas, isEster) && has(leftFormulas, isWater) && 
+                 has(rightFormulas, isAcid) && has(rightFormulas, isAlcohol)) {
+            arrowSymbol = '⇌';
+        }
+
+        return `<div class="balanced-eq" style="display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; white-space:nowrap;">${leftHtml} <span style="margin:0 15px; color:#aaaaaa; font-size:0.8em;">${arrowSymbol}</span> ${rightHtml}</div>`;
     }
 
     function balanceEquation(equationStr) {
@@ -6945,9 +6991,38 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
         const coeffs = solveHomogeneous(matrix);
         if(!coeffs) throw new Error("no solution found");
 
+        // Polymerization Detection & Handling
+        const isPolymerization = rightMols.some(m => m.includes('_n') || m.includes(')n'));
+
+        const formatPolymerCoeff = (coeff, formula, isProduct) => {
+            if (!isPolymerization) return coeff;
+            
+            // If it's the polymer product itself, keep the numeric coefficient (usually 1)
+            // The 'n' is in the subscript (_n)
+            if (isProduct && (formula.includes('_n') || formula.includes(')n'))) {
+                return coeff;
+            }
+
+            // For reactants and small molecule byproducts, append 'n'
+            return coeff === 1 ? 'n' : `${coeff}n`;
+        };
+
+        const cleanPolymerFormula = (formula) => {
+            if (!isPolymerization) return formula;
+            // Remove explicit 'n' or '2n' prefix if present, to avoid duplication
+            // e.g. "nC2H4" -> "C2H4", "2nH2O" -> "H2O"
+            return formula.replace(/^(\d*)n/, '');
+        };
+
         return {
-            left: leftMols.map((m, i) => ({ formula: m, coeff: coeffs[i] })),
-            right: rightMols.map((m, i) => ({ formula: m, coeff: coeffs[leftMols.length + i] }))
+            left: leftMols.map((m, i) => ({ 
+                formula: cleanPolymerFormula(m), 
+                coeff: formatPolymerCoeff(coeffs[i], m, false) 
+            })),
+            right: rightMols.map((m, i) => ({ 
+                formula: cleanPolymerFormula(m), 
+                coeff: formatPolymerCoeff(coeffs[leftMols.length + i], m, true) 
+            }))
         };
     }
 
