@@ -1426,7 +1426,7 @@ const ELEMENT_PROPS = {
             btn.addEventListener('click', ()=> showPopup(el));
 
             
-            if(typeof el.iupac === 'number' && el.iupac >= 1 && el.iupac <= 18){
+            if(typeof el.iupac === 'number' && el.iupac >= 1 && el.iupac <= 18 && el.g !== "鑭系" && el.g !== "錒系"){
                 btn.style.gridColumn = el.iupac;
                 btn.style.gridRow = el.p;
                 table.appendChild(btn);
@@ -1651,21 +1651,21 @@ const ELEMENT_PROPS = {
     
     { z: 55, s: "Cs", n: "Caesium", cn: "銫", type: "金屬", state: "固體", mp: "28°C", bp: "671°C", p: 6, g: "1A", iupac: 1, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s1", noble: "[Xe] 6s1" },
     { z: 56, s: "Ba", n: "Barium", cn: "鋇", type: "金屬", state: "固體", mp: "727°C", bp: "1897°C", p: 6, g: "2A", iupac: 2, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 6s2", noble: "[Xe] 6s2" },
-    { z: 57, s: "La", n: "Lanthanum", cn: "鑭", type: "金屬", state: "固體", mp: "920°C", bp: "3464°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 5d1 6s2", noble: "[Xe] 5d1 6s2", ex: true },    
-    { z: 58, s: "Ce", n: "Cerium", cn: "鈰", type: "金屬", state: "固體", mp: "795°C", bp: "3443°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f1 5d1 6s2", noble: "[Xe] 4f1 5d1 6s2", ex: true },    
-    { z: 59, s: "Pr", n: "Praseodymium", cn: "鐠", type: "金屬", state: "固體", mp: "931°C", bp: "3520°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f3 6s2", noble: "[Xe] 4f3 6s2" },
-    { z: 60, s: "Nd", n: "Neodymium", cn: "釹", type: "金屬", state: "固體", mp: "1024°C", bp: "3074°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f4 6s2", noble: "[Xe] 4f4 6s2" },
-    { z: 61, s: "Pm", n: "Promethium", cn: "鉕", type: "金屬", state: "固體", mp: "1042°C", bp: "3000°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f5 6s2", noble: "[Xe] 4f5 6s2" },
-    { z: 62, s: "Sm", n: "Samarium", cn: "釤", type: "金屬", state: "固體", mp: "1072°C", bp: "1794°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f6 6s2", noble: "[Xe] 4f6 6s2" },
-    { z: 63, s: "Eu", n: "Europium", cn: "銪", type: "金屬", state: "固體", mp: "826°C", bp: "1529°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 6s2", noble: "[Xe] 4f7 6s2" },
-    { z: 64, s: "Gd", n: "Gadolinium", cn: "釓", type: "金屬", state: "固體", mp: "1312°C", bp: "3273°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 5d1 6s2", noble: "[Xe] 4f7 5d1 6s2", ex: true },    
-    { z: 65, s: "Tb", n: "Terbium", cn: "鋱", type: "金屬", state: "固體", mp: "1356°C", bp: "3230°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f9 6s2", noble: "[Xe] 4f9 6s2" },
-    { z: 66, s: "Dy", n: "Dysprosium", cn: "鏑", type: "金屬", state: "固體", mp: "1407°C", bp: "2567°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f10 6s2", noble: "[Xe] 4f10 6s2" },
-    { z: 67, s: "Ho", n: "Holmium", cn: "鈥", type: "金屬", state: "固體", mp: "1461°C", bp: "2720°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f11 6s2", noble: "[Xe] 4f11 6s2" },
-    { z: 68, s: "Er", n: "Erbium", cn: "鉺", type: "金屬", state: "固體", mp: "1529°C", bp: "2868°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f12 6s2", noble: "[Xe] 4f12 6s2" },
-    { z: 69, s: "Tm", n: "Thulium", cn: "銩", type: "金屬", state: "固體", mp: "1545°C", bp: "1950°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2", noble: "[Xe] 4f13 6s2" },
-    { z: 70, s: "Yb", n: "Ytterbium", cn: "鐿", type: "金屬", state: "固體", mp: "824°C", bp: "1196°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s2", noble: "[Xe] 4f14 6s2" },
-    { z: 71, s: "Lu", n: "Lutetium", cn: "鎦", type: "金屬", state: "固體", mp: "1663°C", bp: "3402°C", p: 6, g: "鑭系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1 6s2", noble: "[Xe] 4f14 5d1 6s2" },
+    { z: 57, s: "La", n: "Lanthanum", cn: "鑭", type: "金屬", state: "固體", mp: "920°C", bp: "3464°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 5d1 6s2", noble: "[Xe] 5d1 6s2", ex: true },    
+    { z: 58, s: "Ce", n: "Cerium", cn: "鈰", type: "金屬", state: "固體", mp: "795°C", bp: "3443°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f1 5d1 6s2", noble: "[Xe] 4f1 5d1 6s2", ex: true },    
+    { z: 59, s: "Pr", n: "Praseodymium", cn: "鐠", type: "金屬", state: "固體", mp: "931°C", bp: "3520°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f3 6s2", noble: "[Xe] 4f3 6s2" },
+    { z: 60, s: "Nd", n: "Neodymium", cn: "釹", type: "金屬", state: "固體", mp: "1024°C", bp: "3074°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f4 6s2", noble: "[Xe] 4f4 6s2" },
+    { z: 61, s: "Pm", n: "Promethium", cn: "鉕", type: "金屬", state: "固體", mp: "1042°C", bp: "3000°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f5 6s2", noble: "[Xe] 4f5 6s2" },
+    { z: 62, s: "Sm", n: "Samarium", cn: "釤", type: "金屬", state: "固體", mp: "1072°C", bp: "1794°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f6 6s2", noble: "[Xe] 4f6 6s2" },
+    { z: 63, s: "Eu", n: "Europium", cn: "銪", type: "金屬", state: "固體", mp: "826°C", bp: "1529°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 6s2", noble: "[Xe] 4f7 6s2" },
+    { z: 64, s: "Gd", n: "Gadolinium", cn: "釓", type: "金屬", state: "固體", mp: "1312°C", bp: "3273°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f7 5d1 6s2", noble: "[Xe] 4f7 5d1 6s2", ex: true },    
+    { z: 65, s: "Tb", n: "Terbium", cn: "鋱", type: "金屬", state: "固體", mp: "1356°C", bp: "3230°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f9 6s2", noble: "[Xe] 4f9 6s2" },
+    { z: 66, s: "Dy", n: "Dysprosium", cn: "鏑", type: "金屬", state: "固體", mp: "1407°C", bp: "2567°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f10 6s2", noble: "[Xe] 4f10 6s2" },
+    { z: 67, s: "Ho", n: "Holmium", cn: "鈥", type: "金屬", state: "固體", mp: "1461°C", bp: "2720°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f11 6s2", noble: "[Xe] 4f11 6s2" },
+    { z: 68, s: "Er", n: "Erbium", cn: "鉺", type: "金屬", state: "固體", mp: "1529°C", bp: "2868°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f12 6s2", noble: "[Xe] 4f12 6s2" },
+    { z: 69, s: "Tm", n: "Thulium", cn: "銩", type: "金屬", state: "固體", mp: "1545°C", bp: "1950°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f13 6s2", noble: "[Xe] 4f13 6s2" },
+    { z: 70, s: "Yb", n: "Ytterbium", cn: "鐿", type: "金屬", state: "固體", mp: "824°C", bp: "1196°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 6s2", noble: "[Xe] 4f14 6s2" },
+    { z: 71, s: "Lu", n: "Lutetium", cn: "鎦", type: "金屬", state: "固體", mp: "1663°C", bp: "3402°C", p: 6, g: "鑭系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d1 6s2", noble: "[Xe] 4f14 5d1 6s2" },
     { z: 72, s: "Hf", n: "Hafnium", cn: "鉿", type: "金屬", state: "固體", mp: "2233°C", bp: "4603°C", p: 6, g: "4B", iupac: 4, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d2 6s2", noble: "[Xe] 4f14 5d2 6s2" },
     { z: 73, s: "Ta", n: "Tantalum", cn: "鉭", type: "金屬", state: "固體", mp: "3017°C", bp: "5458°C", p: 6, g: "5B", iupac: 5, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d3 6s2", noble: "[Xe] 4f14 5d3 6s2" },
     { z: 74, s: "W", n: "Tungsten", cn: "鎢", type: "金屬", state: "固體", mp: "3422°C", bp: "5930°C", p: 6, g: "6B", iupac: 6, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d4 6s2", noble: "[Xe] 4f14 5d4 6s2" },
@@ -1684,21 +1684,21 @@ const ELEMENT_PROPS = {
     
     { z: 87, s: "Fr", n: "Francium", cn: "鍅", type: "金屬", state: "固體", mp: "27°C", bp: "677°C", p: 7, g: "1A", iupac: 1, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 7s1", noble: "[Rn] 7s1" },
     { z: 88, s: "Ra", n: "Radium", cn: "鐳", type: "金屬", state: "固體", mp: "700°C", bp: "1737°C", p: 7, g: "2A", iupac: 2, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 7s2", noble: "[Rn] 7s2" },
-    { z: 89, s: "Ac", n: "Actinium", cn: "錒", type: "金屬", state: "固體", mp: "1050°C", bp: "3198°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 6d1 7s2", noble: "[Rn] 6d1 7s2", ex: true },
-    { z: 90, s: "Th", n: "Thorium", cn: "釷", type: "金屬", state: "固體", mp: "1750°C", bp: "4788°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 6d2 7s2", noble: "[Rn] 6d2 7s2", ex: true },
-    { z: 91, s: "Pa", n: "Protactinium", cn: "鏷", type: "金屬", state: "固體", mp: "1568°C", bp: "4027°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f2 6d1 7s2", noble: "[Rn] 5f2 6d1 7s2", ex: true },
-    { z: 92, s: "U", n: "Uranium", cn: "鈾", type: "金屬", state: "固體", mp: "1132°C", bp: "4131°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f3 6d1 7s2", noble: "[Rn] 5f3 6d1 7s2", ex: true },
-    { z: 93, s: "Np", n: "Neptunium", cn: "錼", type: "金屬", state: "固體", mp: "644°C", bp: "3902°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f4 6d1 7s2", noble: "[Rn] 5f4 6d1 7s2", ex: true },
-    { z: 94, s: "Pu", n: "Plutonium", cn: "鈽", type: "金屬", state: "固體", mp: "640°C", bp: "3228°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f6 7s2", noble: "[Rn] 5f6 7s2" },
-    { z: 95, s: "Am", n: "Americium", cn: "鋂", type: "金屬", state: "固體", mp: "1176°C", bp: "2607°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f7 7s2", noble: "[Rn] 5f7 7s2" },
-    { z: 96, s: "Cm", n: "Curium", cn: "鋦", type: "金屬", state: "固體", mp: "1340°C", bp: "3110°C", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f7 6d1 7s2", noble: "[Rn] 5f7 6d1 7s2", ex: true },    
-    { z: 97, s: "Bk", n: "Berkelium", cn: "鉳", type: "金屬", state: "固體", mp: "986°C", bp: "-", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f9 7s2", noble: "[Rn] 5f9 7s2" },
-    { z: 98, s: "Cf", n: "Californium", cn: "鉲", type: "金屬", state: "固體", mp: "900°C", bp: "-", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f10 7s2", noble: "[Rn] 5f10 7s2" },
-    { z: 99, s: "Es", n: "Einsteinium", cn: "鑀", type: "金屬", state: "固體", mp: "860°C", bp: "-", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f11 7s2", noble: "[Rn] 5f11 7s2" },
-    { z: 100, s: "Fm", n: "Fermium", cn: "鐨", type: "金屬", state: "固體", mp: "1527°C", bp: "-", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f12 7s2", noble: "[Rn] 5f12 7s2" },
-    { z: 101, s: "Md", n: "Mendelevium", cn: "鍆", type: "金屬", state: "固體", mp: "827°C", bp: "-", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f13 7s2", noble: "[Rn] 5f13 7s2" },
-    { z: 102, s: "No", n: "Nobelium", cn: "鍩", type: "金屬", state: "固體", mp: "827°C", bp: "-", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f14 7s2", noble: "[Rn] 5f14 7s2" },
-    { z: 103, s: "Lr", n: "Lawrencium", cn: "鐒", type: "金屬", state: "固體", mp: "1627°C", bp: "-", p: 7, g: "錒系", iupac: "-", c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f14 7s2 7p1", noble: "[Rn] 5f14 7s2 7p1" },
+    { z: 89, s: "Ac", n: "Actinium", cn: "錒", type: "金屬", state: "固體", mp: "1050°C", bp: "3198°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 6d1 7s2", noble: "[Rn] 6d1 7s2", ex: true },
+    { z: 90, s: "Th", n: "Thorium", cn: "釷", type: "金屬", state: "固體", mp: "1750°C", bp: "4788°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 6d2 7s2", noble: "[Rn] 6d2 7s2", ex: true },
+    { z: 91, s: "Pa", n: "Protactinium", cn: "鏷", type: "金屬", state: "固體", mp: "1568°C", bp: "4027°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f2 6d1 7s2", noble: "[Rn] 5f2 6d1 7s2", ex: true },
+    { z: 92, s: "U", n: "Uranium", cn: "鈾", type: "金屬", state: "固體", mp: "1132°C", bp: "4131°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f3 6d1 7s2", noble: "[Rn] 5f3 6d1 7s2", ex: true },
+    { z: 93, s: "Np", n: "Neptunium", cn: "錼", type: "金屬", state: "固體", mp: "644°C", bp: "3902°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f4 6d1 7s2", noble: "[Rn] 5f4 6d1 7s2", ex: true },
+    { z: 94, s: "Pu", n: "Plutonium", cn: "鈽", type: "金屬", state: "固體", mp: "640°C", bp: "3228°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f6 7s2", noble: "[Rn] 5f6 7s2" },
+    { z: 95, s: "Am", n: "Americium", cn: "鋂", type: "金屬", state: "固體", mp: "1176°C", bp: "2607°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f7 7s2", noble: "[Rn] 5f7 7s2" },
+    { z: 96, s: "Cm", n: "Curium", cn: "鋦", type: "金屬", state: "固體", mp: "1340°C", bp: "3110°C", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f7 6d1 7s2", noble: "[Rn] 5f7 6d1 7s2", ex: true },    
+    { z: 97, s: "Bk", n: "Berkelium", cn: "鉳", type: "金屬", state: "固體", mp: "986°C", bp: "-", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f9 7s2", noble: "[Rn] 5f9 7s2" },
+    { z: 98, s: "Cf", n: "Californium", cn: "鉲", type: "金屬", state: "固體", mp: "900°C", bp: "-", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f10 7s2", noble: "[Rn] 5f10 7s2" },
+    { z: 99, s: "Es", n: "Einsteinium", cn: "鑀", type: "金屬", state: "固體", mp: "860°C", bp: "-", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f11 7s2", noble: "[Rn] 5f11 7s2" },
+    { z: 100, s: "Fm", n: "Fermium", cn: "鐨", type: "金屬", state: "固體", mp: "1527°C", bp: "-", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f12 7s2", noble: "[Rn] 5f12 7s2" },
+    { z: 101, s: "Md", n: "Mendelevium", cn: "鍆", type: "金屬", state: "固體", mp: "827°C", bp: "-", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f13 7s2", noble: "[Rn] 5f13 7s2" },
+    { z: 102, s: "No", n: "Nobelium", cn: "鍩", type: "金屬", state: "固體", mp: "827°C", bp: "-", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f14 7s2", noble: "[Rn] 5f14 7s2" },
+    { z: 103, s: "Lr", n: "Lawrencium", cn: "鐒", type: "金屬", state: "固體", mp: "1627°C", bp: "-", p: 7, g: "錒系", iupac: 3, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f14 7s2 7p1", noble: "[Rn] 5f14 7s2 7p1" },
     { z: 104, s: "Rf", n: "Rutherfordium", cn: "鑪", type: "金屬", state: "固體", mp: "-", bp: "-", p: 7, g: "4B", iupac: 4, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f14 6d2 7s2", noble: "[Rn] 5f14 6d2 7s2" },
     { z: 105, s: "Db", n: "Dubnium", cn: "𨧀", type: "金屬", state: "固體", mp: "-", bp: "-", p: 7, g: "5B", iupac: 5, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f14 6d3 7s2", noble: "[Rn] 5f14 6d3 7s2" },
     { z: 106, s: "Sg", n: "Seaborgium", cn: "𨭎", type: "金屬", state: "固體", mp: "-", bp: "-", p: 7, g: "6B", iupac: 6, c: "1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d10 5s2 5p6 4f14 5d10 6s2 6p6 5f14 6d4 7s2", noble: "[Rn] 5f14 6d4 7s2" },
@@ -5636,7 +5636,7 @@ function renderConfigList() {
         
         let periodGroupStr = "";
         if (el.g === "鑭系" || el.g === "錒系") {
-            periodGroupStr = `第${toChineseNum(el.p)}週期 <span style="color:#f472b6;">${el.g}</span>`;
+            periodGroupStr = `第${toChineseNum(el.p)}週期 第3族 (<span style="color:#f472b6;">${el.g}</span>)`;
         } else {
             periodGroupStr = `第${toChineseNum(el.p)}週期 ${el.g}族 (第${el.iupac}族)`;
         }
@@ -6449,7 +6449,7 @@ if (window._nativeRenderScene) window.renderScene = window._nativeRenderScene;
             
             const mp = eData ? eData.mp : '-';
             const bp = eData ? eData.bp : '-';
-            const period = el.row - 1; 
+            const period = eData && typeof eData.p === 'number' ? eData.p : (el.row - 1); 
             const group = eData ? (eData.iupac || eData.g) : (el.col > 1 ? el.col - 1 : '-'); 
             const block = el.block;
             
